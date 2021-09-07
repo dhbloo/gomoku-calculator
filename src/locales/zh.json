@@ -1,0 +1,122 @@
+{
+  "appName": "五子棋计算器",
+  "common": {
+    "confirm": "确认",
+    "cancel": "取消"
+  },
+  "tabbar": {
+    "game": "棋盘",
+    "settings": "设置",
+    "about": "关于"
+  },
+  "game": {
+    "new": "新局",
+    "balance1": "找一步平衡点",
+    "balance2": "找二步平衡点",
+    "setIndexOrigin": "开始编号",
+    "resetIndexOrigin": "重置编号",
+    "flip": "翻转",
+    "move": "移动",
+    "info": {
+      "depth": "深度",
+      "eval": "评估",
+      "speed": "速度",
+      "nodes": "节点数",
+      "bestline": "路线",
+      "nbestIndex": "序号"
+    },
+    "interruptThinking": {
+      "title": "AI 正在思考",
+      "msg": "要立即停止思考吗?"
+    },
+    "swap": {
+      "title": "交换",
+      "msg": "AI 选择黑白交换。",
+      "questionTitle": "交换?",
+      "questionMsg": "你选择交换吗?"
+    },
+    "forbid": {
+      "title": "禁手",
+      "msg": "该位置为禁手。"
+    },
+    "shotJpg": "静态截图",
+    "shotGif": "GIF截图",
+    "gifDelay": "输入每帧时长（单位：毫秒）",
+    "gifStart": "输入起始序号",
+    "gifLoading": "生成GIF中...",
+    "saveScreenshot": "保存截图到本地",
+    "saveScreenshotIOS": "长按图片保存到本地",
+    "currentPos": "局面代码",
+    "evalChart": "评估曲线",
+    "black": "黑棋",
+    "white": "白棋"
+  },
+  "setting": {
+    "language": "语言",
+    "thinking": {
+      "timeTitle": "思考时间",
+      "turnTime": "步时(秒)",
+      "matchTime": "局时(秒)",
+      "maxDepth": "最大深度",
+      "maxNode": "最大节点数(M)",
+      "fast": "快棋(一局大约 3 分钟)",
+      "slow": "慢棋(一局大约 15 分钟)",
+      "analysis": "分析模式(不限时)",
+      "custom": "自定义",
+      "handicap": "棋力限制",
+      "nbest": "多点分析",
+      "thinkTitle": "思考",
+      "threads": "线程数",
+      "pondering": "后台思考",
+      "config": {
+        "title": "引擎权重",
+        "classic": "经典(旧默认)",
+        "latest": "最新"
+      },
+      "hashSize": {
+        "title": "置换表大小",
+        "small": "小(256MB)",
+        "medium": "中(512MB)",
+        "large": "大(1GB)"
+      }
+    },
+    "board": {
+      "title": "棋盘",
+      "size": "棋盘大小",
+      "rule": {
+        "title": "规则",
+        "gomoku": "无禁手",
+        "standard": "无禁手长连不赢",
+        "renju": "有禁手",
+        "swap1": "无禁手一手交换"
+      },
+      "aiThinkBlack": "AI执黑",
+      "aiThinkWhite": "AI执白",
+      "clickCheck": {
+        "title": "落子方式",
+        "direct": "直接落子",
+        "confirm": "二次确认",
+        "slide": "滑动落子"
+      },
+      "showTitle": "棋盘显示",
+      "showCoord": "显示坐标",
+      "showAnalysis": "显示分析",
+      "showDetail": "显示思考细节",
+      "showMultiPvEval": "显示多点分析估值",
+      "showIndex": "显示序号",
+      "showLastStep": "高亮最后一步",
+      "showWinline": "显示胜利线",
+      "showForbid": "显示禁手",
+      "pieceScale": "相对棋子大小",
+      "colorTitle": "颜色",
+      "boardColor": "棋盘颜色",
+      "lastStepColor": "最后一步颜色",
+      "winlineColor": "胜利线颜色",
+      "bestMoveColor": "分析 - 最佳着法",
+      "thinkingMoveColor": "分析 - 正在搜索着法",
+      "thoughtMoveColor": "分析 - 已搜索着法",
+      "lostMoveColor": "分析 - 必败着法"
+    },
+    "reset": "重置所有设置"
+  }
+}
