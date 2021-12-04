@@ -60,7 +60,7 @@
         v-model="boardSizeValue"
         button-style="round"
         width="75px"
-        :min="7"
+        :min="5"
         :max="22"
         fillable
       />
@@ -234,7 +234,8 @@ export default {
     },
     configIndexOptions() {
       return [
-        { key: 1, value: this.$t('setting.thinking.config.latest') },
+        { key: 2, value: this.$t('setting.thinking.config.latest') },
+        { key: 1, value: this.$t('setting.thinking.config.20210826') },
         { key: 0, value: this.$t('setting.thinking.config.classic') }
       ]
     },

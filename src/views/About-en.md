@@ -1,4 +1,4 @@
-## Gomoku Calculator V0.23
+## Gomoku Calculator V0.24
 
 ### FAQ
 
@@ -88,6 +88,9 @@
 
 ### Update Record
 
++ 0.24
+  + fix bug on move generation
+  + update engine weights
 + 0.23
   + add option for strength handicap and pondering
 + 0.22

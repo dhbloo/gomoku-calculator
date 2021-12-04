@@ -70,8 +70,9 @@
       "pondering": "Pondering",
       "config": {
         "title": "Engine Model",
-        "classic": "Classic(old default)",
-        "latest": "Latest"
+        "latest": "Latest",
+        "20210826": "History version(2021/08/26)",
+        "classic": "Classic(old default)"
       },
       "hashSize": {
         "title": "Hash Table Size",

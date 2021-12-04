@@ -22,4 +22,4 @@ num_iteration_after_mate = 6
 num_iteration_after_singular_root = 4
 
 [model]
-binary_file = "model210826-new.bin"
+binary_file = "model210901-e05000.bin"

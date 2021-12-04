@@ -6,7 +6,7 @@ export const FREESTYLE = 0,
   STANDARD = 1,
   RENJU = 2
 
-export const CONFIGS = [null, 'config210826.toml']
+export const CONFIGS = [null, 'config210826.toml', 'config210901.toml']
 
 function getDefaultThreadNum() {
   return checkSharedArrayBufferSupport()
@@ -44,7 +44,7 @@ const state = {
     thoughtMoveColor: '#3C5EE7',
     lostMoveColor: '#FDFEFE',
     bestMoveScale: 0.12,
-    realtimeMoveScale: 0.1,
+    realtimeMoveScale: 0.09,
     selectionStrokeWidth: 0.08,
     selectionStrokeColor: '#E74C3C',
     forbidStrokeWidth: 0.12,
@@ -64,7 +64,7 @@ const state = {
   threads: getDefaultThreadNum(), // 线程数 (默认为最大并行数/2)
   strength: 100, // 棋力限制 (默认100%棋力)
   nbest: 1, // MultiPV多点分析
-  configIndex: 1, // 配置序号：[0, CONFIGS.length)
+  configIndex: CONFIGS.length - 1, // 配置序号：[0, CONFIGS.length)
   hashSize: 15, // TT表项数：(2**hashSize)K
   pondering: false, // 后台思考
   clickCheck: 0, // 点击方式：0-直接落子 1-二次确认 2-滑动落子
@@ -121,7 +121,7 @@ const boardPropertiesToSave = [
 
 const getters = {
   turnTime: state => {
-    let turn = [state.turnTime, 7000, 45000, 0]
+    let turn = [state.turnTime, 7000, 40000, 0]
     return turn[state.thinkTimeOption]
   },
   matchTime: state => {

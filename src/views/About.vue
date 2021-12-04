@@ -1,7 +1,7 @@
 <template>
   <div class="about markdown-body">
     <div v-if="$i18n.locale === 'zh'">
-      <h2 id="五子棋计算器-v023">五子棋计算器 V0.23</h2>
+      <h2 id="五子棋计算器-v024">五子棋计算器 V0.24</h2>
       <h3 id="faq">FAQ</h3>
       <ul>
         <li>
@@ -127,6 +127,13 @@
       <h3 id="更新记录">更新记录</h3>
       <ul>
         <li>
+          <p>0.24</p>
+          <ul>
+            <li>修复着法生成的bug</li>
+            <li>更新引擎权重</li>
+          </ul>
+        </li>
+        <li>
           <p>0.23</p>
           <ul>
             <li>加入棋力限制、后台思考功能</li>
@@ -198,7 +205,7 @@
     </div>
 
     <div v-else>
-      <h2 id="gomoku-calculator-v023">Gomoku Calculator V0.23</h2>
+      <h2 id="gomoku-calculator-v024">Gomoku Calculator V0.24</h2>
       <h3 id="faq">FAQ</h3>
       <ul>
         <li>
@@ -384,6 +391,13 @@
       <p>&nbsp;</p>
       <h3 id="update-record">Update Record</h3>
       <ul>
+        <li>
+          <p>0.24</p>
+          <ul>
+            <li>fix bug on move generation</li>
+            <li>update engine weights</li>
+          </ul>
+        </li>
         <li>
           <p>0.23</p>
           <ul>

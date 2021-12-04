@@ -70,8 +70,9 @@
       "pondering": "后台思考",
       "config": {
         "title": "引擎权重",
-        "classic": "经典(旧默认)",
-        "latest": "最新"
+        "latest": "最新",
+        "20210826": "历史版本(2021/08/26)",
+        "classic": "经典(旧默认)"
       },
       "hashSize": {
         "title": "置换表大小",
