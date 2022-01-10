@@ -1,6 +1,6 @@
 [requirement]
 # specify the minimal version of rapfi this config suits to
-min_version = [0,31,1]
+min_version = [0,32,6]
 
 [general]
 # Reload config file on each move
@@ -15,11 +15,17 @@ default_thread_num = 1
 # Output message mode (Options are [normal, brief, ucilike, none])
 message_mode = "normal"
 
+# Coordinate convertion mode (Options are [none, X_flipY, flipY_X])
+coord_conversion_mode = "X_flipY"
+
 # Number of iterations after we found a mate
 num_iteration_after_mate = 6
 
 # Number of iterations after we found only one non-losing move at root
 num_iteration_after_singular_root = 4
+
+# Whether to enable aspiration window
+aspiration_window = false
 
 [model]
 binary_file = "model210826-new.bin"
