@@ -25,11 +25,11 @@
 export default {
   name: 'Bestline',
   props: {
-    bestline: Array
+    bestline: Array,
   },
-  data: function() {
+  data: function () {
     return {
-      selectIndex: null
+      selectIndex: null,
     }
   },
   methods: {
@@ -38,7 +38,7 @@ export default {
         position: this.$store.state.ai.lastThinkPosition,
         pv: this.bestline
           .slice(0, index + 1)
-          .map(pos => [pos[0], this.$store.state.ai.startSize - 1 - pos[1]])
+          .map((pos) => [pos[0], this.$store.state.ai.startSize - 1 - pos[1]]),
       }
     },
     mouseoverPV(index) {
@@ -51,10 +51,10 @@ export default {
     },
     dblclickPV(index) {
       this.$emit('pvSet', this.getPVResult(index))
-    }
+    },
   },
   watch: {
-    bestline: function(bestline) {
+    bestline: function (bestline) {
       if (this.selectIndex) {
         if (this.selectIndex >= bestline.length) {
           this.selectIndex = null
@@ -63,8 +63,8 @@ export default {
           this.$emit('pvPreview', this.getPVResult(this.selectIndex))
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

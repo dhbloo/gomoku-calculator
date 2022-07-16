@@ -330,9 +330,9 @@ export default {
   name: 'Board',
   props: {
     isAiTurn: Boolean,
-    previewPv: Object
+    previewPv: Object,
   },
-  data: function() {
+  data: function () {
     return {
       debouncedRedrawAllLayers: debounce(50, this.redrawAllLayers),
       throttledDrawRealtimeLayer: throttle(10, this.drawRealtimeLayer),
@@ -341,14 +341,14 @@ export default {
       pressed: false,
       cancelMouse: false,
       ratioOverride: null,
-      end: Infinity
+      end: Infinity,
     }
   },
   computed: {
     ...mapState('position', {
       boardSize: 'size',
       position: 'position',
-      winline: 'winline'
+      winline: 'winline',
     }),
     ...mapState('settings', [
       'boardStyle',
@@ -360,17 +360,17 @@ export default {
       'showLastStep',
       'showWinline',
       'showForbid',
-      'clickCheck'
+      'clickCheck',
     ]),
     ...mapState('ai', {
-      realtime: state => state.outputs.realtime,
-      pv: state => state.outputs.pv,
-      forbid: state => state.outputs.forbid,
-      thinking: 'thinking'
+      realtime: (state) => state.outputs.realtime,
+      pv: (state) => state.outputs.pv,
+      forbid: (state) => state.outputs.forbid,
+      thinking: 'thinking',
     }),
     ...mapGetters('position', ['isInBoard']),
     context() {
-      return idx => {
+      return (idx) => {
         return this.$refs['canvas' + idx].getContext('2d')
       }
     },
@@ -386,7 +386,7 @@ export default {
     canvasStyle() {
       return {
         width: this.canvasWidth + 'px',
-        height: this.canvasHeight + 'px'
+        height: this.canvasHeight + 'px',
       }
     },
     renderRatio() {
@@ -398,7 +398,7 @@ export default {
     },
     renderHeight() {
       return this.canvasHeight * this.renderRatio
-    }
+    },
   },
   methods: {
     drawBoardLayer(ctx, noclear) {
@@ -503,7 +503,7 @@ export default {
         quality: 2,
         width: ctx.canvas.width,
         height: ctx.canvas.height,
-        workerScript: process.env.BASE_URL + 'lib/gif.worker.js'
+        workerScript: process.env.BASE_URL + 'lib/gif.worker.js',
       })
 
       for (this.end = startIndex; this.end <= this.position.length; this.end++) {
@@ -557,7 +557,7 @@ export default {
             this.$emit('clicked', {
               x: this.selectedCoord[0],
               y: this.selectedCoord[1],
-              button: event.button
+              button: event.button,
             })
         } else {
           this.selectedCoord = [x, y]
@@ -580,7 +580,7 @@ export default {
       this.$emit('clicked', {
         x: this.selectedCoord[0],
         y: this.selectedCoord[1],
-        button: event.button
+        button: event.button,
       })
 
       this.selecting = false
@@ -612,13 +612,13 @@ export default {
       ) {
         this.throttledDrawRealtimeLayer()
       }
-    }
+    },
   },
   watch: {
-    '$store.state.screenWidth': function() {
+    '$store.state.screenWidth': function () {
       this.debouncedRedrawAllLayers()
     },
-    '$store.state.screenHeight': function() {
+    '$store.state.screenHeight': function () {
       this.debouncedRedrawAllLayers()
     },
     boardSize() {
@@ -628,19 +628,19 @@ export default {
       handler() {
         this.drawPieceLayer()
       },
-      deep: true
+      deep: true,
     },
     realtime: {
       handler() {
         if (this.showDetail) this.throttledDrawRealtimeLayer()
       },
-      deep: true
+      deep: true,
     },
     pv: {
       handler() {
         if (this.showMultiPvEval) this.throttledDrawRealtimeLayer()
       },
-      deep: true
+      deep: true,
     },
     forbid() {
       if (this.showForbid) this.drawRealtimeLayer()
@@ -680,18 +680,18 @@ export default {
       handler() {
         this.debouncedRedrawAllLayers()
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   mounted() {
     this.redrawAllLayers()
     window.addEventListener('mousemove', throttle(50, this.onMouseMove))
     window.addEventListener('mouseup', this.onMouseUp)
     window.addEventListener('touchmove', throttle(50, this.onMouseMove), {
-      passive: false
+      passive: false,
     })
     window.addEventListener('touchend', this.onMouseUp, { passive: false })
-  }
+  },
 }
 </script>
 

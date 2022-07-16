@@ -40,11 +40,11 @@ const state = {
   /* 棋子序列数组,每个元素为一个表示坐标的二维向量[x, y] */
   lastPosition: [],
   winline: [],
-  swaped: false
+  swaped: false,
 }
 
 const getters = {
-  posStr: state => {
+  posStr: (state) => {
     let posStrs = []
     for (let p of state.position) {
       posStrs.push(String.fromCharCode('a'.charCodeAt(0) + p[0]))
@@ -52,8 +52,8 @@ const getters = {
     }
     return posStrs.join('')
   },
-  get: state => {
-    return pos => {
+  get: (state) => {
+    return (pos) => {
       switch (state.board[toIndex(pos, state.size)]) {
         case BLACK:
           return 'BLACK'
@@ -66,24 +66,24 @@ const getters = {
       }
     }
   },
-  isEmpty: state => {
-    return pos => {
+  isEmpty: (state) => {
+    return (pos) => {
       return state.board[toIndex(pos, state.size)] == EMPTY
     }
   },
-  isInBoard: state => {
-    return pos => {
+  isInBoard: (state) => {
+    return (pos) => {
       return toIndex(pos, state.size) != -1
     }
   },
-  playerToMove: state => {
+  playerToMove: (state) => {
     return state.position.length % 2 == 0 ? 'BLACK' : 'WHITE'
   },
-  moveLeftCount: state => {
+  moveLeftCount: (state) => {
     return state.size * state.size - state.position.length
   },
-  marchPosition: state => {
-    return position => {
+  marchPosition: (state) => {
+    return (position) => {
       let len = Math.min(position.length, state.position)
       let i = 0
       for (; i < len; i++) {
@@ -93,7 +93,7 @@ const getters = {
       }
       return i
     }
-  }
+  },
 }
 
 const mutations = {
@@ -123,20 +123,25 @@ const mutations = {
     if (state.position.length < 9) return
 
     let lastPos = state.position[state.position.length - 1]
-    const dirs = [[1, 0], [0, 1], [1, 1], [1, -1]]
+    const dirs = [
+      [1, 0],
+      [0, 1],
+      [1, 1],
+      [1, -1],
+    ]
     for (let dir of dirs) {
       let ret = checkLine(state.board, lastPos, dir, state.size, checkOverline)
       if (ret) {
         return (state.winline = [
           [lastPos[0] + ret[0] * dir[0], lastPos[1] + ret[0] * dir[1]],
-          [lastPos[0] + ret[1] * dir[0], lastPos[1] + ret[1] * dir[1]]
+          [lastPos[0] + ret[1] * dir[0], lastPos[1] + ret[1] * dir[1]],
         ])
       }
     }
   },
   setSwaped(state) {
     state.swaped = true
-  }
+  },
 }
 
 const actions = {
@@ -210,7 +215,7 @@ const actions = {
     for (let p of position) {
       dispatch('makeMove', [p[0] + dir[0], p[1] + dir[1]])
     }
-  }
+  },
 }
 
 export default {
@@ -218,5 +223,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

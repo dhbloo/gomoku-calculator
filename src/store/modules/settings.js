@@ -52,7 +52,7 @@ const state = {
     pvEvalFontStyle: 'bolder',
     pvEvalFontFamily: 'sans-serif',
     pvEvalScale: 0.45,
-    pvEvalAlpha: 0.85
+    pvEvalAlpha: 0.85,
   },
   boardSize: 15,
   thinkTimeOption: 1,
@@ -78,7 +78,7 @@ const state = {
   showWinline: true,
   showForbid: true,
   aiThinkBlack: false,
-  aiThinkWhite: false
+  aiThinkWhite: false,
 }
 
 const propertiesToSave = [
@@ -106,7 +106,7 @@ const propertiesToSave = [
   'showWinline',
   'showForbid',
   'aiThinkBlack',
-  'aiThinkWhite'
+  'aiThinkWhite',
 ]
 
 const boardPropertiesToSave = [
@@ -116,25 +116,25 @@ const boardPropertiesToSave = [
   'bestMoveColor',
   'thinkingMoveColor',
   'thoughtMoveColor',
-  'lostMoveColor'
+  'lostMoveColor',
 ]
 
 const getters = {
-  turnTime: state => {
+  turnTime: (state) => {
     let turn = [state.turnTime, 7000, 40000, 0]
     return turn[state.thinkTimeOption]
   },
-  matchTime: state => {
+  matchTime: (state) => {
     let match = [state.matchTime, 180000, 900000, 0]
     return match[state.thinkTimeOption]
   },
-  depth: state => {
+  depth: (state) => {
     return state.thinkTimeOption == 0 ? state.maxDepth : 100
   },
-  nodes: state => {
+  nodes: (state) => {
     return state.thinkTimeOption == 0 ? state.maxNodes : 0
   },
-  gameRule: state => {
+  gameRule: (state) => {
     switch (state.rule) {
       case 0:
       case 5:
@@ -147,7 +147,7 @@ const getters = {
       default:
         throw Error('unknown rule')
     }
-  }
+  },
 }
 
 function saveCookies() {
@@ -156,7 +156,7 @@ function saveCookies() {
   for (let p of boardPropertiesToSave) stateToSave[p] = state.boardStyle[p]
   cookie.set('GMKC_CFG_' + version, JSON.stringify(stateToSave), {
     raw: true,
-    expires: 30
+    expires: 30,
   })
 }
 
@@ -174,7 +174,7 @@ const mutations = {
   },
   setBoardStyleNoSave(state, payload) {
     state.boardStyle[payload.key] = payload.value
-  }
+  },
 }
 
 const actions = {
@@ -189,7 +189,7 @@ const actions = {
   },
   clearCookies() {
     cookie.remove('GMKC_CFG_' + version)
-  }
+  },
 }
 
 export default {
@@ -197,5 +197,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

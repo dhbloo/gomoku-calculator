@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style="height:100%;">
+  <div id="app" style="height: 100%">
     <drawer
       :show.sync="drawerOpen"
       show-mode="overlay"
@@ -7,12 +7,12 @@
       :drawer-style="{
         'background-color': 'rgba(255,255,255,1.0)',
         width: 'min(75%, 600px)',
-        height: '100%'
+        height: '100%',
       }"
     >
       <!-- drawer content -->
       <div ref="drawer" slot="drawer" class="drawer">
-        <div style="padding:10px;">
+        <div style="padding: 10px">
           <p v-for="(msg, index) in messages" :key="index">{{ msg }}<br /></p>
         </div>
       </div>
@@ -38,7 +38,7 @@
             class="needsclick"
             @click="showMessages"
           >
-            <i class="fa fa-list fa-lg" aria-hidden="true" style="color:#D6EAF8;"></i>
+            <i class="fa fa-list fa-lg" aria-hidden="true" style="color: #d6eaf8"></i>
           </a>
         </x-header>
 
@@ -48,7 +48,7 @@
         </keep-alive>
 
         <!-- tabbar content -->
-        <tabbar class="app-tabber" slot="bottom" style="position:fixed;">
+        <tabbar class="app-tabber" slot="bottom" style="position: fixed">
           <tabbar-item link="/" :selected="route.path !== '/settings' && route.path !== '/about'">
             <x-icon slot="icon" type="ios-grid-view-outline"></x-icon>
             <x-icon
@@ -88,12 +88,12 @@ export default {
     XHeader,
     Tabbar,
     TabbarItem,
-    Drawer
+    Drawer,
   },
-  data: function() {
+  data: function () {
     return {
       showHeader: true,
-      drawerOpen: false
+      drawerOpen: false,
     }
   },
   computed: {
@@ -101,19 +101,19 @@ export default {
     ...mapState('ai', ['messages']),
     route() {
       return this.$route
-    }
+    },
   },
   methods: {
     ...mapMutations('settings', ['setValue']),
     ...mapActions('settings', ['readCookies']),
-    showMessages: function() {
+    showMessages: function () {
       this.drawerOpen = !this.drawerOpen
-    }
+    },
   },
   watch: {
     language(newValue) {
       this.$i18n.locale = newValue
-    }
+    },
   },
   created() {
     this.readCookies()
@@ -125,14 +125,14 @@ export default {
   },
   mounted() {
     let _this = this
-    window.onresize = function() {
+    window.onresize = function () {
       // 定义窗口大小变更通知事件
       _this.$store.commit('setScreenSize', {
         width: document.documentElement.clientWidth,
-        height: document.documentElement.clientHeight
+        height: document.documentElement.clientHeight,
       })
     }
-  }
+  },
 }
 </script>
 

@@ -12,21 +12,25 @@ if (process.env.NODE_ENV != 'development') {
   }
 }
 
-Vue.config.productionTip = false
+// Fix error of redundant navigation to current location
+const originalPush = router.push
+router.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err)
+}
 
 require('es6-promise').polyfill()
-
-const FastClick = require('fastclick')
-FastClick.attach(document.body)
+require('fastclick').attach(document.body)
 
 import ConfirmPlugin from 'vux/src/plugins/confirm'
 import AlertPlugin from 'vux/src/plugins/alert'
 Vue.use(ConfirmPlugin)
 Vue.use(AlertPlugin)
 
+Vue.config.productionTip = process.env.NODE_ENV == 'development'
+
 new Vue({
   router,
   store,
   i18n,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#app')

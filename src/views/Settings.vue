@@ -184,11 +184,11 @@ export default {
     Radio,
     PopupRadio,
     Cell,
-    Box
+    Box,
   },
-  data: function() {
+  data: function () {
     return {
-      showLanguageOption: false
+      showLanguageOption: false,
     }
   },
   computed: {
@@ -219,31 +219,34 @@ export default {
       'showWinline',
       'showForbid',
       'boardStyle',
-      'hashSize'
+      'hashSize',
     ]),
     languageOptions() {
-      return [{ key: 'zh', value: '简体中文' }, { key: 'en', value: 'English' }]
+      return [
+        { key: 'zh', value: '简体中文' },
+        { key: 'en', value: 'English' },
+      ]
     },
     thinkTimeOptions() {
       return [
         { key: 1, value: this.$t('setting.thinking.fast') },
         { key: 2, value: this.$t('setting.thinking.slow') },
         { key: 3, value: this.$t('setting.thinking.analysis') },
-        { key: 0, value: this.$t('setting.thinking.custom') }
+        { key: 0, value: this.$t('setting.thinking.custom') },
       ]
     },
     configIndexOptions() {
       return [
         { key: 2, value: this.$t('setting.thinking.config.latest') },
         { key: 1, value: this.$t('setting.thinking.config.20210826') },
-        { key: 0, value: this.$t('setting.thinking.config.classic') }
+        { key: 0, value: this.$t('setting.thinking.config.classic') },
       ]
     },
     hashSizeOptions() {
       return [
         { key: 15, value: this.$t('setting.thinking.hashSize.small') },
         { key: 16, value: this.$t('setting.thinking.hashSize.medium') },
-        { key: 17, value: this.$t('setting.thinking.hashSize.large') }
+        { key: 17, value: this.$t('setting.thinking.hashSize.large') },
       ]
     },
     ruleOptions() {
@@ -251,14 +254,14 @@ export default {
         { key: 0, value: this.$t('setting.board.rule.gomoku') },
         { key: 1, value: this.$t('setting.board.rule.standard') },
         { key: 2, value: this.$t('setting.board.rule.renju') },
-        { key: 5, value: this.$t('setting.board.rule.swap1') }
+        { key: 5, value: this.$t('setting.board.rule.swap1') },
       ]
     },
     clickCheckOptions() {
       return [
         { key: 0, value: this.$t('setting.board.clickCheck.direct') },
         { key: 1, value: this.$t('setting.board.clickCheck.confirm') },
-        { key: 2, value: this.$t('setting.board.clickCheck.slide') }
+        { key: 2, value: this.$t('setting.board.clickCheck.slide') },
       ]
     },
     languageValue: {
@@ -267,7 +270,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'language', value: v })
-      }
+      },
     },
     thinkTimeSelected: {
       get() {
@@ -275,7 +278,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'thinkTimeOption', value: v })
-      }
+      },
     },
     turnTimeInSecond: {
       get() {
@@ -283,7 +286,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'turnTime', value: v * 1000 })
-      }
+      },
     },
     matchTimeInSecond: {
       get() {
@@ -291,7 +294,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'matchTime', value: v * 1000 })
-      }
+      },
     },
     maxDepthValue: {
       get() {
@@ -299,7 +302,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'maxDepth', value: v })
-      }
+      },
     },
     maxNodeValue: {
       get() {
@@ -307,7 +310,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'maxNodes', value: Math.ceil(v * 1000000) })
-      }
+      },
     },
     handicapValue: {
       get() {
@@ -315,7 +318,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'strength', value: 100 - v })
-      }
+      },
     },
     nbestValue: {
       get() {
@@ -323,7 +326,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'nbest', value: v })
-      }
+      },
     },
     threadsValue: {
       get() {
@@ -331,7 +334,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'threads', value: v })
-      }
+      },
     },
     ponderingValue: {
       get() {
@@ -339,7 +342,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'pondering', value: v })
-      }
+      },
     },
     configIndexValue: {
       get() {
@@ -347,7 +350,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'configIndex', value: v })
-      }
+      },
     },
     hashSizeValue: {
       get() {
@@ -355,7 +358,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'hashSize', value: v })
-      }
+      },
     },
     boardSizeValue: {
       get() {
@@ -363,7 +366,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'boardSize', value: v })
-      }
+      },
     },
     ruleValue: {
       get() {
@@ -372,7 +375,7 @@ export default {
       set(v) {
         this.setValue({ key: 'rule', value: v })
         this.checkForbid()
-      }
+      },
     },
     aiThinkBlackValue: {
       get() {
@@ -380,7 +383,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'aiThinkBlack', value: v })
-      }
+      },
     },
     aiThinkWhiteValue: {
       get() {
@@ -388,7 +391,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'aiThinkWhite', value: v })
-      }
+      },
     },
     clickCheckValue: {
       get() {
@@ -396,7 +399,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'clickCheck', value: v })
-      }
+      },
     },
     showCoordValue: {
       get() {
@@ -404,7 +407,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'showCoord', value: v })
-      }
+      },
     },
     showAnalysisValue: {
       get() {
@@ -412,7 +415,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'showAnalysis', value: v })
-      }
+      },
     },
     showDetailValue: {
       get() {
@@ -420,7 +423,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'showDetail', value: v })
-      }
+      },
     },
     showMultiPvEvalValue: {
       get() {
@@ -428,7 +431,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'showMultiPvEval', value: v })
-      }
+      },
     },
     showIndexValue: {
       get() {
@@ -436,7 +439,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'showIndex', value: v })
-      }
+      },
     },
     showLastStepValue: {
       get() {
@@ -444,7 +447,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'showLastStep', value: v })
-      }
+      },
     },
     showWinlineValue: {
       get() {
@@ -452,7 +455,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'showWinline', value: v })
-      }
+      },
     },
     showForbidValue: {
       get() {
@@ -460,7 +463,7 @@ export default {
       },
       set(v) {
         this.setValue({ key: 'showForbid', value: v })
-      }
+      },
     },
     boardColor: {
       get() {
@@ -468,7 +471,7 @@ export default {
       },
       set(v) {
         this.setBoardStyle({ key: 'boardColor', value: v })
-      }
+      },
     },
     lastStepColor: {
       get() {
@@ -476,7 +479,7 @@ export default {
       },
       set(v) {
         this.setBoardStyle({ key: 'lastStepColor', value: v })
-      }
+      },
     },
     winlineColor: {
       get() {
@@ -484,7 +487,7 @@ export default {
       },
       set(v) {
         this.setBoardStyle({ key: 'winlineColor', value: v })
-      }
+      },
     },
     bestMoveColor: {
       get() {
@@ -492,7 +495,7 @@ export default {
       },
       set(v) {
         this.setBoardStyle({ key: 'bestMoveColor', value: v })
-      }
+      },
     },
     thinkingMoveColor: {
       get() {
@@ -500,7 +503,7 @@ export default {
       },
       set(v) {
         this.setBoardStyle({ key: 'thinkingMoveColor', value: v })
-      }
+      },
     },
     thoughtMoveColor: {
       get() {
@@ -508,7 +511,7 @@ export default {
       },
       set(v) {
         this.setBoardStyle({ key: 'thoughtMoveColor', value: v })
-      }
+      },
     },
     lostMoveColor: {
       get() {
@@ -516,8 +519,8 @@ export default {
       },
       set(v) {
         this.setBoardStyle({ key: 'lostMoveColor', value: v })
-      }
-    }
+      },
+    },
   },
   methods: {
     ...mapMutations('settings', ['setValue', 'setBoardStyle']),
@@ -526,8 +529,8 @@ export default {
     reset() {
       this.clearCookies()
       location.reload()
-    }
+    },
   },
-  watch: {}
+  watch: {},
 }
 </script>

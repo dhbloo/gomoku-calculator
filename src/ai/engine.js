@@ -22,12 +22,12 @@ function init(f) {
       }
 
       // eslint-disable-next-line
-      Bridge.readStdout = d => processOutput(d)
+      Bridge.readStdout = (d) => processOutput(d)
     })
   } else {
     worker = new Worker(STEngineURL)
 
-    worker.onmessage = function(e) {
+    worker.onmessage = function (e) {
       if (e.data.ready) {
         callback({ ok: true })
       } else {
@@ -35,7 +35,7 @@ function init(f) {
       }
     }
 
-    worker.onerror = function(ev) {
+    worker.onerror = function (ev) {
       worker.terminate()
       console.error('Worker spawn error: ' + ev.message + '. Retry after 200ms...')
       setTimeout(() => init(f), 200)
@@ -94,8 +94,8 @@ function processOutput(output) {
       callback({
         realtime: {
           type: r[1],
-          pos: [+coord[0], +coord[1]]
-        }
+          pos: [+coord[0], +coord[1]],
+        },
       })
     } else {
       callback({ msg: tail })
@@ -104,12 +104,12 @@ function processOutput(output) {
   else if (head == 'EVAL') callback({ eval: tail })
   else if (head == 'BESTLINE')
     callback({
-      bestline: tail.match(/([A-Z]\d+)/g).map(s => {
+      bestline: tail.match(/([A-Z]\d+)/g).map((s) => {
         let coord = s.match(/([A-Z])(\d+)/)
         let x = coord[1].charCodeAt(0) - 'A'.charCodeAt(0)
         let y = +coord[2] - 1
         return [x, y]
-      })
+      }),
     })
   else if (head == 'NODES') callback({ nodes: +tail })
   else if (head == 'SPEED') callback({ speed: +tail })
@@ -117,12 +117,12 @@ function processOutput(output) {
   else if (head == 'ERROR') callback({ error: tail })
   else if (head == 'FORBID')
     callback({
-      forbid: (tail.match(/.{4}/g) || []).map(s => {
+      forbid: (tail.match(/.{4}/g) || []).map((s) => {
         let coord = s.match(/([0-9][0-9])([0-9][0-9])/)
         let x = +coord[1]
         let y = +coord[2]
         return [x, y]
-      })
+      }),
     })
   else callback({ unknown: tail })
 }

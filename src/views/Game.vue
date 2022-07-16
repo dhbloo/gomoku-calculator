@@ -8,7 +8,7 @@
           <div class="button-box" :style="{ width: `${buttonBarWidth}px` }">
             <flexbox :gutter="0">
               <flexbox-item :span="2 / 17">
-                <x-button @click.native="newGame" style="padding:0;">
+                <x-button @click.native="newGame" style="padding: 0">
                   <i class="fa fa-file-o" aria-hidden="true"></i>
                   {{ $t('game.new') }}
                 </x-button>
@@ -16,7 +16,7 @@
               <flexbox-item>
                 <x-button
                   :disabled="position.length == 0"
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="
                     () => {
                       checkThinking().then(() => {
@@ -31,7 +31,7 @@
               <flexbox-item>
                 <x-button
                   :disabled="position.length == 0"
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="
                     () => {
                       checkThinking().then(() => {
@@ -47,7 +47,7 @@
               <flexbox-item>
                 <x-button
                   :disabled="position.length == lastPosition.length"
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="
                     () => {
                       checkThinking().then(() => {
@@ -62,7 +62,7 @@
               <flexbox-item>
                 <x-button
                   :disabled="position.length == lastPosition.length"
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="
                     () => {
                       checkThinking().then(() => {
@@ -77,7 +77,7 @@
               <flexbox-item>
                 <x-button
                   :disabled="thinking || !ready || gameEnded"
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="startThink"
                 >
                   <i v-if="thinking" class="fa fa-cog fa-spin"></i>
@@ -85,20 +85,20 @@
                     v-else
                     class="fa fa-play"
                     :style="{
-                      color: !ready || gameEnded ? '#145A32' : '#229954'
+                      color: !ready || gameEnded ? '#145A32' : '#229954',
                     }"
                   ></i>
                 </x-button>
               </flexbox-item>
               <flexbox-item>
-                <x-button :disabled="!thinking" style="padding:0;" @click.native="stop">
+                <x-button :disabled="!thinking" style="padding: 0" @click.native="stop">
                   <i class="fa fa-stop" :style="{ color: thinking ? '#E74C3C' : '#78281F' }"></i>
                 </x-button>
               </flexbox-item>
               <flexbox-item>
                 <x-button
                   :disabled="thinking || !ready || gameEnded"
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="
                     () => {
                       showBalanceOptions = true
@@ -108,17 +108,17 @@
                   <i
                     class="fa fa-adjust"
                     :style="{
-                      color: thinking || !ready || gameEnded ? '#1A5276' : '#3498DB'
+                      color: thinking || !ready || gameEnded ? '#1A5276' : '#3498DB',
                     }"
                   ></i>
                 </x-button>
               </flexbox-item>
 
-              <flexbox-item :span="1 / 50" style="min-width:0px;"></flexbox-item>
+              <flexbox-item :span="1 / 50" style="min-width: 0px"></flexbox-item>
 
               <flexbox-item>
                 <x-button
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="
                     () => {
                       showScreenshotOptions = true
@@ -130,12 +130,12 @@
               </flexbox-item>
               <flexbox-item :span="1 / 6">
                 <x-button
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="
                     () => {
                       setValue({
                         key: 'indexOrigin',
-                        value: indexOrigin == 0 ? position.length : 0
+                        value: indexOrigin == 0 ? position.length : 0,
                       })
                     }
                   "
@@ -145,11 +145,11 @@
                 </x-button>
               </flexbox-item>
 
-              <flexbox-item :span="1 / 50" style="min-width:0px;"></flexbox-item>
+              <flexbox-item :span="1 / 50" style="min-width: 0px"></flexbox-item>
 
               <flexbox-item>
                 <x-button
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="
                     () => {
                       checkThinking().then(() => {
@@ -163,7 +163,7 @@
               </flexbox-item>
               <flexbox-item>
                 <x-button
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="
                     () => {
                       checkThinking().then(() => {
@@ -177,7 +177,7 @@
               </flexbox-item>
               <flexbox-item>
                 <x-button
-                  style="padding:0;"
+                  style="padding: 0"
                   @click.native="
                     () => {
                       checkThinking().then(() => {
@@ -209,10 +209,10 @@
         <x-table
           v-if="nbest == 1"
           :cell-bordered="true"
-          style="background-color:#fff;line-height:210%;"
+          style="background-color: #fff; line-height: 210%"
         >
           <thead>
-            <tr style="background-color: #F7F7F7">
+            <tr style="background-color: #f7f7f7">
               <th>{{ $t('game.info.depth') }}</th>
               <th>{{ $t('game.info.eval') }}</th>
               <th>{{ $t('game.info.speed') }}</th>
@@ -222,22 +222,27 @@
           <tbody>
             <tr>
               <td>{{ outputs.pv[0].depth }}</td>
-              <td style="font-weight:bold;">{{ outputs.pv[0].eval }}</td>
+              <td style="font-weight: bold">{{ outputs.pv[0].eval }}</td>
               <td>{{ outputs.speed + ' kn/s' }}</td>
               <td>
                 {{
                   Math.floor(outputs.nodes / 1000000) +
-                    '.' +
-                    (Math.floor(outputs.nodes / 10000) % 100) +
-                    ' M'
+                  '.' +
+                  (Math.floor(outputs.nodes / 10000) % 100) +
+                  ' M'
                 }}
               </td>
             </tr>
             <tr>
               <td colspan="4">
-                <flexbox align="stretch" :gutter="0" style="padding:5px;">
+                <flexbox align="stretch" :gutter="0" style="padding: 5px">
                   <flexbox-item
-                    style="padding:2px 10px 2px 0;width:initial;line-height:initial;flex:none;"
+                    style="
+                      padding: 2px 10px 2px 0;
+                      width: initial;
+                      line-height: initial;
+                      flex: none;
+                    "
                   >
                     {{ $t('game.info.bestline') }}
                   </flexbox-item>
@@ -245,7 +250,7 @@
                     <Bestline
                       :bestline="outputs.pv[0].bestline"
                       v-on:pvPreview="
-                        pv => {
+                        (pv) => {
                           previewPv = pv
                         }
                       "
@@ -260,9 +265,9 @@
 
         <!-- 多点分析的信息输出 -->
         <div v-else>
-          <x-table :cell-bordered="true" style="background-color:#fff;line-height:210%;">
+          <x-table :cell-bordered="true" style="background-color: #fff; line-height: 210%">
             <thead>
-              <tr style="background-color: #F7F7F7">
+              <tr style="background-color: #f7f7f7">
                 <th>{{ $t('game.info.speed') }}</th>
                 <th>{{ $t('game.info.nodes') }}</th>
               </tr>
@@ -273,17 +278,17 @@
                 <td>
                   {{
                     Math.floor(outputs.nodes / 1000000) +
-                      '.' +
-                      (Math.floor(outputs.nodes / 10000) % 100) +
-                      ' M'
+                    '.' +
+                    (Math.floor(outputs.nodes / 10000) % 100) +
+                    ' M'
                   }}
                 </td>
               </tr>
             </tbody>
           </x-table>
-          <x-table :cell-bordered="true" style="background-color:#fff;line-height:210%;">
+          <x-table :cell-bordered="true" style="background-color: #fff; line-height: 210%">
             <thead>
-              <tr style="background-color: #F7F7F7">
+              <tr style="background-color: #f7f7f7">
                 <th>{{ $t('game.info.nbestIndex') }}</th>
                 <th>{{ $t('game.info.depth') }}</th>
                 <th>{{ $t('game.info.eval') }}</th>
@@ -292,14 +297,14 @@
             </thead>
             <tbody>
               <tr v-for="i in Math.min(nbest, outputs.pv.length)" :key="i">
-                <td style="min-width:40px;">{{ i }}</td>
-                <td style="min-width:55px;">{{ outputs.pv[i - 1].depth }}</td>
-                <td style="font-weight:bold;min-width:55px;">{{ outputs.pv[i - 1].eval }}</td>
+                <td style="min-width: 40px">{{ i }}</td>
+                <td style="min-width: 55px">{{ outputs.pv[i - 1].depth }}</td>
+                <td style="font-weight: bold; min-width: 55px">{{ outputs.pv[i - 1].eval }}</td>
                 <td>
                   <Bestline
                     :bestline="outputs.pv[i - 1].bestline"
                     v-on:pvPreview="
-                      pv => {
+                      (pv) => {
                         previewPv = pv
                       }
                     "
@@ -315,13 +320,13 @@
       <group>
         <x-textarea
           ref="curposArea"
-          style="padding:5px;"
+          style="padding: 5px"
           :title="$t('game.currentPos')"
           :show-counter="false"
           :rows="1"
           :value="posStr"
           @on-change="
-            v => {
+            (v) => {
               setPosStr(v)
             }
           "
@@ -352,7 +357,7 @@
         v-model="showBalanceOptions"
         :menus="balanceOptions"
         @on-click-menu="
-          key => {
+          (key) => {
             if (key == 0 || key == 1) this.startThinkBalance(key + 1)
           }
         "
@@ -392,7 +397,7 @@
     </div>
 
     <div v-transfer-dom>
-      <popup v-model="showScreenshot" style="height:50%;" is-transparent>
+      <popup v-model="showScreenshot" style="height: 50%" is-transparent>
         <div class="screenshot-box">
           <span v-if="gifLoading">
             {{ $t('game.gifLoading') }}
@@ -432,7 +437,7 @@ import {
   VLine,
   VScale,
   VArea,
-  dateFormat
+  dateFormat,
 } from 'vux'
 import Board from '@/components/Board.vue'
 import Bestline from '@/components/Bestline.vue'
@@ -443,7 +448,7 @@ import { RENJU } from '@/store/modules/settings'
 export default {
   name: 'game',
   directives: {
-    TransferDom
+    TransferDom,
   },
   components: {
     Board,
@@ -463,9 +468,9 @@ export default {
     VPoint,
     VLine,
     VScale,
-    VArea
+    VArea,
   },
-  data: function() {
+  data: function () {
     return {
       aiTimeUsed: 0,
       showBalanceOptions: false,
@@ -476,12 +481,12 @@ export default {
       console: console,
       evalData: [
         { index: 0, eval: 0, piece: this.$t('game.black') },
-        { index: 0, eval: 0, piece: this.$t('game.white') }
+        { index: 0, eval: 0, piece: this.$t('game.white') },
       ],
       thinkingCanceled: false,
       gifLoading: false,
       screenshotData: null,
-      previewPv: null
+      previewPv: null,
     }
   },
   computed: {
@@ -493,7 +498,7 @@ export default {
       'nbest',
       'aiThinkBlack',
       'aiThinkWhite',
-      'showAnalysis'
+      'showAnalysis',
     ]),
     ...mapState('ai', ['outputs', 'thinking', 'lastThinkTime', 'ready']),
     ...mapState('position', ['position', 'lastPosition', 'winline', 'swaped']),
@@ -533,7 +538,7 @@ export default {
         this.$t('game.flip') + ' |',
         this.$t('game.flip') + ' -',
         this.$t('game.flip') + ' ╲',
-        this.$t('game.flip') + ' ╱'
+        this.$t('game.flip') + ' ╱',
       ]
     },
     moveOptions() {
@@ -541,7 +546,7 @@ export default {
         this.$t('game.move') + ' ↑',
         this.$t('game.move') + ' ↓',
         this.$t('game.move') + ' ←',
-        this.$t('game.move') + ' →'
+        this.$t('game.move') + ' →',
       ]
     },
     shotOptions() {
@@ -555,12 +560,12 @@ export default {
     },
     gameEnded() {
       return this.winline.length > 0 || this.moveLeftCount == 0
-    }
+    },
   },
   methods: {
     ...mapMutations('position', {
       newBoard: 'new',
-      setSwaped: 'setSwaped'
+      setSwaped: 'setSwaped',
     }),
     ...mapMutations('settings', ['setValue']),
     ...mapMutations('ai', ['clearUsedTime']),
@@ -573,12 +578,12 @@ export default {
       'forwardToEnd',
       'rotate',
       'flip',
-      'moveTowards'
+      'moveTowards',
     ]),
     ...mapActions('ai', ['think', 'stop', 'restart', 'initEngine']),
 
     checkThinking() {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         if (this.thinking) {
           this.$vux.confirm.show({
             title: this.$t('game.interruptThinking.title'),
@@ -590,7 +595,7 @@ export default {
               this.thinkingCanceled = true
               this.stop()
               resolve()
-            }
+            },
           })
         } else resolve()
       })
@@ -669,14 +674,14 @@ export default {
                   _this.gifLoading = true
                   _this.$refs.screenshot.setAttribute('src', '')
                   _this.showScreenshot = true
-                  _this.$refs.board.exportGIF(startIndex, delay, blob => {
+                  _this.$refs.board.exportGIF(startIndex, delay, (blob) => {
                     _this.gifLoading = false
                     _this.screenshotData = { url: URL.createObjectURL(blob), ext: 'gif' }
                     _this.$refs.screenshot.setAttribute('src', _this.screenshotData.url)
                   })
-                }
+                },
               })
-            }
+            },
           })
           break
       }
@@ -699,7 +704,7 @@ export default {
           new MouseEvent('click', {
             bubbles: true,
             cancelable: true,
-            view: window
+            view: window,
           })
         )
 
@@ -740,7 +745,7 @@ export default {
                 onConfirm: () => {
                   this.swapBlackAndWhite()
                   if (this.isAITurn) this.startThink()
-                }
+                },
               })
             } else if (this.gameRule == RENJU) {
               let isForbidPos = false
@@ -753,7 +758,7 @@ export default {
               if (isForbidPos) {
                 return this.$vux.alert.show({
                   title: this.$t('game.forbid.title'),
-                  content: this.$t('game.forbid.msg')
+                  content: this.$t('game.forbid.msg'),
                 })
               }
             }
@@ -771,7 +776,7 @@ export default {
     startThink() {
       if (this.gameEnded) return
 
-      this.think().then(pos => {
+      this.think().then((pos) => {
         if (this.thinkingCanceled) {
           this.thinkingCanceled = false
           return
@@ -784,7 +789,7 @@ export default {
             content: this.$t('game.swap.msg'),
             onHide() {
               if (this.isAITurn) this.startThink()
-            }
+            },
           })
         } else {
           this.makeMove(pos)
@@ -794,7 +799,7 @@ export default {
             this.evalData.push({
               index: this.position.length,
               eval: e,
-              piece: this.playerToMove == 'BLACK' ? this.$t('game.white') : this.$t('game.black')
+              piece: this.playerToMove == 'BLACK' ? this.$t('game.white') : this.$t('game.black'),
             })
           }
 
@@ -806,7 +811,7 @@ export default {
     startThinkBalance(mode) {
       if (this.gameEnded) return
 
-      this.think({ balanceMode: mode }).then(pos => {
+      this.think({ balanceMode: mode }).then((pos) => {
         if (this.thinkingCanceled) {
           this.thinkingCanceled = false
           return
@@ -840,13 +845,13 @@ export default {
           if (!this.makeMove(pos)) break
         }
       })
-    }
+    },
   },
   watch: {
-    bestline: function() {
+    bestline: function () {
       if (this.$refs.bestlineArea) this.$refs.bestlineArea.updateAutosize()
     },
-    posStr: function(newPos) {
+    posStr: function (newPos) {
       this.$refs.curposArea.updateAutosize()
       let oldIndex = this.evalData[this.evalData.length - 1].index
       let newIndex = Math.max(this.position.length, 1)
@@ -858,11 +863,11 @@ export default {
       if (newPos.length > 0) this.$router.push({ name: 'game', params: { pos: newPos } })
       else this.$router.push({ name: 'game' })
     },
-    boardSize: function(newSize) {
+    boardSize: function (newSize) {
       if (this.thinking) this.stop()
       this.newBoard(newSize)
       this.restart()
-    }
+    },
   },
   mounted() {
     this.newBoard(this.boardSize)
@@ -875,11 +880,11 @@ export default {
     this.initEngine()
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       if (vm.posStr.length > 0) vm.$router.push({ name: 'game', params: { pos: vm.posStr } })
       else vm.$router.push({ name: 'game' })
     })
-  }
+  },
 }
 </script>
 

@@ -11,7 +11,7 @@ export default new Vuex.Store({
   modules: {
     ai,
     position,
-    settings
+    settings,
   },
   state: {
     screenWidth: document.documentElement.clientWidth, // 屏幕宽度
@@ -20,7 +20,7 @@ export default new Vuex.Store({
       (/iPad|iPhone|iPod/.test(navigator.platform) ||
         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
       !window.MSStream,
-    hardwareConcurrency: checkSharedArrayBufferSupport() ? navigator.hardwareConcurrency : 1
+    hardwareConcurrency: checkSharedArrayBufferSupport() ? navigator.hardwareConcurrency : 1,
   },
   getters: {
     boardCanvasWidth(state) {
@@ -30,14 +30,14 @@ export default new Vuex.Store({
         Math.min(state.screenWidth, state.screenHeight - BottomPadding),
         MinBoardWidth
       )
-    }
+    },
   },
   mutations: {
     setScreenSize(state, payload) {
       state.screenWidth = payload.width
       state.screenHeight = payload.height
-    }
+    },
   },
   actions: {},
-  strict: process.env.NODE_ENV !== 'production'
+  strict: process.env.NODE_ENV !== 'production',
 })

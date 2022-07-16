@@ -20,8 +20,8 @@ const state = {
       {
         depth: '0-0',
         eval: '-',
-        bestline: []
-      }
+        bestline: [],
+      },
     ],
     nodes: 0,
     speed: 0,
@@ -30,24 +30,24 @@ const state = {
       best: [],
       lost: [],
       thinking: [],
-      thought: []
+      thought: [],
     },
     forbid: [],
-    error: null
+    error: null,
   },
   messages: [],
-  posCallback: null
+  posCallback: null,
 }
 
 const getters = {
-  bestlineStr: state => pvIdx => {
+  bestlineStr: (state) => (pvIdx) => {
     if (!pvIdx) pvIdx = 0
     let posStrs = []
     for (let p of state.outputs.pv[pvIdx].bestline) {
       posStrs.push(String.fromCharCode('A'.charCodeAt(0) + p[0]) + (p[1] + 1))
     }
     return posStrs.join(' ')
-  }
+  },
 }
 
 const mutations = {
@@ -103,8 +103,8 @@ const mutations = {
       {
         depth: '0-0',
         eval: '-',
-        bestline: []
-      }
+        bestline: [],
+      },
     ]
     state.outputs.pos = null
     state.outputs.nodes = 0
@@ -124,11 +124,11 @@ const mutations = {
     state.callbackSet = true
   },
   sortPV(state) {
-    let isPosEqual = m =>
+    let isPosEqual = (m) =>
       state.outputs.pos
         ? m[0] == state.outputs.pos[0] && m[1] == state.startSize - 1 - state.outputs.pos[1]
         : false
-    let evalStrToEval = e => {
+    let evalStrToEval = (e) => {
       let val = +e
       if (isNaN(val)) {
         if (e.startsWith('+M')) val = 40000 - +e.substring(2)
@@ -146,12 +146,12 @@ const mutations = {
   },
   setLastThinkPosition(state, position) {
     state.lastThinkPosition = [...position]
-  }
+  },
 }
 
 const actions = {
   initEngine({ commit, dispatch, state }) {
-    engine.init(r => {
+    engine.init((r) => {
       if (r.realtime) {
         switch (r.realtime.type) {
           case 'REFRESH':
@@ -269,7 +269,7 @@ const actions = {
       engine.sendCommand('YXNBEST ' + rootState.settings.nbest)
     }
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       commit('setPosCallback', resolve)
     })
   },
@@ -333,7 +333,7 @@ const actions = {
       dispatch('sendBoard', false)
       engine.sendCommand('YXSHOWFORBID')
     }
-  }
+  },
 }
 
 export default {
@@ -341,5 +341,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

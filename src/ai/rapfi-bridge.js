@@ -9,28 +9,28 @@ if (typeof Module === 'undefined') {
           readStdout() {},
           setReady() {
             this.ready = true
-          }
+          },
         }
 
   // Setup webassembly glue module (only for main thread)
   var Module = {
     preRun: [
-      function() {
+      function () {
         let input = {
           str: '',
           index: 0,
-          set: function(str) {
+          set: function (str) {
             this.str = str + '\n'
             this.index = 0
-          }
+          },
         }
 
         let output = {
           str: '',
-          flush: function() {
+          flush: function () {
             Bridge.readStdout(this.str)
             this.str = ''
-          }
+          },
         }
 
         function stdin() {
@@ -49,31 +49,31 @@ if (typeof Module === 'undefined') {
 
         FS.init(stdin, stdout, stdout)
         let pipeLoopOnce = Module.cwrap('gomocupLoopOnce', 'number', [])
-        Bridge.writeStdin = function(data) {
+        Bridge.writeStdin = function (data) {
           input.set(data)
           pipeLoopOnce()
         }
-      }
+      },
     ],
     onRuntimeInitialized() {
       Bridge.setReady()
-    }
+    },
   }
 
   // If we are running in a worker, setup onmessage & postMessage
   if (typeof importScripts === 'function') {
-    self.onmessage = function(e) {
+    self.onmessage = function (e) {
       Bridge.writeStdin(e.data)
     }
-    Bridge.readStdout = function(data) {
+    Bridge.readStdout = function (data) {
       postMessage({ output: data })
     }
-    Bridge.setReady = function() {
+    Bridge.setReady = function () {
       postMessage({ ready: true })
     }
   } else {
     // Otherwise we are running in the main window, adjust URL
-    Module.locateFile = function(url) {
+    Module.locateFile = function (url) {
       return '/build/' + url
     }
     Module.mainScriptUrlOrBlob = '/build/rapfi-multi.js'
