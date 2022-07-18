@@ -10,7 +10,7 @@ const state = {
   timeUsed: 0,
   lastThinkTime: 0,
   lastThinkPosition: [],
-  currentConfig: 0,
+  currentConfig: null,
   hashSize: null,
   outputs: {
     pos: null,
@@ -18,7 +18,9 @@ const state = {
     currentPV: 0,
     pv: [
       {
-        depth: '0-0',
+        depth: 0,
+        seldepth: 0,
+        nodes: 0,
         eval: '-',
         bestline: [],
       },
@@ -101,7 +103,9 @@ const mutations = {
   clearOutput(state) {
     state.outputs.pv = [
       {
-        depth: '0-0',
+        depth: 0,
+        seldepth: 0,
+        nodes: 0,
         eval: '-',
         bestline: [],
       },
@@ -176,16 +180,23 @@ const actions = {
       } else if (r.msg) {
         commit('setOutput', { key: 'msg', value: r.msg })
         commit('addMessage', r.msg)
+      } else if (r.multipv) {
+        if (r.multipv == 'DONE') commit('setCurrentPV', 0)
+        else commit('setCurrentPV', +r.multipv)
       } else if (r.depth) {
         commit('setPVOutput', { key: 'depth', value: r.depth })
+      } else if (r.seldepth) {
+        commit('setPVOutput', { key: 'seldepth', value: r.seldepth })
+      } else if (r.nodes) {
+        commit('setPVOutput', { key: 'nodes', value: r.nodes })
+      } else if (r.totalnodes) {
+        commit('setOutput', { key: 'nodes', value: r.totalnodes })
+      } else if (r.speed) {
+        commit('setOutput', { key: 'speed', value: r.speed })
       } else if (r.eval) {
         commit('setPVOutput', { key: 'eval', value: r.eval })
       } else if (r.bestline) {
         commit('setPVOutput', { key: 'bestline', value: r.bestline })
-      } else if (r.nodes) {
-        commit('setOutput', { key: 'nodes', value: r.nodes })
-      } else if (r.speed) {
-        commit('setOutput', { key: 'speed', value: r.speed })
       } else if (r.pos) {
         commit('setOutput', { key: 'pos', value: r.pos })
         commit('addUsedTime')
@@ -199,9 +210,6 @@ const actions = {
       } else if (r.ok) {
         commit('setReady', true)
         dispatch('checkForbid')
-      } else if (r.multipv) {
-        if (r.multipv.startsWith('BEGIN')) commit('setCurrentPV', +r.multipv.substring(6))
-        else commit('setCurrentPV', 0)
       } else if (r.forbid) {
         commit('setOutput', { key: 'forbid', value: r.forbid })
       } else if (r.error) {
@@ -214,12 +222,13 @@ const actions = {
   sendInfo({ rootState, rootGetters }) {
     engine.sendCommand('INFO RULE ' + rootState.settings.rule)
     engine.sendCommand('INFO THREAD_NUM ' + rootState.settings.threads)
+    engine.sendCommand('INFO CAUTION_FACTOR ' + rootState.settings.candRange)
     engine.sendCommand('INFO STRENGTH ' + rootState.settings.strength)
     engine.sendCommand('INFO TIMEOUT_TURN ' + rootGetters['settings/turnTime'])
     engine.sendCommand('INFO TIMEOUT_MATCH ' + rootGetters['settings/matchTime'])
     engine.sendCommand('INFO MAX_DEPTH ' + rootGetters['settings/depth'])
     engine.sendCommand('INFO MAX_NODE ' + rootGetters['settings/nodes'])
-    engine.sendCommand('INFO SHOW_DETAIL ' + (rootState.settings.showDetail ? 1 : 0))
+    engine.sendCommand('INFO SHOW_DETAIL ' + (rootState.settings.showDetail ? 3 : 2))
     engine.sendCommand('INFO PONDERING ' + (rootState.settings.pondering ? 1 : 0))
     engine.sendCommand('INFO SWAPABLE ' + (rootState.position.swaped ? 0 : 1))
   },
@@ -227,8 +236,10 @@ const actions = {
     let position = rootState.position.position
 
     let command = immediateThink ? 'BOARD' : 'YXBOARD'
+    let side = position.length % 2 == 0 ? 1 : 2
     for (let pos of position) {
-      command += ' ' + pos[0] + ',' + pos[1]
+      command += ' ' + pos[0] + ',' + pos[1] + ',' + side
+      side = 3 - side
     }
     command += ' DONE'
     engine.sendCommand(command)
@@ -243,6 +254,10 @@ const actions = {
     commit('setOutput', { key: 'swap', value: false })
     commit('clearMessage')
 
+    dispatch('reloadConfig')
+    dispatch('updateHashSize')
+    dispatch('sendInfo')
+
     if (state.restart || state.startSize != rootState.position.size) {
       engine.sendCommand('START ' + rootState.position.size)
       commit('setRestart', false)
@@ -250,9 +265,6 @@ const actions = {
       commit('clearUsedTime')
     }
 
-    dispatch('reloadConfig')
-    dispatch('updateHashSize')
-    dispatch('sendInfo')
     let timeLeft = Math.max(rootGetters['settings/matchTime'] - state.timeUsed, 1)
     engine.sendCommand('INFO TIME_LEFT ' + timeLeft)
 
@@ -293,7 +305,7 @@ const actions = {
       }
       commit('setRestart')
       // Reset to initial state
-      commit('setCurrentConfig', 0)
+      commit('setCurrentConfig', null)
       commit('setHashSize', null)
       return true
     }
@@ -315,21 +327,20 @@ const actions = {
     if (rootState.settings.hashSize == state.hashSize) return
     commit('setHashSize', rootState.settings.hashSize)
 
-    let numKHashEntries = 1 << state.hashSize
-    engine.sendCommand('INFO HASH_SIZE ' + numKHashEntries)
-    commit('addMessage', `Hash size reset to ${numKHashEntries >> 7} MB.`)
+    engine.sendCommand('INFO HASH_SIZE ' + state.hashSize * 1024)
+    commit('addMessage', `Hash size reset to ${state.hashSize} MB.`)
   },
   checkForbid({ commit, state, dispatch, rootState, rootGetters }) {
     commit('setOutput', { key: 'forbid', value: [] })
     if (!state.ready) return
 
     if (rootGetters['settings/gameRule'] == RENJU) {
+      dispatch('sendInfo')
       if (state.restart || state.startSize != rootState.position.size) {
         engine.sendCommand('START ' + rootState.position.size)
         commit('setRestart', false)
         commit('setStartSize', rootState.position.size)
       }
-      dispatch('sendInfo')
       dispatch('sendBoard', false)
       engine.sendCommand('YXSHOWFORBID')
     }

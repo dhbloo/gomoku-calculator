@@ -6,7 +6,7 @@ export const FREESTYLE = 0,
   STANDARD = 1,
   RENJU = 2
 
-export const CONFIGS = [null, 'config210826.toml', 'config210901.toml']
+export const CONFIGS = ['config-default.toml', 'config-210901.toml']
 
 function getDefaultThreadNum() {
   return checkSharedArrayBufferSupport()
@@ -52,7 +52,7 @@ const state = {
     pvEvalFontStyle: 'bolder',
     pvEvalFontFamily: 'sans-serif',
     pvEvalScale: 0.45,
-    pvEvalAlpha: 0.85,
+    pvEvalAlpha: 0.90,
   },
   boardSize: 15,
   thinkTimeOption: 1,
@@ -60,19 +60,20 @@ const state = {
   matchTime: 9999000,
   maxDepth: 64,
   maxNodes: 0,
-  rule: 0, // 规则：0-无禁手 1-无禁长连不赢 2,4-有禁手 5-无禁一手交换
+  rule: 0, // 规则: 0-无禁手 1-无禁长连不赢 2,4-有禁手 5-无禁一手交换
   threads: getDefaultThreadNum(), // 线程数 (默认为最大并行数/2)
   strength: 100, // 棋力限制 (默认100%棋力)
   nbest: 1, // MultiPV多点分析
-  configIndex: CONFIGS.length - 1, // 配置序号：[0, CONFIGS.length)
-  hashSize: 15, // TT表项数：(2**hashSize)K
+  configIndex: CONFIGS.length - 1, // 配置序号: [0, CONFIGS.length)
+  candRange: 3, // 选点范围: {0, 1, 2, 3, 4, 5}
+  hashSize: 256, // 置换表大小, 单位 MiB
   pondering: false, // 后台思考
-  clickCheck: 0, // 点击方式：0-直接落子 1-二次确认 2-滑动落子
+  clickCheck: 0, // 点击方式: 0-直接落子 1-二次确认 2-滑动落子
   indexOrigin: 0, // 棋子序号起点
   showCoord: true,
   showAnalysis: true,
   showDetail: true,
-  showMultiPvEval: false,
+  showPvEval: false,
   showIndex: true,
   showLastStep: true,
   showWinline: true,
@@ -94,13 +95,14 @@ const propertiesToSave = [
   'strength',
   'nbest',
   'configIndex',
+  'candRange',
   'hashSize',
   'pondering',
   'clickCheck',
   'showCoord',
   'showAnalysis',
   'showDetail',
-  'showMultiPvEval',
+  'showPvEval',
   'showIndex',
   'showLastStep',
   'showWinline',
@@ -121,11 +123,11 @@ const boardPropertiesToSave = [
 
 const getters = {
   turnTime: (state) => {
-    let turn = [state.turnTime, 7000, 40000, 0]
+    let turn = [state.turnTime, 7000, 40000, -1]
     return turn[state.thinkTimeOption]
   },
   matchTime: (state) => {
-    let match = [state.matchTime, 180000, 900000, 0]
+    let match = [state.matchTime, 180000, 900000, -1]
     return match[state.thinkTimeOption]
   },
   depth: (state) => {

@@ -221,7 +221,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{ outputs.pv[0].depth }}</td>
+              <td>{{ outputs.pv[0].depth + '-' + outputs.pv[0].seldepth }}</td>
               <td style="font-weight: bold">{{ outputs.pv[0].eval }}</td>
               <td>{{ outputs.speed + ' kn/s' }}</td>
               <td>
@@ -298,7 +298,9 @@
             <tbody>
               <tr v-for="i in Math.min(nbest, outputs.pv.length)" :key="i">
                 <td style="min-width: 40px">{{ i }}</td>
-                <td style="min-width: 55px">{{ outputs.pv[i - 1].depth }}</td>
+                <td style="min-width: 55px">
+                  {{ outputs.pv[i - 1].depth + '-' + outputs.pv[i - 1].seldepth }}
+                </td>
                 <td style="font-weight: bold; min-width: 55px">{{ outputs.pv[i - 1].eval }}</td>
                 <td>
                   <Bestline

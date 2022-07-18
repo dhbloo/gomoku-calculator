@@ -274,13 +274,15 @@ function drawPvEval(ctx, style, cs, pv, boardSize) {
   ctx.translate(paddingX + halfcs, paddingTop + halfcs)
 
   for (let i = pv.length - 1; i >= 0; i -= 1) {
-    let pos = pv[i].bestline[0]
-    let x = cs * pos[0]
-    let y = cs * (bs - pos[1])
-    ctx.fillStyle = bgColor
-    ctx.fillRect(x - halfcs, y - halfcs, cs, cs)
-    ctx.fillStyle = i > 0 ? style.thoughtMoveColor : style.bestMoveColor
-    ctx.fillText(pv[i].eval, x, y, cs * 0.95)
+    if (pv[i].bestline && pv[i].bestline.length > 0) {
+      let pos = pv[i].bestline[0]
+      let x = cs * pos[0]
+      let y = cs * (bs - pos[1])
+      ctx.fillStyle = bgColor
+      ctx.fillRect(x - halfcs, y - halfcs, cs, cs)
+      ctx.fillStyle = i > 0 ? style.thoughtMoveColor : style.bestMoveColor
+      ctx.fillText(pv[i].eval, x, y, cs * 0.95)
+    }
   }
 }
 
@@ -355,7 +357,7 @@ export default {
       'indexOrigin',
       'showCoord',
       'showDetail',
-      'showMultiPvEval',
+      'showPvEval',
       'showIndex',
       'showLastStep',
       'showWinline',
@@ -470,7 +472,7 @@ export default {
       if (this.selecting) drawSelection(ctx, this.boardStyle, cellSize, this.selectedCoord)
       else if (!this.previewPv) {
         if (this.showDetail) drawRealtime(ctx, this.boardStyle, cellSize, this.realtime)
-        if (this.showMultiPvEval && this.pv.length > 1 && this.thinking)
+        if (this.showPvEval && this.pv.length > 0 && this.thinking)
           drawPvEval(ctx, this.boardStyle, cellSize, this.pv, this.boardSize)
       }
 
@@ -638,7 +640,7 @@ export default {
     },
     pv: {
       handler() {
-        if (this.showMultiPvEval) this.throttledDrawRealtimeLayer()
+        if (this.showPvEval) this.throttledDrawRealtimeLayer()
       },
       deep: true,
     },
@@ -658,7 +660,7 @@ export default {
     showDetail() {
       this.drawRealtimeLayer()
     },
-    showMultiPvEval() {
+    showPvEval() {
       this.drawRealtimeLayer()
     },
     showIndex() {

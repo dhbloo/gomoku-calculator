@@ -90,31 +90,48 @@ function processOutput(output) {
   if (head == 'MESSAGE') {
     if (tail.startsWith('REALTIME')) {
       let r = tail.split(' ')
-      let coord = r[2].split(',')
-      callback({
-        realtime: {
-          type: r[1],
-          pos: [+coord[0], +coord[1]],
-        },
-      })
+      if (r.length < 3) {
+        callback({
+          realtime: {
+            type: r[1],
+          },
+        })
+      } else {
+        let coord = r[2].split(',')
+        callback({
+          realtime: {
+            type: r[1],
+            pos: [+coord[0], +coord[1]],
+          },
+        })
+      }
     } else {
       callback({ msg: tail })
     }
-  } else if (head == 'DEPTH') callback({ depth: tail })
-  else if (head == 'EVAL') callback({ eval: tail })
-  else if (head == 'BESTLINE')
-    callback({
-      bestline: tail.match(/([A-Z]\d+)/g).map((s) => {
-        let coord = s.match(/([A-Z])(\d+)/)
-        let x = coord[1].charCodeAt(0) - 'A'.charCodeAt(0)
-        let y = +coord[2] - 1
-        return [x, y]
-      }),
-    })
-  else if (head == 'NODES') callback({ nodes: +tail })
-  else if (head == 'SPEED') callback({ speed: +tail })
-  else if (head == 'MULTIPV') callback({ multipv: tail })
-  else if (head == 'ERROR') callback({ error: tail })
+  } else if (head == 'INFO') {
+    i = tail.indexOf(' ')
+    head = tail.substring(0, i)
+    tail = tail.substring(i + 1)
+
+    if (head == 'PV') callback({ multipv: tail })
+    else if (head == 'NUMPV') callback({ numpv: +tail })
+    else if (head == 'DEPTH') callback({ depth: +tail })
+    else if (head == 'SELDEPTH') callback({ seldepth: +tail })
+    else if (head == 'NODES') callback({ nodes: +tail })
+    else if (head == 'TOTALNODES') callback({ totalnodes: +tail })
+    else if (head == 'TOTALTIME') callback({ totaltime: +tail })
+    else if (head == 'SPEED') callback({ speed: +tail })
+    else if (head == 'EVAL') callback({ eval: tail })
+    else if (head == 'BESTLINE')
+      callback({
+        bestline: tail.match(/([A-Z]\d+)/g).map((s) => {
+          let coord = s.match(/([A-Z])(\d+)/)
+          let x = coord[1].charCodeAt(0) - 'A'.charCodeAt(0)
+          let y = +coord[2] - 1
+          return [x, y]
+        }),
+      })
+  } else if (head == 'ERROR') callback({ error: tail })
   else if (head == 'FORBID')
     callback({
       forbid: (tail.match(/.{4}/g) || []).map((s) => {

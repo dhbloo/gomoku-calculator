@@ -115,7 +115,12 @@
         :options="configIndexOptions"
       />
       <popup-radio
-        :title="$t('setting.thinking.hashSize.title')"
+        :title="$t('setting.thinking.candrange.title')"
+        v-model="candRangeValue"
+        :options="candRangeOptions"
+      />
+      <popup-radio
+        :title="$t('setting.thinking.hashSize')"
         v-model="hashSizeValue"
         :options="hashSizeOptions"
       />
@@ -131,7 +136,7 @@
       <x-switch :title="$t('setting.board.showCoord')" v-model="showCoordValue" />
       <x-switch :title="$t('setting.board.showAnalysis')" v-model="showAnalysisValue" />
       <x-switch :title="$t('setting.board.showDetail')" v-model="showDetailValue" />
-      <x-switch :title="$t('setting.board.showMultiPvEval')" v-model="showMultiPvEvalValue" />
+      <x-switch :title="$t('setting.board.showPvEval')" v-model="showMultiPvEvalValue" />
       <x-switch :title="$t('setting.board.showIndex')" v-model="showIndexValue" />
       <x-switch :title="$t('setting.board.showLastStep')" v-model="showLastStepValue" />
       <x-switch :title="$t('setting.board.showWinline')" v-model="showWinlineValue" />
@@ -205,6 +210,7 @@ export default {
       'threads',
       'pondering',
       'configIndex',
+      'candRange',
       'boardSize',
       'rule',
       'aiThinkBlack',
@@ -213,7 +219,7 @@ export default {
       'showCoord',
       'showAnalysis',
       'showDetail',
-      'showMultiPvEval',
+      'showPvEval',
       'showIndex',
       'showLastStep',
       'showWinline',
@@ -237,16 +243,26 @@ export default {
     },
     configIndexOptions() {
       return [
-        { key: 2, value: this.$t('setting.thinking.config.latest') },
-        { key: 1, value: this.$t('setting.thinking.config.20210826') },
+        { key: 1, value: this.$t('setting.thinking.config.latest') },
         { key: 0, value: this.$t('setting.thinking.config.classic') },
+      ]
+    },
+    candRangeOptions() {
+      return [
+        { key: 0, value: this.$t('setting.thinking.candrange.square2') },
+        { key: 1, value: this.$t('setting.thinking.candrange.square2line3') },
+        { key: 2, value: this.$t('setting.thinking.candrange.square3') },
+        { key: 3, value: this.$t('setting.thinking.candrange.square3line4') },
+        { key: 4, value: this.$t('setting.thinking.candrange.square4') },
+        { key: 5, value: this.$t('setting.thinking.candrange.fullboard') },
       ]
     },
     hashSizeOptions() {
       return [
-        { key: 15, value: this.$t('setting.thinking.hashSize.small') },
-        { key: 16, value: this.$t('setting.thinking.hashSize.medium') },
-        { key: 17, value: this.$t('setting.thinking.hashSize.large') },
+        { key: 256, value: '256MB' },
+        { key: 512, value: '512MB' },
+        { key: 1024, value: '1GB' },
+        { key: 1536, value: '1.5GB' },
       ]
     },
     ruleOptions() {
@@ -352,6 +368,14 @@ export default {
         this.setValue({ key: 'configIndex', value: v })
       },
     },
+    candRangeValue: {
+      get() {
+        return this.candRange
+      },
+      set(v) {
+        this.setValue({ key: 'candRange', value: v })
+      },
+    },
     hashSizeValue: {
       get() {
         return this.hashSize
@@ -427,10 +451,10 @@ export default {
     },
     showMultiPvEvalValue: {
       get() {
-        return this.showMultiPvEval
+        return this.showPvEval
       },
       set(v) {
-        this.setValue({ key: 'showMultiPvEval', value: v })
+        this.setValue({ key: 'showPvEval', value: v })
       },
     },
     showIndexValue: {

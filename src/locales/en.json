@@ -68,17 +68,20 @@
       "thinkTitle": "Thinking",
       "threads": "Thread Num",
       "pondering": "Pondering",
+      "hashSize": "Transposition Table Size",
       "config": {
         "title": "Engine Model",
-        "latest": "Latest",
-        "20210826": "History version(2021/08/26)",
-        "classic": "Classic(old default)"
+        "latest": "Latest(2021/09/01)",
+        "classic": "Classic"
       },
-      "hashSize": {
-        "title": "Hash Table Size",
-        "small": "Small(256MB)",
-        "medium": "Medium(512MB)",
-        "large": "Large(1GB)"
+      "candrange": {
+        "title": "Candidate Range",
+        "square2": "Square2",
+        "square2line3": "Square2 + Line3",
+        "square3": "Square3",
+        "square3line4": "Square3 + Line4 (Recommended)",
+        "square4": "Square4",
+        "fullboard": "Full Board"
       }
     },
     "board": {
@@ -103,7 +106,7 @@
       "showCoord": "Show Coord",
       "showAnalysis": "Show Analysis",
       "showDetail": "Show Detail",
-      "showMultiPvEval": "Show Multi PV Evaluation",
+      "showPvEval": "Show PV Evaluation",
       "showIndex": "Show Index",
       "showLastStep": "Highlight Last Step",
       "showWinline": "Show Winning Line",

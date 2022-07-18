@@ -68,17 +68,20 @@
       "thinkTitle": "思考",
       "threads": "线程数",
       "pondering": "后台思考",
+      "hashSize": "置换表大小",
       "config": {
         "title": "引擎权重",
-        "latest": "最新",
-        "20210826": "历史版本(2021/08/26)",
-        "classic": "经典(旧默认)"
+        "latest": "最新(2021/09/01)",
+        "classic": "经典"
       },
-      "hashSize": {
-        "title": "置换表大小",
-        "small": "小(256MB)",
-        "medium": "中(512MB)",
-        "large": "大(1GB)"
+      "candrange": {
+        "title": "选点范围",
+        "square2": "两圈",
+        "square2line3": "两圈半",
+        "square3": "三圈",
+        "square3line4": "三圈半 (推荐)",
+        "square4": "四圈",
+        "fullboard": "全盘"
       }
     },
     "board": {
@@ -103,7 +106,7 @@
       "showCoord": "显示坐标",
       "showAnalysis": "显示分析",
       "showDetail": "显示思考细节",
-      "showMultiPvEval": "显示多点分析估值",
+      "showPvEval": "显示分析估值",
       "showIndex": "显示序号",
       "showLastStep": "高亮最后一步",
       "showWinline": "显示胜利线",

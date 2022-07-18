@@ -14,7 +14,7 @@ module.exports = {
   },
 
   devServer: {
-    https: true,
+    https: false,
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',
