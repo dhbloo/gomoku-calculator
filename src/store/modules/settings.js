@@ -49,7 +49,7 @@ const state = {
     selectionStrokeColor: '#E74C3C',
     forbidStrokeWidth: 0.12,
     forbidStrokeColor: '#E74C3C',
-    pvEvalFontStyle: 'bolder',
+    pvEvalFontStyle: 600,
     pvEvalFontFamily: 'sans-serif',
     pvEvalScale: 0.45,
     pvEvalAlpha: 0.90,
@@ -73,7 +73,7 @@ const state = {
   showCoord: true,
   showAnalysis: true,
   showDetail: true,
-  showPvEval: false,
+  showPvEval: 0,  // 是否显示实时估值: 0-不显示 1-显示估值 2-显示胜率
   showIndex: true,
   showLastStep: true,
   showWinline: true,

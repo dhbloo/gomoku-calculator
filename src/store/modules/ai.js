@@ -22,6 +22,7 @@ const state = {
         seldepth: 0,
         nodes: 0,
         eval: '-',
+        winrate: 0.0,
         bestline: [],
       },
     ],
@@ -107,6 +108,7 @@ const mutations = {
         seldepth: 0,
         nodes: 0,
         eval: '-',
+        winrate: 0.0,
         bestline: [],
       },
     ]
@@ -195,6 +197,8 @@ const actions = {
         commit('setOutput', { key: 'speed', value: r.speed })
       } else if (r.eval) {
         commit('setPVOutput', { key: 'eval', value: r.eval })
+      } else if (r.winrate) {
+        commit('setPVOutput', { key: 'winrate', value: r.winrate })
       } else if (r.bestline) {
         commit('setPVOutput', { key: 'bestline', value: r.bestline })
       } else if (r.pos) {

@@ -106,12 +106,16 @@
       "showCoord": "Show Coord",
       "showAnalysis": "Show Analysis",
       "showDetail": "Show Detail",
-      "showPvEval": "Show PV Evaluation",
       "showIndex": "Show Index",
       "showLastStep": "Highlight Last Step",
       "showWinline": "Show Winning Line",
       "showForbid": "Show Forbid",
-      "pieceScale": "Relative Piece Size",
+      "showPvEval": {
+        "title": "Show PV Evaluation",
+        "none": "Disable",
+        "eval": "Eval",
+        "winrate": "Winrate"
+      },
       "colorTitle": "Color Scheme",
       "boardColor": "Board Color",
       "lastStepColor": "Last Step Color",

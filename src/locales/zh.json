@@ -106,12 +106,16 @@
       "showCoord": "显示坐标",
       "showAnalysis": "显示分析",
       "showDetail": "显示思考细节",
-      "showPvEval": "显示分析估值",
       "showIndex": "显示序号",
       "showLastStep": "高亮最后一步",
       "showWinline": "显示胜利线",
       "showForbid": "显示禁手",
-      "pieceScale": "相对棋子大小",
+      "showPvEval": {
+        "title": "显示分析估值",
+        "none": "不显示",
+        "eval": "显示估值",
+        "winrate": "显示胜率"
+      },
       "colorTitle": "颜色",
       "boardColor": "棋盘颜色",
       "lastStepColor": "最后一步颜色",

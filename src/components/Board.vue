@@ -263,8 +263,7 @@ function drawRealtime(ctx, style, cs, moves) {
   ctx.restore()
 }
 
-function drawPvEval(ctx, style, cs, pv, boardSize) {
-  ctx.font = style.pvEvalFontStyle + ' ' + style.pvEvalScale * cs + 'px ' + style.pvEvalFontFamily
+function drawPvEval(ctx, showType, style, cs, pv, boardSize) {
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
 
@@ -281,7 +280,24 @@ function drawPvEval(ctx, style, cs, pv, boardSize) {
       ctx.fillStyle = bgColor
       ctx.fillRect(x - halfcs, y - halfcs, cs, cs)
       ctx.fillStyle = i > 0 ? style.thoughtMoveColor : style.bestMoveColor
-      ctx.fillText(pv[i].eval, x, y, cs * 0.95)
+
+      ctx.font =
+        style.pvEvalFontStyle + ' ' + style.pvEvalScale * cs + 'px ' + style.pvEvalFontFamily
+      if (showType == 1) {
+        ctx.fillText(pv[i].eval, x, y, cs * 0.95)
+      } else if (showType == 2) {
+        if (pv[i].winrate == 0.0 || pv[i].winrate == 1.0) ctx.fillText(pv[i].eval, x, y, cs * 0.95)
+        else ctx.fillText((pv[i].winrate * 100).toFixed(1), x, y, cs * 0.95)
+      } else {
+        ctx.fillText(pv[i].eval, x, y - cs * 0.2, cs * 0.95)
+        ctx.font =
+          (style.pvEvalFontStyle * 2) / 3 +
+          ' ' +
+          style.pvEvalScale * cs * 0.8 +
+          'px ' +
+          style.pvEvalFontFamily
+        ctx.fillText(pv[i].depth + '-' + pv[i].seldepth, x, y + cs * 0.2, cs * 0.95)
+      }
     }
   }
 }
@@ -358,6 +374,7 @@ export default {
       'showCoord',
       'showDetail',
       'showPvEval',
+      'showWinrate',
       'showIndex',
       'showLastStep',
       'showWinline',
@@ -472,8 +489,8 @@ export default {
       if (this.selecting) drawSelection(ctx, this.boardStyle, cellSize, this.selectedCoord)
       else if (!this.previewPv) {
         if (this.showDetail) drawRealtime(ctx, this.boardStyle, cellSize, this.realtime)
-        if (this.showPvEval && this.pv.length > 0 && this.thinking)
-          drawPvEval(ctx, this.boardStyle, cellSize, this.pv, this.boardSize)
+        if (this.showPvEval > 0 && this.pv.length > 0 && this.thinking)
+          drawPvEval(ctx, this.showPvEval, this.boardStyle, cellSize, this.pv, this.boardSize)
       }
 
       ctx.restore()
@@ -640,7 +657,7 @@ export default {
     },
     pv: {
       handler() {
-        if (this.showPvEval) this.throttledDrawRealtimeLayer()
+        if (this.showPvEval > 0) this.throttledDrawRealtimeLayer()
       },
       deep: true,
     },

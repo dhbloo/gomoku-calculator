@@ -136,11 +136,15 @@
       <x-switch :title="$t('setting.board.showCoord')" v-model="showCoordValue" />
       <x-switch :title="$t('setting.board.showAnalysis')" v-model="showAnalysisValue" />
       <x-switch :title="$t('setting.board.showDetail')" v-model="showDetailValue" />
-      <x-switch :title="$t('setting.board.showPvEval')" v-model="showMultiPvEvalValue" />
       <x-switch :title="$t('setting.board.showIndex')" v-model="showIndexValue" />
       <x-switch :title="$t('setting.board.showLastStep')" v-model="showLastStepValue" />
       <x-switch :title="$t('setting.board.showWinline')" v-model="showWinlineValue" />
       <x-switch :title="$t('setting.board.showForbid')" v-model="showForbidValue" />
+      <popup-radio
+        :title="$t('setting.board.showPvEval.title')"
+        v-model="showPvEvalValue"
+        :options="showPvEvalOptions"
+      />
     </group>
 
     <group>
@@ -278,6 +282,14 @@ export default {
         { key: 0, value: this.$t('setting.board.clickCheck.direct') },
         { key: 1, value: this.$t('setting.board.clickCheck.confirm') },
         { key: 2, value: this.$t('setting.board.clickCheck.slide') },
+      ]
+    },
+    showPvEvalOptions() {
+      return [
+        { key: 0, value: this.$t('setting.board.showPvEval.none') },
+        { key: 1, value: this.$t('setting.board.showPvEval.eval') },
+        { key: 2, value: this.$t('setting.board.showPvEval.winrate') },
+        // { key: 3, value: this.$t('setting.board.showPvEval.evalAndDepth') },
       ]
     },
     languageValue: {
@@ -449,7 +461,7 @@ export default {
         this.setValue({ key: 'showDetail', value: v })
       },
     },
-    showMultiPvEvalValue: {
+    showPvEvalValue: {
       get() {
         return this.showPvEval
       },

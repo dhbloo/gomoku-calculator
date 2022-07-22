@@ -122,6 +122,7 @@ function processOutput(output) {
     else if (head == 'TOTALTIME') callback({ totaltime: +tail })
     else if (head == 'SPEED') callback({ speed: +tail })
     else if (head == 'EVAL') callback({ eval: tail })
+    else if (head == 'WINRATE') callback({ winrate: parseFloat(tail) })
     else if (head == 'BESTLINE')
       callback({
         bestline: tail.match(/([A-Z]\d+)/g).map((s) => {
