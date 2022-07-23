@@ -14,6 +14,45 @@ if (typeof Module === 'undefined') {
 
   // Setup webassembly glue module (only for main thread)
   var Module = {
+    preInit: [
+      function () {
+        FS.createLazyFile(
+          '/',
+          'mix6freestyle_bs15.bin.lz4',
+          '/network/mix6freestyle_bs15.bin.lz4',
+          true,
+          false
+        )
+        FS.createLazyFile(
+          '/',
+          'mix6freestyle_bsmix.bin.lz4',
+          '/network/mix6freestyle_bsmix.bin.lz4',
+          true,
+          false
+        )
+        FS.createLazyFile(
+          '/',
+          'mix6standard_bs15.bin.lz4',
+          '/network/mix6standard_bs15.bin.lz4',
+          true,
+          false
+        )
+        FS.createLazyFile(
+          '/',
+          'mix6renju_bs15_black.bin.lz4',
+          '/network/mix6renju_bs15_black.bin.lz4',
+          true,
+          false
+        )
+        FS.createLazyFile(
+          '/',
+          'mix6renju_bs15_white.bin.lz4',
+          '/network/mix6renju_bs15_white.bin.lz4',
+          true,
+          false
+        )
+      },
+    ],
     preRun: [
       function () {
         let input = {

@@ -6,7 +6,7 @@ export const FREESTYLE = 0,
   STANDARD = 1,
   RENJU = 2
 
-export const CONFIGS = ['config-default.toml', 'config-210901.toml']
+export const CONFIGS = ['config-default.toml', 'config-210901.toml', 'config-220718.toml']
 
 function getDefaultThreadNum() {
   return checkSharedArrayBufferSupport()
