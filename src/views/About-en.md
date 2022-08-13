@@ -1,4 +1,4 @@
-## Gomoku Calculator V0.24
+## Gomoku Calculator V0.25
 
 ### FAQ
 
@@ -88,6 +88,9 @@
 
 ### Update Record
 
++ 0.25
+  + add option for adjusting candidate range
+  + add winrate display
 + 0.24
   + fix bug on move generation
   + update engine weights
@@ -120,6 +123,9 @@
 
 ### About the App
 
-App websites: [Main Site](https://gomocalc.com), [Github Mirror](https://gomocalc.github.io)
+App websites: [Main Site](https://gomocalc.com)
++ [Mirror1](https://www.gomocalc.com)
++ [Mirror2](https://gobang.cpdd.top)
++ [Mirror3](https://gobang.varpop.com)
 
 Author's github homepage: [@dhbloo](https://github.com/dhbloo)

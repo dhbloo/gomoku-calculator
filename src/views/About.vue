@@ -1,7 +1,7 @@
 <template>
   <div class="about markdown-body">
     <div v-if="$i18n.locale === 'zh'">
-      <h2 id="五子棋计算器-v024">五子棋计算器 V0.24</h2>
+      <h2 id="-v0-25">五子棋计算器 V0.25</h2>
       <h3 id="faq">FAQ</h3>
       <ul>
         <li>
@@ -123,56 +123,62 @@
           </p>
         </li>
       </ul>
-      <p>&nbsp;</p>
-      <h3 id="更新记录">更新记录</h3>
+      <h3 id="-">更新记录</h3>
       <ul>
         <li>
-          <p>0.24</p>
+          0.25
+          <ul>
+            <li>支持选点范围调节</li>
+            <li>加入胜率显示</li>
+          </ul>
+        </li>
+        <li>
+          0.24
           <ul>
             <li>修复着法生成的bug</li>
             <li>更新引擎权重</li>
           </ul>
         </li>
         <li>
-          <p>0.23</p>
+          0.23
           <ul>
             <li>加入棋力限制、后台思考功能</li>
           </ul>
         </li>
         <li>
-          <p>0.22</p>
+          0.22
           <ul>
             <li>更新引擎，加入多线程支持</li>
             <li>加入计算平衡点的功能</li>
           </ul>
         </li>
         <li>
-          <p>0.21</p>
+          0.21
           <ul>
             <li>修复禁手判断的bug</li>
           </ul>
         </li>
         <li>
-          <p>0.20</p>
+          0.20
           <ul>
             <li>更新至Rapfi2021引擎，新增支持长连不胜与连珠规则</li>
           </ul>
         </li>
         <li>
-          <p>0.17</p>
+          0.17
           <ul>
             <li>加入置换表大小选项</li>
           </ul>
         </li>
         <li>
-          <p>0.16</p>
+          0.16
           <ul>
             <li>优化在宽屏下的布局</li>
             <li>加入路线预览</li>
           </ul>
         </li>
         <li>
-          <p>0.15</p>
+          0.15
           <ul>
             <li>棋盘颜色可以修改了</li>
             <li>支持导出高清图片与GIF</li>
@@ -180,32 +186,32 @@
           </ul>
         </li>
         <li>
-          <p>0.14</p>
+          0.14
           <ul>
             <li>加入了多点分析输出的显示</li>
             <li>设置现在能自动保存了</li>
           </ul>
         </li>
         <li>
-          <p>0.13</p>
+          0.13
           <ul>
             <li>修复了AI思考时回退产生的局面错误</li>
             <li>修复了路线栏显示不全的问题</li>
           </ul>
         </li>
       </ul>
-      <p>&nbsp;</p>
-      <h3 id="关于应用">关于应用</h3>
-      <p>
-        应用地址：<a href="https://gomocalc.com">主站</a>，<a href="https://gomocalc.github.io"
-          >Github镜像站</a
-        >
-      </p>
+      <h3 id="-">关于应用</h3>
+      <p>应用地址：<a href="https://gomocalc.com">主站</a></p>
+      <ul>
+        <li><a href="https://www.gomocalc.com">镜像站1</a></li>
+        <li><a href="https://gobang.cpdd.top">镜像站2</a></li>
+        <li><a href="https://gobang.varpop.com">镜像站3</a></li>
+      </ul>
       <p>作者Github：<a href="https://github.com/dhbloo">@dhbloo</a></p>
     </div>
 
     <div v-else>
-      <h2 id="gomoku-calculator-v024">Gomoku Calculator V0.24</h2>
+      <h2 id="gomoku-calculator-v0-25">Gomoku Calculator V0.25</h2>
       <h3 id="faq">FAQ</h3>
       <ul>
         <li>
@@ -388,56 +394,62 @@
           </p>
         </li>
       </ul>
-      <p>&nbsp;</p>
       <h3 id="update-record">Update Record</h3>
       <ul>
         <li>
-          <p>0.24</p>
+          0.25
+          <ul>
+            <li>add option for adjusting candidate range</li>
+            <li>add winrate display</li>
+          </ul>
+        </li>
+        <li>
+          0.24
           <ul>
             <li>fix bug on move generation</li>
             <li>update engine weights</li>
           </ul>
         </li>
         <li>
-          <p>0.23</p>
+          0.23
           <ul>
             <li>add option for strength handicap and pondering</li>
           </ul>
         </li>
         <li>
-          <p>0.22</p>
+          0.22
           <ul>
             <li>engine update, support for multi-threading</li>
             <li>support for balanced move calculation</li>
           </ul>
         </li>
         <li>
-          <p>0.21</p>
+          0.21
           <ul>
             <li>fix wrong forbidden point judgement</li>
           </ul>
         </li>
         <li>
-          <p>0.20</p>
+          0.20
           <ul>
             <li>update engine to Rapfi2021, new support for Standard and Renju rule</li>
           </ul>
         </li>
         <li>
-          <p>0.17</p>
+          0.17
           <ul>
             <li>add option for transposition table size</li>
           </ul>
         </li>
         <li>
-          <p>0.16</p>
+          0.16
           <ul>
             <li>optimize landscape layout</li>
             <li>bestline preview</li>
           </ul>
         </li>
         <li>
-          <p>0.15</p>
+          0.15
           <ul>
             <li>board color is changeable now</li>
             <li>support for exporting high-res JPEG and GIF</li>
@@ -445,26 +457,27 @@
           </ul>
         </li>
         <li>
-          <p>0.14</p>
+          0.14
           <ul>
             <li>add display for multi pv mode</li>
             <li>settings can be automatically saved now</li>
           </ul>
         </li>
         <li>
-          <p>0.13</p>
+          0.13
           <ul>
             <li>fix position error after going backward when AI is thinking</li>
             <li>fix display of pv line field</li>
           </ul>
         </li>
       </ul>
-      <p>&nbsp;</p>
       <h3 id="about-the-app">About the App</h3>
-      <p>
-        App websites: <a href="https://gomocalc.com">Main Site</a>,
-        <a href="https://gomocalc.github.io">Github Mirror</a>
-      </p>
+      <p>App websites: <a href="https://gomocalc.com">Main Site</a></p>
+      <ul>
+        <li><a href="https://www.gomocalc.com">Mirror1</a></li>
+        <li><a href="https://gobang.cpdd.top">Mirror2</a></li>
+        <li><a href="https://gobang.varpop.com">Mirror3</a></li>
+      </ul>
       <p>Author&#39;s github homepage: <a href="https://github.com/dhbloo">@dhbloo</a></p>
     </div>
   </div>

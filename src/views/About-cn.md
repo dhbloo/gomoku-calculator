@@ -1,4 +1,4 @@
-## 五子棋计算器 V0.24
+## 五子棋计算器 V0.25
 
 ### FAQ
 
@@ -88,6 +88,9 @@
 
 ### 更新记录
 
++ 0.25
+  + 支持选点范围调节
+  + 加入胜率显示
 + 0.24
   + 修复着法生成的bug
   + 更新引擎权重
@@ -120,6 +123,9 @@
 
 ### 关于应用
 
-应用地址：[主站](https://gomocalc.com)，[Github镜像站](https://gomocalc.github.io)
+应用地址：[主站](https://gomocalc.com)
++ [镜像站1](https://www.gomocalc.com)
++ [镜像站2](https://gobang.cpdd.top)
++ [镜像站3](https://gobang.varpop.com)
 
 作者Github：[@dhbloo](https://github.com/dhbloo)
