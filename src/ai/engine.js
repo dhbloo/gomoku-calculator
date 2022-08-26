@@ -1,77 +1,78 @@
+import Worker from './engine-warpper.worker.js'
 import { checkSharedArrayBufferSupport } from './util'
 import { script } from '@/../node_modules/dynamic-import/dist/import.js'
 
-const STEngineURL = process.env.BASE_URL + 'build/rapfi-single.js'
-const MTEngineURL = process.env.BASE_URL + 'build/rapfi-multi.js'
-const supportSAB = checkSharedArrayBufferSupport()
-var callback, worker
+const EngineTypeEnum = {
+  WebAssembly: 0,
+  WebAssemblyWorker: 1,
+}
 
+const MTEngineURL = process.env.BASE_URL + 'build/rapfi-multi.js'
+const STEngineURL = process.env.BASE_URL + 'build/rapfi-single.js'
+const EngineType = checkSharedArrayBufferSupport()
+  ? EngineTypeEnum.WebAssembly
+  : EngineTypeEnum.WebAssemblyWorker
+var callback, engineInstance
+
+// Init engine and setup callback function for receiving engine output
 function init(f) {
   callback = f
 
-  if (supportSAB) {
-    script.import(/* webpackIgnore: true */ MTEngineURL).then(() => {
-      // eslint-disable-next-line
-      if (Bridge.ready) {
-        callback({ ok: true })
-      } else {
-        // eslint-disable-next-line
-        Bridge.setReady = () => {
-          callback({ ok: true })
-        }
-      }
-
-      // eslint-disable-next-line
-      Bridge.readStdout = (d) => processOutput(d)
-    })
-  } else {
-    worker = new Worker(STEngineURL)
-
-    worker.onmessage = function (e) {
-      if (e.data.ready) {
-        callback({ ok: true })
-      } else {
-        processOutput(e.data.output)
-      }
+  if (EngineType == EngineTypeEnum.WebAssembly) {
+    script
+      .import(/* webpackIgnore: true */ MTEngineURL)
+      .then(function () {
+        let engineDirURL = MTEngineURL.substring(0, MTEngineURL.lastIndexOf('/') + 1)
+        self['Rapfi']({
+          locateFile: (url) => engineDirURL + url,
+          receiveStdout: (o) => processOutput(o),
+          receiveStderr: () => {},
+          onEngineReady: () => callback({ ok: true }),
+        })
+          .then((instance) => (engineInstance = instance))
+          .catch((err) => console.error('Failed to load engine module: ' + err))
+      })
+      .catch((err) => console.error('Failed to import MTEngine: ' + err))
+  } else if (EngineType == EngineTypeEnum.WebAssemblyWorker) {
+    engineInstance = new Worker()
+    engineInstance.onmessage = function (e) {
+      if (e.data.ready != null) callback({ ok: true })
+      else if (e.data.stdout != null) processOutput(e.data.stdout)
     }
-
-    worker.onerror = function (ev) {
-      worker.terminate()
-      console.error('Worker spawn error: ' + ev.message + '. Retry after 200ms...')
-      setTimeout(() => init(f), 200)
+    engineInstance.onerror = function (err) {
+      engineInstance.terminate()
+      console.error('Worker error [' + err.message + ']. Retry after 250ms...')
+      setTimeout(() => init(f), 250)
     }
-  }
+    engineInstance.postMessage({ engineScriptURL: STEngineURL })
+  } else throw new Error('Invalid engine type: ' + EngineType)
 }
 
+// Stop current engine's thinking process
 // Returns true if force stoped, otherwise returns false
 function stopThinking() {
-  if (!supportSAB) {
-    console.warn('No support for SAB, failed to stop thinking.')
-
-    worker.terminate()
-    init(callback) // Use previous callback function
-
-    return true
-  } else {
+  if (EngineType == EngineTypeEnum.WebAssembly) {
     sendCommand('YXSTOP')
     return false
+  } else if (EngineType == EngineTypeEnum.WebAssemblyWorker) {
+    console.warn('No support for SAB, will stop by terminating worker.')
+    engineInstance.terminate()
+    init(callback) // Use previous callback function
+    return true
   }
 }
 
+// Send a command to engine
 function sendCommand(cmd) {
   if (typeof cmd !== 'string' || cmd.length == 0) return
 
-  if (supportSAB) {
-    // eslint-disable-next-line
-    Bridge.writeStdin(cmd)
-  } else {
-    worker.postMessage(cmd)
-  }
+  if (EngineType == EngineTypeEnum.WebAssembly) engineInstance.sendCommand(cmd)
+  else if (EngineType == EngineTypeEnum.WebAssemblyWorker)
+    engineInstance.postMessage({ command: cmd })
 }
 
+// process output from engine and call callback function
 function processOutput(output) {
-  if (typeof callback !== 'function') return
-
   let i = output.indexOf(' ')
 
   if (i == -1) {
