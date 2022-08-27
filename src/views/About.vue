@@ -1,7 +1,7 @@
 <template>
   <div class="about markdown-body">
     <div v-if="$i18n.locale === 'zh'">
-      <h2 id="-v0-25">五子棋计算器 V0.25</h2>
+      <h2 id="-v0-26">五子棋计算器 V0.26</h2>
       <h3 id="faq">FAQ</h3>
       <ul>
         <li>
@@ -126,6 +126,13 @@
       <h3 id="-">更新记录</h3>
       <ul>
         <li>
+          0.26
+          <ul>
+            <li>修复多线程下的速度问题</li>
+            <li>权重更新</li>
+          </ul>
+        </li>
+        <li>
           0.25
           <ul>
             <li>支持选点范围调节</li>
@@ -211,7 +218,7 @@
     </div>
 
     <div v-else>
-      <h2 id="gomoku-calculator-v0-25">Gomoku Calculator V0.25</h2>
+      <h2 id="gomoku-calculator-v0-26">Gomoku Calculator V0.26</h2>
       <h3 id="faq">FAQ</h3>
       <ul>
         <li>
@@ -396,6 +403,13 @@
       </ul>
       <h3 id="update-record">Update Record</h3>
       <ul>
+        <li>
+          0.26
+          <ul>
+            <li>fix performance issue for multi-threading</li>
+            <li>engine weight update</li>
+          </ul>
+        </li>
         <li>
           0.25
           <ul>

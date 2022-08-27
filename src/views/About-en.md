@@ -1,4 +1,4 @@
-## Gomoku Calculator V0.25
+## Gomoku Calculator V0.26
 
 ### FAQ
 
@@ -88,6 +88,9 @@
 
 ### Update Record
 
++ 0.26
+  + fix performance issue for multi-threading
+  + engine weight update
 + 0.25
   + add option for adjusting candidate range
   + add winrate display

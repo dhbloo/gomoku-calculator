@@ -71,7 +71,8 @@
       "hashSize": "Transposition Table Size",
       "config": {
         "title": "Engine Model",
-        "latest": "Latest(2021/09/01)",
+        "220723": "Latest Model(2022/07/23)",
+        "210901": "History Model(2021/09/01)",
         "classic": "Classic"
       },
       "candrange": {

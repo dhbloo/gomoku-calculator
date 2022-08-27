@@ -16,7 +16,7 @@ export default new Vuex.Store({
   state: {
     screenWidth: document.documentElement.clientWidth, // 屏幕宽度
     screenHeight: document.documentElement.clientHeight, // 屏幕高度
-    isIOS:
+    isOnIOSBrowser:
       (/iPad|iPhone|iPod/.test(navigator.platform) ||
         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
       !window.MSStream,

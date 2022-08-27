@@ -409,9 +409,9 @@
           <x-button
             v-if="!gifLoading"
             type="primary"
-            :disabled="isIOS"
-            :plain="isIOS"
-            :text="isIOS ? $t('game.saveScreenshotIOS') : $t('game.saveScreenshot')"
+            :disabled="isOnIOSBrowser"
+            :plain="isOnIOSBrowser"
+            :text="isOnIOSBrowser ? $t('game.saveScreenshotIOS') : $t('game.saveScreenshot')"
             @click.native="saveScreenshot"
           ></x-button>
         </div>
@@ -492,7 +492,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['screenWidth', 'screenHeight', 'isIOS']),
+    ...mapState(['screenWidth', 'screenHeight', 'isOnIOSBrowser']),
     ...mapState('settings', [
       'boardSize',
       'indexOrigin',

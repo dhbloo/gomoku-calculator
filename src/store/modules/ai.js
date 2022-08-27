@@ -46,9 +46,8 @@ const getters = {
   bestlineStr: (state) => (pvIdx) => {
     if (!pvIdx) pvIdx = 0
     let posStrs = []
-    for (let p of state.outputs.pv[pvIdx].bestline) {
+    for (let p of state.outputs.pv[pvIdx].bestline)
       posStrs.push(String.fromCharCode('A'.charCodeAt(0) + p[0]) + (p[1] + 1))
-    }
     return posStrs.join(' ')
   },
 }

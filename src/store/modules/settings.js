@@ -6,7 +6,7 @@ export const FREESTYLE = 0,
   STANDARD = 1,
   RENJU = 2
 
-export const CONFIGS = ['config-default.toml', 'config-210901.toml']
+export const CONFIGS = ['config-default.toml', 'config-210901.toml', 'config-220723.toml']
 
 function getDefaultThreadNum() {
   return checkSharedArrayBufferSupport()
@@ -52,7 +52,7 @@ const state = {
     pvEvalFontStyle: 600,
     pvEvalFontFamily: 'sans-serif',
     pvEvalScale: 0.45,
-    pvEvalAlpha: 0.90,
+    pvEvalAlpha: 0.9,
   },
   boardSize: 15,
   thinkTimeOption: 1,
@@ -73,7 +73,7 @@ const state = {
   showCoord: true,
   showAnalysis: true,
   showDetail: true,
-  showPvEval: 0,  // 是否显示实时估值: 0-不显示 1-显示估值 2-显示胜率
+  showPvEval: 0, // 是否显示实时估值: 0-不显示 1-显示估值 2-显示胜率
   showIndex: true,
   showLastStep: true,
   showWinline: true,

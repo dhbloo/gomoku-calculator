@@ -247,7 +247,8 @@ export default {
     },
     configIndexOptions() {
       return [
-        { key: 1, value: this.$t('setting.thinking.config.latest') },
+        { key: 2, value: this.$t('setting.thinking.config.220723') },
+        { key: 1, value: this.$t('setting.thinking.config.210901') },
         { key: 0, value: this.$t('setting.thinking.config.classic') },
       ]
     },

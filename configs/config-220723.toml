@@ -1,0 +1,30 @@
+[requirement]
+min_version = [0,36,4]
+
+[general]
+reload_config_each_move = false
+clear_hash_after_config_loaded = false
+default_thread_num = 1
+message_mode = "normal"
+coord_conversion_mode = "X_flipY"
+default_candidate_range = "square3_line4"
+memory_reserved_mb = 0
+default_tt_size_kb = 16384
+
+
+[model]
+binary_file = "model220723.bin"
+
+
+[search]
+aspiration_window = true
+num_iteration_after_mate = 16
+num_iteration_after_singular_root = 10
+
+
+[search.timectl]
+match_space = 21.0
+match_space_min = 7.0
+average_branch_factor = 1.7
+advanced_stop_ratio = 0.9
+move_horizon = 64
