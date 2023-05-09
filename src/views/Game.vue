@@ -881,12 +881,6 @@ export default {
 
     this.initEngine()
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (vm.posStr.length > 0) vm.$router.push({ name: 'game', params: { pos: vm.posStr } })
-      else vm.$router.push({ name: 'game' })
-    })
-  },
 }
 </script>
 
