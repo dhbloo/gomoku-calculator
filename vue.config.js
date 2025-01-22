@@ -4,7 +4,12 @@ module.exports = {
       options: {},
       plugins: [
         'vux-ui',
-        'duplicate-style',
+        {
+          name: 'duplicate-style',
+          options: {
+            assetNameRegExp: /^(?!css\/font-awesome\.min\.css$).*\.css$/g,
+          },
+        },
         {
           name: 'less-theme',
           path: 'src/theme.less',
