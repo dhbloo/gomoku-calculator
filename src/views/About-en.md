@@ -80,6 +80,10 @@
 
   Hover on one bestline move to preview bestlines calcuated by AI currently. On desktop client you can set current position to bestline by double-clicking bestline move.
 
++ Can keyboard keys be used?
+
+  You can use the left/right arrow keys on the keyboard to move backward/forward through the board states, the HOME/END keys to jump to the start/end of the board states, the spacebar to start or stop calculations, and the "b/B" key to calculate one/two equilibrium points.
+
 + I found a bug? I want to make a suggestion?
 
   Welcome to submit an issue [here](https://github.com/gomocalc/gomocalc.github.io/issues) to feedback the bug or suggestion.
@@ -127,8 +131,5 @@
 ### About the App
 
 App websites: [Main Site](https://gomocalc.com)
-+ [Mirror1](https://www.gomocalc.com)
-+ [Mirror2](https://gobang.cpdd.top)
-+ [Mirror3](https://gobang.varpop.com)
 
 Author's github homepage: [@dhbloo](https://github.com/dhbloo)

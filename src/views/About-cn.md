@@ -80,6 +80,10 @@
 
   悬停在AI输出的某个最优路线的着法上即可预览AI当前计算到的最优路线，在桌面端上双击某个最优路线着法可以将局面直接设置到该路线上。
 
++ 可以用键盘按键操作吗？
+
+  可以使用键盘上的左/右方向键进行局面的回退/前进，HOME/END键回到局面的起始/末尾，空格键进行计算或停止计算，b/B键计算一步/两步平衡点。
+
 + 我发现了bug？我想提出建议？
 
   欢迎[在此](https://github.com/gomocalc/gomocalc.github.io/issues)提交issue反馈相应的bug或建议。
@@ -127,8 +131,5 @@
 ### 关于应用
 
 应用地址：[主站](https://gomocalc.com)
-+ [镜像站1](https://www.gomocalc.com)
-+ [镜像站2](https://gobang.cpdd.top)
-+ [镜像站3](https://gobang.varpop.com)
 
 作者Github：[@dhbloo](https://github.com/dhbloo)

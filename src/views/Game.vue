@@ -14,80 +14,52 @@
                 </x-button>
               </flexbox-item>
               <flexbox-item>
-                <x-button
-                  :disabled="position.length == 0"
-                  style="padding: 0"
-                  @click.native="
-                    () => {
-                      checkThinking().then(() => {
-                        backToBegin()
-                      })
-                    }
-                  "
-                >
+                <x-button :disabled="position.length == 0" style="padding: 0" @click.native="() => {
+                  checkThinking().then(() => {
+                    backToBegin()
+                  })
+                }
+                  ">
                   <i class="fa fa-angle-double-left fa-lg" aria-hidden="true"></i>
                 </x-button>
               </flexbox-item>
               <flexbox-item>
-                <x-button
-                  :disabled="position.length == 0"
-                  style="padding: 0"
-                  @click.native="
-                    () => {
-                      checkThinking().then(() => {
-                        backward()
-                        clearUsedTime()
-                      })
-                    }
-                  "
-                >
+                <x-button :disabled="position.length == 0" style="padding: 0" @click.native="() => {
+                  checkThinking().then(() => {
+                    backward()
+                    clearUsedTime()
+                  })
+                }
+                  ">
                   <i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
                 </x-button>
               </flexbox-item>
               <flexbox-item>
-                <x-button
-                  :disabled="position.length == lastPosition.length"
-                  style="padding: 0"
-                  @click.native="
-                    () => {
-                      checkThinking().then(() => {
-                        forward()
-                      })
-                    }
-                  "
-                >
+                <x-button :disabled="position.length == lastPosition.length" style="padding: 0" @click.native="() => {
+                  checkThinking().then(() => {
+                    forward()
+                  })
+                }
+                  ">
                   <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                 </x-button>
               </flexbox-item>
               <flexbox-item>
-                <x-button
-                  :disabled="position.length == lastPosition.length"
-                  style="padding: 0"
-                  @click.native="
-                    () => {
-                      checkThinking().then(() => {
-                        forwardToEnd()
-                      })
-                    }
-                  "
-                >
+                <x-button :disabled="position.length == lastPosition.length" style="padding: 0" @click.native="() => {
+                  checkThinking().then(() => {
+                    forwardToEnd()
+                  })
+                }
+                  ">
                   <i class="fa fa-angle-double-right fa-lg" aria-hidden="true"></i>
                 </x-button>
               </flexbox-item>
               <flexbox-item>
-                <x-button
-                  :disabled="thinking || !ready || gameEnded"
-                  style="padding: 0"
-                  @click.native="startThink"
-                >
+                <x-button :disabled="thinking || !ready || gameEnded" style="padding: 0" @click.native="startThink">
                   <i v-if="thinking" class="fa fa-cog fa-spin"></i>
-                  <i
-                    v-else
-                    class="fa fa-play"
-                    :style="{
-                      color: !ready || gameEnded ? '#145A32' : '#229954',
-                    }"
-                  ></i>
+                  <i v-else class="fa fa-play" :style="{
+                    color: !ready || gameEnded ? '#145A32' : '#229954',
+                  }"></i>
                 </x-button>
               </flexbox-item>
               <flexbox-item>
@@ -96,50 +68,34 @@
                 </x-button>
               </flexbox-item>
               <flexbox-item>
-                <x-button
-                  :disabled="thinking || !ready || gameEnded"
-                  style="padding: 0"
-                  @click.native="
-                    () => {
-                      showBalanceOptions = true
-                    }
-                  "
-                >
-                  <i
-                    class="fa fa-adjust"
-                    :style="{
-                      color: thinking || !ready || gameEnded ? '#1A5276' : '#3498DB',
-                    }"
-                  ></i>
+                <x-button :disabled="thinking || !ready || gameEnded" style="padding: 0" @click.native="() => {
+                  showBalanceOptions = true
+                }
+                  ">
+                  <i class="fa fa-adjust" :style="{
+                    color: thinking || !ready || gameEnded ? '#1A5276' : '#3498DB',
+                  }"></i>
                 </x-button>
               </flexbox-item>
 
               <flexbox-item :span="1 / 50" style="min-width: 0px"></flexbox-item>
 
               <flexbox-item>
-                <x-button
-                  style="padding: 0"
-                  @click.native="
-                    () => {
-                      showScreenshotOptions = true
-                    }
-                  "
-                >
+                <x-button style="padding: 0" @click.native="() => {
+                  showScreenshotOptions = true
+                }
+                  ">
                   <i class="fa fa-picture-o" aria-hidden="true"></i>
                 </x-button>
               </flexbox-item>
               <flexbox-item :span="1 / 6">
-                <x-button
-                  style="padding: 0"
-                  @click.native="
-                    () => {
-                      setValue({
-                        key: 'indexOrigin',
-                        value: indexOrigin == 0 ? position.length : 0,
-                      })
-                    }
-                  "
-                >
+                <x-button style="padding: 0" @click.native="() => {
+                  setValue({
+                    key: 'indexOrigin',
+                    value: indexOrigin == 0 ? position.length : 0,
+                  })
+                }
+                  ">
                   <span v-if="indexOrigin == 0">{{ $t('game.setIndexOrigin') }}</span>
                   <span v-else>{{ $t('game.resetIndexOrigin') }}</span>
                 </x-button>
@@ -148,44 +104,32 @@
               <flexbox-item :span="1 / 50" style="min-width: 0px"></flexbox-item>
 
               <flexbox-item>
-                <x-button
-                  style="padding: 0"
-                  @click.native="
-                    () => {
-                      checkThinking().then(() => {
-                        rotate()
-                      })
-                    }
-                  "
-                >
+                <x-button style="padding: 0" @click.native="() => {
+                  checkThinking().then(() => {
+                    rotate()
+                  })
+                }
+                  ">
                   <i class="fa fa-repeat"></i>
                 </x-button>
               </flexbox-item>
               <flexbox-item>
-                <x-button
-                  style="padding: 0"
-                  @click.native="
-                    () => {
-                      checkThinking().then(() => {
-                        showFlipOptions = true
-                      })
-                    }
-                  "
-                >
+                <x-button style="padding: 0" @click.native="() => {
+                  checkThinking().then(() => {
+                    showFlipOptions = true
+                  })
+                }
+                  ">
                   <i class="fa fa-exchange"></i>
                 </x-button>
               </flexbox-item>
               <flexbox-item>
-                <x-button
-                  style="padding: 0"
-                  @click.native="
-                    () => {
-                      checkThinking().then(() => {
-                        showMoveOptions = true
-                      })
-                    }
-                  "
-                >
+                <x-button style="padding: 0" @click.native="() => {
+                  checkThinking().then(() => {
+                    showMoveOptions = true
+                  })
+                }
+                  ">
                   <i class="fa fa-arrows"></i>
                 </x-button>
               </flexbox-item>
@@ -199,18 +143,12 @@
 
     <div class="info-box" :style="showAnalysis ? {} : { display: 'none' }">
       <div>
-        <x-progress
-          v-if="thinking && aiTimeUsed > 0 && turnTime != 0"
+        <x-progress v-if="thinking && aiTimeUsed > 0 && turnTime != 0"
           :percent="Math.min((100 * aiTimeUsed) / Math.min(turnTime, matchTime), 100)"
-          :show-cancel="false"
-        ></x-progress>
+          :show-cancel="false"></x-progress>
 
         <!-- 单点分析的信息输出 -->
-        <x-table
-          v-if="nbest == 1"
-          :cell-bordered="true"
-          style="background-color: #fff; line-height: 210%"
-        >
+        <x-table v-if="nbest == 1" :cell-bordered="true" style="background-color: #fff; line-height: 210%">
           <thead>
             <tr style="background-color: #f7f7f7">
               <th>{{ $t('game.info.depth') }}</th>
@@ -236,26 +174,19 @@
             <tr>
               <td colspan="4">
                 <flexbox align="stretch" :gutter="0" style="padding: 5px">
-                  <flexbox-item
-                    style="
+                  <flexbox-item style="
                       padding: 2px 10px 2px 0;
                       width: initial;
                       line-height: initial;
                       flex: none;
-                    "
-                  >
+                    ">
                     {{ $t('game.info.bestline') }}
                   </flexbox-item>
                   <flexbox-item>
-                    <Bestline
-                      :bestline="outputs.pv[0].bestline"
-                      v-on:pvPreview="
-                        (pv) => {
-                          previewPv = pv
-                        }
-                      "
-                      v-on:pvSet="setPvAsPosition"
-                    ></Bestline>
+                    <Bestline :bestline="outputs.pv[0].bestline" v-on:pvPreview="(pv) => {
+                      previewPv = pv
+                    }
+                      " v-on:pvSet="setPvAsPosition"></Bestline>
                   </flexbox-item>
                 </flexbox>
               </td>
@@ -303,15 +234,10 @@
                 </td>
                 <td style="font-weight: bold; min-width: 55px">{{ outputs.pv[i - 1].eval }}</td>
                 <td>
-                  <Bestline
-                    :bestline="outputs.pv[i - 1].bestline"
-                    v-on:pvPreview="
-                      (pv) => {
-                        previewPv = pv
-                      }
-                    "
-                    v-on:pvSet="setPvAsPosition"
-                  ></Bestline>
+                  <Bestline :bestline="outputs.pv[i - 1].bestline" v-on:pvPreview="(pv) => {
+                    previewPv = pv
+                  }
+                    " v-on:pvSet="setPvAsPosition"></Bestline>
                 </td>
               </tr>
             </tbody>
@@ -320,20 +246,11 @@
       </div>
 
       <group>
-        <x-textarea
-          ref="curposArea"
-          style="padding: 5px"
-          :title="$t('game.currentPos')"
-          :show-counter="false"
-          :rows="1"
-          :value="posStr"
-          @on-change="
-            (v) => {
-              setPosStr(v)
-            }
-          "
-          autosize
-        ></x-textarea>
+        <x-textarea ref="curposArea" style="padding: 5px" :title="$t('game.currentPos')" :show-counter="false" :rows="1"
+          :value="posStr" @on-change="(v) => {
+            setPosStr(v)
+          }
+            " autosize></x-textarea>
       </group>
 
       <group :title="$t('game.evalChart')">
@@ -341,12 +258,7 @@
           <v-chart ref="chart" :data="evalData" :width="chartWidth" :height="chartWidth * 0.6">
             <v-scale ref="chartx" x :tick-interval="2" />
             <v-scale y alias="eval" :tick-count="5" />
-            <v-point
-              :style="{ stroke: '#fff', lineWidth: 1 }"
-              :size="5"
-              shape="smooth"
-              series-field="piece"
-            />
+            <v-point :style="{ stroke: '#fff', lineWidth: 1 }" :size="5" shape="smooth" series-field="piece" />
             <v-line shape="smooth" series-field="piece" />
             <v-area shape="smooth" series-field="piece" />
           </v-chart>
@@ -355,47 +267,25 @@
     </div>
 
     <div v-transfer-dom>
-      <actionsheet
-        v-model="showBalanceOptions"
-        :menus="balanceOptions"
-        @on-click-menu="
-          (key) => {
-            if (key == 0 || key == 1) this.startThinkBalance(key + 1)
-          }
-        "
-        show-cancel
-        :cancel-text="$t('common.cancel')"
-      ></actionsheet>
+      <actionsheet v-model="showBalanceOptions" :menus="balanceOptions" @on-click-menu="(key) => {
+        if (key == 0 || key == 1) this.startThinkBalance(key + 1)
+      }
+        " show-cancel :cancel-text="$t('common.cancel')"></actionsheet>
     </div>
 
     <div v-transfer-dom>
-      <actionsheet
-        v-model="showFlipOptions"
-        :menus="flipOptions"
-        @on-click-menu="onFlipOption"
-        show-cancel
-        :cancel-text="$t('common.cancel')"
-      ></actionsheet>
+      <actionsheet v-model="showFlipOptions" :menus="flipOptions" @on-click-menu="onFlipOption" show-cancel
+        :cancel-text="$t('common.cancel')"></actionsheet>
     </div>
 
     <div v-transfer-dom>
-      <actionsheet
-        v-model="showMoveOptions"
-        :menus="moveOptions"
-        @on-click-menu="onMoveOption"
-        show-cancel
-        :cancel-text="$t('common.cancel')"
-      ></actionsheet>
+      <actionsheet v-model="showMoveOptions" :menus="moveOptions" @on-click-menu="onMoveOption" show-cancel
+        :cancel-text="$t('common.cancel')"></actionsheet>
     </div>
 
     <div v-transfer-dom>
-      <actionsheet
-        v-model="showScreenshotOptions"
-        :menus="shotOptions"
-        @on-click-menu="onScreenshotOption"
-        show-cancel
-        :cancel-text="$t('common.cancel')"
-      ></actionsheet>
+      <actionsheet v-model="showScreenshotOptions" :menus="shotOptions" @on-click-menu="onScreenshotOption" show-cancel
+        :cancel-text="$t('common.cancel')"></actionsheet>
     </div>
 
     <div v-transfer-dom>
@@ -406,14 +296,9 @@
             <i class="fa fa-spinner fa-pulse fa-lg" aria-hidden="true" />
           </span>
           <img ref="screenshot" class="screenshot-img" />
-          <x-button
-            v-if="!gifLoading"
-            type="primary"
-            :disabled="isOnIOSBrowser"
-            :plain="isOnIOSBrowser"
+          <x-button v-if="!gifLoading" type="primary" :disabled="isOnIOSBrowser" :plain="isOnIOSBrowser"
             :text="isOnIOSBrowser ? $t('game.saveScreenshotIOS') : $t('game.saveScreenshot')"
-            @click.native="saveScreenshot"
-          ></x-button>
+            @click.native="saveScreenshot"></x-button>
         </div>
       </popup>
     </div>
@@ -521,8 +406,8 @@ export default {
 
         return Math.min(
           this.screenWidth -
-            Math.max(this.$store.getters.boardCanvasWidth, this.buttonBarWidth) -
-            MarginSum,
+          Math.max(this.$store.getters.boardCanvasWidth, this.buttonBarWidth) -
+          MarginSum,
           MaxWidth
         )
       } else {
@@ -592,7 +477,7 @@ export default {
             content: this.$t('game.interruptThinking.msg'),
             confirmText: this.$t('common.confirm'),
             cancelText: this.$t('common.cancel'),
-            onCancel: () => {},
+            onCancel: () => { },
             onConfirm: () => {
               this.thinkingCanceled = true
               this.stop()
@@ -875,6 +760,39 @@ export default {
     this.newBoard(this.boardSize)
     if (this.$route.params.pos) this.setPosStr(this.$route.params.pos)
 
+    window.addEventListener('keydown', (event) => {
+      const target = event.target
+
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)
+        return
+      if (event.repeat)
+        return
+
+      switch (event.key) {
+        case 'ArrowLeft':
+          this.checkThinking().then(() => this.backward())
+          break
+        case 'ArrowRight':
+          this.checkThinking().then(() => this.forward())
+          break
+        case 'Home':
+          this.checkThinking().then(() => this.backToBegin())
+          break
+        case 'End':
+          this.checkThinking().then(() => this.forwardToEnd())
+          break
+        case ' ':
+          if (this.thinking) this.stop()
+          else if (this.ready && !this.gameEnded) this.startThink()
+          break
+        case 'b':
+          this.checkThinking().then(() => this.startThinkBalance(1))
+          break
+        case 'B':
+          this.checkThinking().then(() => this.startThinkBalance(2))
+          break
+      }
+    })
     setInterval(() => {
       this.aiTimeUsed = this.thinking ? Date.now() - this.lastThinkTime : 0
     }, 100)
