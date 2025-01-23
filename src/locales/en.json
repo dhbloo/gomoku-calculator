@@ -100,7 +100,7 @@
       "aiThinkBlack": "AI Plays Black",
       "aiThinkWhite": "AI Plays White",
       "clickCheck": {
-        "title": "Click Manner",
+        "title": "Click Behaviour",
         "direct": "Direct Move",
         "confirm": "Secondary Confirmation",
         "slide": "Slide To Move"

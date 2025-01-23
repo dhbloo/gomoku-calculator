@@ -499,3 +499,13 @@ export default {
   watch: {},
 }
 </script>
+
+<style lang="less" scoped>
+.settings {
+  max-width: 100%;
+  @media (min-width: 800px) {
+    max-width: 800px;
+    margin: 0 auto; // Center align if necessary
+  }
+}
+</style>
