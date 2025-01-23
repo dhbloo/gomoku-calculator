@@ -1,4 +1,4 @@
-## Gomoku Calculator V0.26
+## Gomoku Calculator V0.30
 
 ### FAQ
 
@@ -80,7 +80,7 @@
 
   Hover on one bestline move to preview bestlines calcuated by AI currently. On desktop client you can set current position to bestline by double-clicking bestline move.
 
-+ Can keyboard keys be used?
++ Can keyboard shortcuts be used?
 
   You can use the left/right arrow keys on the keyboard to move backward/forward through the board states, the HOME/END keys to jump to the start/end of the board states, the spacebar to start or stop calculations, and the "b/B" key to calculate one/two equilibrium points.
 
@@ -92,6 +92,10 @@
 
 ### Update Record
 
++ 0.30
+  + engine update，add mix9lite model
+  + more language support
+  + add some keyboard shortcuts
 + 0.26
   + fix performance issue for multi-threading
   + engine weight update
@@ -132,4 +136,6 @@
 
 App websites: [Main Site](https://gomocalc.com)
 
-Author's github homepage: [@dhbloo](https://github.com/dhbloo)
+This is an open-source application. Source code is available at: [Github](https://github.com/dhbloo/gomoku-calculator)
+
+Join our user community groups: [QQ Group](https://qm.qq.com/q/xj9OHByFTG), [Discord](https://discord.gg/7kEpFCGdb5)
