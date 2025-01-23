@@ -22,6 +22,7 @@
       "eval": "Eval",
       "speed": "Speed",
       "nodes": "Nodes",
+      "time": "Time",
       "bestline": "Bestline",
       "nbestIndex": "Idx"
     },

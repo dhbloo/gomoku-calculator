@@ -28,6 +28,7 @@ const state = {
     ],
     nodes: 0,
     speed: 0,
+    time: 0,
     msg: null,
     realtime: {
       best: [],
@@ -195,6 +196,8 @@ const actions = {
         commit('setPVOutput', { key: 'nodes', value: r.nodes })
       } else if (r.totalnodes) {
         commit('setOutput', { key: 'nodes', value: r.totalnodes })
+      } else if (r.totaltime) {
+        commit('setOutput', { key: 'time', value: r.totaltime })
       } else if (r.speed) {
         commit('setOutput', { key: 'speed', value: r.speed })
       } else if (r.eval) {

@@ -22,6 +22,7 @@
       "eval": "评估",
       "speed": "速度",
       "nodes": "节点数",
+      "time": "用时",
       "bestline": "路线",
       "nbestIndex": "序号"
     },

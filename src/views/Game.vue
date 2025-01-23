@@ -158,25 +158,19 @@
               <th>{{ $t('game.info.eval') }}</th>
               <th>{{ $t('game.info.speed') }}</th>
               <th>{{ $t('game.info.nodes') }}</th>
+              <th>{{ $t('game.info.time') }}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>{{ outputs.pv[0].depth + '-' + outputs.pv[0].seldepth }}</td>
               <td style="font-weight: bold">{{ outputs.pv[0].eval }}</td>
-              <td>{{ outputs.speed >= 10000 ? Math.floor(outputs.speed / 1000) + ' kn/s' : outputs.speed + ' n/s' }}
-              </td>
-              <td>
-                {{
-                  Math.floor(outputs.nodes / 1000000) +
-                  '.' +
-                  (Math.floor(outputs.nodes / 10000) % 100) +
-                  ' M'
-                }}
-              </td>
+              <td>{{ getSpeedText(outputs.speed) }}</td>
+              <td>{{ getNodesText(outputs.nodes) }}</td>
+              <td>{{ getTimeText(outputs.time) }}</td>
             </tr>
             <tr>
-              <td colspan="4">
+              <td colspan="5">
                 <flexbox align="stretch" :gutter="0" style="padding: 5px">
                   <flexbox-item style="
                       padding: 2px 10px 2px 0;
@@ -203,20 +197,14 @@
               <tr style="background-color: #f7f7f7">
                 <th>{{ $t('game.info.speed') }}</th>
                 <th>{{ $t('game.info.nodes') }}</th>
+                <th>{{ $t('game.info.time') }}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{{ outputs.speed >= 10000 ? Math.floor(outputs.speed / 1000) + ' kn/s' : outputs.speed + ' n/s' }}
-                </td>
-                <td>
-                  {{
-                    Math.floor(outputs.nodes / 1000000) +
-                    '.' +
-                    (Math.floor(outputs.nodes / 10000) % 100) +
-                    ' M'
-                  }}
-                </td>
+                <td>{{ getSpeedText(outputs.speed) }}</td>
+                <td>{{ getNodesText(outputs.nodes) }}</td>
+                <td>{{ getTimeText(outputs.time) }}</td>
               </tr>
             </tbody>
           </x-table>
@@ -749,6 +737,40 @@ export default {
           if (!this.makeMove(pos)) break
         }
       })
+    },
+
+    getSpeedText(speed) {
+      if (speed < 100000) {
+        return speed.toString();
+      } else if (speed < 100000000) {
+        return Math.floor(speed / 1000) + "K";
+      } else {
+        return Math.floor(speed / 1000000) + "M";
+      }
+    },
+
+    getNodesText(nodes) {
+      if (nodes < 10000) {
+        return nodes.toString();
+      } else if (nodes < 10000000) {
+        return Math.floor(nodes / 1000) + "K";
+      } else if (nodes < 100000000000) {
+        return Math.floor(nodes / 1000000) + "M";
+      } else if (nodes < 100000000000000) {
+        return Math.floor(nodes / 1000000000) + "G";
+      } else {
+        return Math.floor(nodes / 1000000000000) + "T";
+      }
+    },
+
+    getTimeText(time) {
+      if (time < 1000000) {
+        return Math.floor(time / 1000) + "." + (Math.floor(time / 100) % 10) + "s";
+      } else if (time < 360000000) {
+        return Math.floor(time / 60000) + "min";
+      } else {
+        return Math.floor(time / 3600000) + "h";
+      }
     },
   },
   watch: {
