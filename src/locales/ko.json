@@ -1,0 +1,137 @@
+{
+  "appName": "오목 계산기",
+  "common": {
+    "confirm": "확인",
+    "cancel": "취소"
+  },
+  "tabbar": {
+    "game": "게임판",
+    "settings": "설정",
+    "about": "정보"
+  },
+  "game": {
+    "balance1": "한 단계 균형점 찾기",
+    "balance2": "두 단계 균형점 찾기",
+    "flip": "뒤집기",
+    "move": "이동",
+    "info": {
+      "depth": "깊이",
+      "eval": "평가",
+      "speed": "속도",
+      "nodes": "노드 수",
+      "time": "소요 시간",
+      "bestline": "최적 경로",
+      "nbestIndex": "번호"
+    },
+    "interruptThinking": {
+      "title": "AI가 생각 중",
+      "msg": "즉시 중단하시겠습니까?"
+    },
+    "swap": {
+      "title": "교환",
+      "msg": "AI가 흑백 교환을 선택했습니다.",
+      "questionTitle": "교환?",
+      "questionMsg": "교환을 선택하시겠습니까?"
+    },
+    "forbid": {
+      "title": "금지 수",
+      "msg": "해당 위치는 금지 수입니다."
+    },
+    "shotJpg": "정적 스크린샷",
+    "shotGif": "GIF 스크린샷",
+    "gifDelay": "프레임당 시간 입력 (단위: 밀리초)",
+    "gifStart": "시작 번호 입력",
+    "gifLoading": "GIF 생성 중...",
+    "saveScreenshot": "스크린샷을 로컬에 저장",
+    "saveScreenshotIOS": "이미지를 길게 눌러 로컬에 저장",
+    "currentPos": "게임 상태 코드",
+    "evalChart": "평가 그래프",
+    "black": "흑돌",
+    "white": "백돌",
+    "engineLoading": "엔진 데이터 다운로드 중..."
+  },
+  "setting": {
+    "language": "언어",
+    "thinking": {
+      "timeTitle": "생각 시간",
+      "turnTime": "한 수당 시간 (초)",
+      "matchTime": "게임 시간 (초)",
+      "maxDepth": "최대 깊이",
+      "maxNode": "최대 노드 수 (M)",
+      "fast": "속기 (게임당 약 3분)",
+      "slow": "완기 (게임당 약 15분)",
+      "analysis": "분석 모드 (시간 제한 없음)",
+      "custom": "사용자 정의",
+      "handicap": "기력 제한",
+      "nbest": "다중 분석",
+      "thinkTitle": "생각",
+      "threads": "스레드 수",
+      "pondering": "백그라운드 생각",
+      "hashSize": "해시 테이블 크기",
+      "config": {
+        "title": "엔진 가중치",
+        "mix9lite": "Mix9Lite NNUE",
+        "220723": "전통 (2022/07/23)",
+        "210901": "전통 (2021/09/01)"
+      },
+      "candrange": {
+        "title": "분석 범위",
+        "square2": "2칸",
+        "square2line3": "2칸 반",
+        "square3": "3칸",
+        "square3line4": "3칸 반 (추천)",
+        "square4": "4칸",
+        "fullboard": "전체 판"
+      }
+    },
+    "board": {
+      "title": "게임판",
+      "size": "판 크기",
+      "rule": {
+        "title": "규칙",
+        "gomoku": "금수 없음",
+        "standard": "금수 없음, 5목 이상 승리 불가",
+        "renju": "금수 있음",
+        "swap1": "금수 없음, 한 수 교환"
+      },
+      "aiThinkBlack": "AI가 흑돌",
+      "aiThinkWhite": "AI가 백돌",
+      "clickCheck": {
+        "title": "착수 방식",
+        "direct": "바로 착수",
+        "confirm": "재확인",
+        "slide": "슬라이드 착수"
+      },
+      "showTitle": "게임판 표시",
+      "showCoord": "좌표 표시",
+      "showAnalysis": "분석 표시",
+      "showDetail": "세부 사항 표시",
+      "showIndex": "번호 표시",
+      "showLastStep": "마지막 수 강조",
+      "showWinline": "승리선 표시",
+      "showForbid": "금수 표시",
+      "showPvEval": {
+        "title": "분석 평가 표시",
+        "none": "표시 안 함",
+        "eval": "평가 표시",
+        "winrate": "승률 표시"
+      },
+      "colorTitle": "색상",
+      "boardColor": "게임판 색상",
+      "lastStepColor": "마지막 수 색상",
+      "winlineColor": "승리선 색상",
+      "bestMoveColor": "분석 - 최적 수",
+      "thinkingMoveColor": "분석 - 탐색 중 수",
+      "thoughtMoveColor": "분석 - 탐색 완료 수",
+      "lostMoveColor": "분석 - 패착"
+    },
+    "browser": {
+      "capability": "브라우저 기능",
+      "simd": "SIMD 가속",
+      "relaxedSimd": "(강화됨)",
+      "threads": "멀티스레드",
+      "maxthreads": "최대 스레드 수"
+    },
+    "reset": "모든 설정 초기화"
+  }
+}

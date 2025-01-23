@@ -1,0 +1,137 @@
+{
+  "appName": "Máy tính cờ Caro",
+  "common": {
+    "confirm": "Xác nhận",
+    "cancel": "Hủy bỏ"
+  },
+  "tabbar": {
+    "game": "Bàn cờ",
+    "settings": "Cài đặt",
+    "about": "Giới thiệu"
+  },
+  "game": {
+    "balance1": "Tìm điểm cân bằng một bước",
+    "balance2": "Tìm điểm cân bằng hai bước",
+    "flip": "Lật",
+    "move": "Di chuyển",
+    "info": {
+      "depth": "Độ sâu",
+      "eval": "Đánh giá",
+      "speed": "Tốc độ",
+      "nodes": "Số nút",
+      "time": "Thời gian",
+      "bestline": "Đường đi tốt nhất",
+      "nbestIndex": "Chỉ số"
+    },
+    "interruptThinking": {
+      "title": "AI đang suy nghĩ",
+      "msg": "Bạn có muốn dừng suy nghĩ ngay lập tức không?"
+    },
+    "swap": {
+      "title": "Đổi bên",
+      "msg": "AI chọn đổi bên trắng đen.",
+      "questionTitle": "Đổi bên?",
+      "questionMsg": "Bạn có muốn đổi bên không?"
+    },
+    "forbid": {
+      "title": "Nước cấm",
+      "msg": "Vị trí này là nước cấm."
+    },
+    "shotJpg": "Ảnh chụp tĩnh",
+    "shotGif": "Ảnh GIF",
+    "gifDelay": "Nhập thời gian mỗi khung (đơn vị: mili giây)",
+    "gifStart": "Nhập chỉ số bắt đầu",
+    "gifLoading": "Đang tạo GIF...",
+    "saveScreenshot": "Lưu ảnh chụp vào máy",
+    "saveScreenshotIOS": "Nhấn giữ ảnh để lưu vào máy",
+    "currentPos": "Mã cục diện",
+    "evalChart": "Biểu đồ đánh giá",
+    "black": "Quân đen",
+    "white": "Quân trắng",
+    "engineLoading": "Đang tải dữ liệu engine..."
+  },
+  "setting": {
+    "language": "Ngôn ngữ",
+    "thinking": {
+      "timeTitle": "Thời gian suy nghĩ",
+      "turnTime": "Thời gian mỗi lượt (giây)",
+      "matchTime": "Thời gian trận đấu (giây)",
+      "maxDepth": "Độ sâu tối đa",
+      "maxNode": "Số nút tối đa (M)",
+      "fast": "Cờ nhanh (mỗi ván khoảng 3 phút)",
+      "slow": "Cờ chậm (mỗi ván khoảng 15 phút)",
+      "analysis": "Chế độ phân tích (không giới hạn thời gian)",
+      "custom": "Tùy chỉnh",
+      "handicap": "Hạn chế trình độ",
+      "nbest": "Phân tích nhiều điểm",
+      "thinkTitle": "Suy nghĩ",
+      "threads": "Số luồng",
+      "pondering": "Suy nghĩ nền",
+      "hashSize": "Kích thước bảng băm",
+      "config": {
+        "title": "Trọng số engine",
+        "mix9lite": "Mix9Lite NNUE",
+        "220723": "Truyền thống (2022/07/23)",
+        "210901": "Truyền thống (2021/09/01)"
+      },
+      "candrange": {
+        "title": "Phạm vi phân tích",
+        "square2": "2 ô",
+        "square2line3": "2 ô rưỡi",
+        "square3": "3 ô",
+        "square3line4": "3 ô rưỡi (khuyến nghị)",
+        "square4": "4 ô",
+        "fullboard": "Toàn bàn cờ"
+      }
+    },
+    "board": {
+      "title": "Bàn cờ",
+      "size": "Kích thước bàn cờ",
+      "rule": {
+        "title": "Luật chơi",
+        "gomoku": "Không cấm nước",
+        "standard": "Không cấm nước, không thắng với chuỗi dài",
+        "renju": "Có cấm nước",
+        "swap1": "Không cấm nước, đổi lượt đầu tiên"
+      },
+      "aiThinkBlack": "AI cầm quân đen",
+      "aiThinkWhite": "AI cầm quân trắng",
+      "clickCheck": {
+        "title": "Cách đặt quân",
+        "direct": "Đặt quân trực tiếp",
+        "confirm": "Xác nhận trước khi đặt",
+        "slide": "Kéo thả để đặt quân"
+      },
+      "showTitle": "Hiển thị bàn cờ",
+      "showCoord": "Hiển thị tọa độ",
+      "showAnalysis": "Hiển thị phân tích",
+      "showDetail": "Hiển thị chi tiết",
+      "showIndex": "Hiển thị chỉ số",
+      "showLastStep": "Làm nổi bật nước đi cuối",
+      "showWinline": "Hiển thị đường thắng",
+      "showForbid": "Hiển thị nước cấm",
+      "showPvEval": {
+        "title": "Hiển thị đánh giá phân tích",
+        "none": "Không hiển thị",
+        "eval": "Hiển thị đánh giá",
+        "winrate": "Hiển thị tỷ lệ thắng"
+      },
+      "colorTitle": "Màu sắc",
+      "boardColor": "Màu bàn cờ",
+      "lastStepColor": "Màu nước đi cuối",
+      "winlineColor": "Màu đường thắng",
+      "bestMoveColor": "Phân tích - Nước đi tốt nhất",
+      "thinkingMoveColor": "Phân tích - Nước đang suy nghĩ",
+      "thoughtMoveColor": "Phân tích - Nước đã suy nghĩ",
+      "lostMoveColor": "Phân tích - Nước thua"
+    },
+    "browser": {
+      "capability": "Khả năng trình duyệt",
+      "simd": "Tăng tốc SIMD",
+      "relaxedSimd": "(Tăng cường)",
+      "threads": "Đa luồng",
+      "maxthreads": "Số luồng tối đa"
+    },
+    "reset": "Đặt lại tất cả cài đặt"
+  }
+}

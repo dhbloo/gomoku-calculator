@@ -161,8 +161,13 @@ export default {
     ]),
     languageOptions() {
       return [
-        { key: 'zh', value: '简体中文' },
-        { key: 'en', value: 'English' },
+        { "key": "zh-CN", "value": "简体中文" },
+        { "key": "zh-TW", "value": "繁體中文" },
+        { "key": "en", "value": "English" },
+        { "key": "ko", "value": "한국어" },
+        { "key": "ja", "value": "日本語" },
+        { "key": "vi", "value": "Tiếng Việt" },
+        { "key": "ru", "value": "Русский" }
       ]
     },
     thinkTimeOptions() {
@@ -503,6 +508,7 @@ export default {
 <style lang="less" scoped>
 .settings {
   max-width: 100%;
+
   @media (min-width: 800px) {
     max-width: 800px;
     margin: 0 auto; // Center align if necessary

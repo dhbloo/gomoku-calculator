@@ -3,7 +3,7 @@ import VueI18n from 'vue-i18n'
 
 Vue.use(VueI18n)
 
-const LOCALES = ['zh', 'en']
+const LOCALES = ['zh-CN', 'zh-TW', 'en', 'ko', 'ja', 'vi', 'ru']
 
 function loadLocaleMessages() {
   const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
@@ -19,12 +19,20 @@ function loadLocaleMessages() {
 }
 
 function getDefaultLanguage() {
-  for (const locale of LOCALES) {
-    for (let lang of navigator.languages) {
-      if (lang.indexOf(locale) > -1) return locale
+  // Iterate through the user's preferred languages
+  for (const lang of navigator.languages) {
+    if (LOCALES.includes(lang)) {
+      return lang // Exact match
+    }
+
+    // Check for partial match (e.g., "en-US" matching "en")
+    const baseLang = lang.split('-')[0]
+    if (LOCALES.includes(baseLang)) {
+      return baseLang
     }
   }
 
+  // Default to English if no match is found
   return 'en'
 }
 

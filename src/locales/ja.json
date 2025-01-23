@@ -1,0 +1,137 @@
+{
+  "appName": "五目並べ計算機",
+  "common": {
+    "confirm": "確認",
+    "cancel": "キャンセル"
+  },
+  "tabbar": {
+    "game": "ゲーム盤",
+    "settings": "設定",
+    "about": "情報"
+  },
+  "game": {
+    "balance1": "1手バランス点を探す",
+    "balance2": "2手バランス点を探す",
+    "flip": "反転",
+    "move": "移動",
+    "info": {
+      "depth": "深さ",
+      "eval": "評価",
+      "speed": "速度",
+      "nodes": "ノード数",
+      "time": "所要時間",
+      "bestline": "最良のルート",
+      "nbestIndex": "番号"
+    },
+    "interruptThinking": {
+      "title": "AI思考中",
+      "msg": "今すぐ思考を中止しますか？"
+    },
+    "swap": {
+      "title": "交替",
+      "msg": "AIが黒白交替を選択しました。",
+      "questionTitle": "交替しますか？",
+      "questionMsg": "交替を選択しますか？"
+    },
+    "forbid": {
+      "title": "禁手",
+      "msg": "この場所は禁手です。"
+    },
+    "shotJpg": "静的スクリーンショット",
+    "shotGif": "GIFスクリーンショット",
+    "gifDelay": "フレームごとの時間を入力（単位：ミリ秒）",
+    "gifStart": "開始番号を入力",
+    "gifLoading": "GIFを生成中...",
+    "saveScreenshot": "スクリーンショットをローカルに保存",
+    "saveScreenshotIOS": "画像を長押ししてローカルに保存",
+    "currentPos": "局面コード",
+    "evalChart": "評価グラフ",
+    "black": "黒石",
+    "white": "白石",
+    "engineLoading": "エンジンデータをダウンロード中..."
+  },
+  "setting": {
+    "language": "言語",
+    "thinking": {
+      "timeTitle": "思考時間",
+      "turnTime": "1手の時間（秒）",
+      "matchTime": "ゲーム時間（秒）",
+      "maxDepth": "最大深さ",
+      "maxNode": "最大ノード数（M）",
+      "fast": "早指し（1ゲーム約3分）",
+      "slow": "長考（1ゲーム約15分）",
+      "analysis": "分析モード（時間無制限）",
+      "custom": "カスタム",
+      "handicap": "棋力制限",
+      "nbest": "複数点分析",
+      "thinkTitle": "思考",
+      "threads": "スレッド数",
+      "pondering": "バックグラウンド思考",
+      "hashSize": "ハッシュテーブルのサイズ",
+      "config": {
+        "title": "エンジンの重み付け",
+        "mix9lite": "Mix9Lite NNUE",
+        "220723": "従来型（2022/07/23）",
+        "210901": "従来型（2021/09/01）"
+      },
+      "candrange": {
+        "title": "分析範囲",
+        "square2": "2マス",
+        "square2line3": "2.5マス",
+        "square3": "3マス",
+        "square3line4": "3.5マス（推奨）",
+        "square4": "4マス",
+        "fullboard": "全盤"
+      }
+    },
+    "board": {
+      "title": "ゲーム盤",
+      "size": "盤サイズ",
+      "rule": {
+        "title": "ルール",
+        "gomoku": "禁手なし",
+        "standard": "禁手なし・長連不可",
+        "renju": "禁手あり",
+        "swap1": "禁手なし1手交替"
+      },
+      "aiThinkBlack": "AIが黒石",
+      "aiThinkWhite": "AIが白石",
+      "clickCheck": {
+        "title": "着手方法",
+        "direct": "直接着手",
+        "confirm": "確認後着手",
+        "slide": "スライド着手"
+      },
+      "showTitle": "ゲーム盤表示",
+      "showCoord": "座標を表示",
+      "showAnalysis": "分析を表示",
+      "showDetail": "詳細を表示",
+      "showIndex": "番号を表示",
+      "showLastStep": "最後の手を強調表示",
+      "showWinline": "勝利ラインを表示",
+      "showForbid": "禁手を表示",
+      "showPvEval": {
+        "title": "分析評価を表示",
+        "none": "表示しない",
+        "eval": "評価を表示",
+        "winrate": "勝率を表示"
+      },
+      "colorTitle": "色",
+      "boardColor": "盤の色",
+      "lastStepColor": "最後の手の色",
+      "winlineColor": "勝利ラインの色",
+      "bestMoveColor": "分析 - 最良の着手",
+      "thinkingMoveColor": "分析 - 検索中の着手",
+      "thoughtMoveColor": "分析 - 検索済みの着手",
+      "lostMoveColor": "分析 - 敗着"
+    },
+    "browser": {
+      "capability": "ブラウザ機能",
+      "simd": "SIMD加速",
+      "relaxedSimd": "（強化版）",
+      "threads": "マルチスレッド",
+      "maxthreads": "最大スレッド数"
+    },
+    "reset": "全設定をリセット"
+  }
+}

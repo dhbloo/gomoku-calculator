@@ -10,11 +10,8 @@
     "about": "About"
   },
   "game": {
-    "new": "New",
     "balance1": "Find One-step Balanced Move",
     "balance2": "Find Two-step Balanced Move",
-    "setIndexOrigin": "Index Here",
-    "resetIndexOrigin": "Reset Index",
     "flip": "Flip",
     "move": "Move",
     "info": {

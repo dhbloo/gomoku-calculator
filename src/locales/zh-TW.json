@@ -1,0 +1,137 @@
+{
+  "appName": "五子棋計算器",
+  "common": {
+    "confirm": "確認",
+    "cancel": "取消"
+  },
+  "tabbar": {
+    "game": "棋盤",
+    "settings": "設定",
+    "about": "關於"
+  },
+  "game": {
+    "balance1": "找一步平衡點",
+    "balance2": "找兩步平衡點",
+    "flip": "翻轉",
+    "move": "移動",
+    "info": {
+      "depth": "深度",
+      "eval": "評估",
+      "speed": "速度",
+      "nodes": "節點數",
+      "time": "用時",
+      "bestline": "路線",
+      "nbestIndex": "序號"
+    },
+    "interruptThinking": {
+      "title": "AI 正在思考",
+      "msg": "是否立即停止思考？"
+    },
+    "swap": {
+      "title": "交換",
+      "msg": "AI 選擇黑白交換。",
+      "questionTitle": "交換？",
+      "questionMsg": "您選擇交換嗎？"
+    },
+    "forbid": {
+      "title": "禁手",
+      "msg": "該位置為禁手。"
+    },
+    "shotJpg": "靜態截圖",
+    "shotGif": "GIF 截圖",
+    "gifDelay": "輸入每幀時長（單位：毫秒）",
+    "gifStart": "輸入起始序號",
+    "gifLoading": "生成 GIF 中...",
+    "saveScreenshot": "保存截圖到本地",
+    "saveScreenshotIOS": "長按圖片保存到本地",
+    "currentPos": "局面代碼",
+    "evalChart": "評估曲線",
+    "black": "黑棋",
+    "white": "白棋",
+    "engineLoading": "下載引擎數據中..."
+  },
+  "setting": {
+    "language": "語言",
+    "thinking": {
+      "timeTitle": "思考時間",
+      "turnTime": "每步時間（秒）",
+      "matchTime": "局時（秒）",
+      "maxDepth": "最大深度",
+      "maxNode": "最大節點數（M）",
+      "fast": "快棋（一局約 3 分鐘）",
+      "slow": "慢棋（一局約 15 分鐘）",
+      "analysis": "分析模式（不限時）",
+      "custom": "自訂",
+      "handicap": "棋力限制",
+      "nbest": "多點分析",
+      "thinkTitle": "思考",
+      "threads": "線程數",
+      "pondering": "後台思考",
+      "hashSize": "置換表大小",
+      "config": {
+        "title": "引擎權重",
+        "mix9lite": "Mix9Lite NNUE",
+        "220723": "傳統（2022/07/23）",
+        "210901": "傳統（2021/09/01）"
+      },
+      "candrange": {
+        "title": "選點範圍",
+        "square2": "兩圈",
+        "square2line3": "兩圈半",
+        "square3": "三圈",
+        "square3line4": "三圈半（推薦）",
+        "square4": "四圈",
+        "fullboard": "全盤"
+      }
+    },
+    "board": {
+      "title": "棋盤",
+      "size": "棋盤大小",
+      "rule": {
+        "title": "規則",
+        "gomoku": "無禁手",
+        "standard": "無禁手長連不贏",
+        "renju": "有禁手",
+        "swap1": "無禁手一手交換"
+      },
+      "aiThinkBlack": "AI 执黑",
+      "aiThinkWhite": "AI 执白",
+      "clickCheck": {
+        "title": "落子方式",
+        "direct": "直接落子",
+        "confirm": "二次確認",
+        "slide": "滑動落子"
+      },
+      "showTitle": "棋盤顯示",
+      "showCoord": "顯示座標",
+      "showAnalysis": "顯示分析",
+      "showDetail": "顯示思考細節",
+      "showIndex": "顯示序號",
+      "showLastStep": "高亮最後一步",
+      "showWinline": "顯示勝利線",
+      "showForbid": "顯示禁手",
+      "showPvEval": {
+        "title": "顯示分析估值",
+        "none": "不顯示",
+        "eval": "顯示估值",
+        "winrate": "顯示勝率"
+      },
+      "colorTitle": "顏色",
+      "boardColor": "棋盤顏色",
+      "lastStepColor": "最後一步顏色",
+      "winlineColor": "勝利線顏色",
+      "bestMoveColor": "分析 - 最佳着法",
+      "thinkingMoveColor": "分析 - 正在搜索着法",
+      "thoughtMoveColor": "分析 - 已搜索着法",
+      "lostMoveColor": "分析 - 必敗着法"
+    },
+    "browser": {
+      "capability": "瀏覽器功能",
+      "simd": "SIMD 加速",
+      "relaxedSimd": "（增強）",
+      "threads": "多線程",
+      "maxthreads": "最大線程數"
+    },
+    "reset": "重置所有設定"
+  }
+}

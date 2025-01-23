@@ -7,10 +7,9 @@
         <scroller lock-y :scrollbar-x="$store.state.screenWidth < buttonBarWidth" :bounce="false">
           <div class="button-box" :style="{ width: `${buttonBarWidth}px` }">
             <flexbox :gutter="0">
-              <flexbox-item :span="2 / 17">
+              <flexbox-item>
                 <x-button @click.native="newGame" style="padding: 0">
                   <i class="fa fa-file-o" aria-hidden="true"></i>
-                  {{ $t('game.new') }}
                 </x-button>
               </flexbox-item>
               <flexbox-item>
@@ -81,7 +80,7 @@
                 </x-button>
               </flexbox-item>
 
-              <flexbox-item :span="1 / 50" style="min-width: 0px"></flexbox-item>
+              <flexbox-item :span="1 / 40" style="min-width: 0px"></flexbox-item>
 
               <flexbox-item>
                 <x-button style="padding: 0" @click.native="() => {
@@ -91,7 +90,7 @@
                   <i class="fa fa-picture-o" aria-hidden="true"></i>
                 </x-button>
               </flexbox-item>
-              <flexbox-item :span="1 / 6">
+              <flexbox-item>
                 <x-button style="padding: 0" @click.native="() => {
                   setValue({
                     key: 'indexOrigin',
@@ -99,12 +98,12 @@
                   })
                 }
                   ">
-                  <span v-if="indexOrigin == 0">{{ $t('game.setIndexOrigin') }}</span>
-                  <span v-else>{{ $t('game.resetIndexOrigin') }}</span>
+                  <i v-if="indexOrigin == 0" class="fa fa-info-circle" aria-hidden="true"></i>
+                  <i v-else class="fa fa-info" aria-hidden="true"></i>
                 </x-button>
               </flexbox-item>
 
-              <flexbox-item :span="1 / 50" style="min-width: 0px"></flexbox-item>
+              <flexbox-item :span="1 / 40" style="min-width: 0px"></flexbox-item>
 
               <flexbox-item>
                 <x-button style="padding: 0" @click.native="() => {
@@ -400,11 +399,11 @@ export default {
     ...mapGetters('ai', ['bestlineStr', 'bestline']),
     ...mapGetters('position', ['isEmpty', 'playerToMove', 'moveLeftCount', 'posStr']),
     buttonBarWidth() {
-      const MinWidth = 660
-      const MaxWidth = 740
+      const Width = 620
       if (this.screenWidth >= 1024)
-        return Math.min(MaxWidth, MinWidth + Math.max(0, this.screenWidth - 1024))
-      else return MaxWidth
+        return Math.min(Width, Width + Math.max(0, this.screenWidth - 1024))
+      else
+        return Width
     },
     chartWidth() {
       if (this.screenWidth >= 1024 && this.screenWidth / this.screenHeight >= 4 / 3) {
