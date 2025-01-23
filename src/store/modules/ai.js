@@ -232,7 +232,7 @@ const actions = {
   },
   sendInfo({ rootState, rootGetters }) {
     engine.sendCommand('INFO RULE ' + rootState.settings.rule)
-    engine.sendCommand('INFO THREAD_NUM ' + rootState.settings.threads)
+    engine.sendCommand('INFO THREAD_NUM ' + (rootState.settings.threads || 1))
     engine.sendCommand('INFO CAUTION_FACTOR ' + rootState.settings.candRange)
     engine.sendCommand('INFO STRENGTH ' + rootState.settings.strength)
     engine.sendCommand('INFO TIMEOUT_TURN ' + rootGetters['settings/turnTime'])

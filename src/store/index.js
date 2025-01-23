@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import ai from './modules/ai'
 import position from './modules/position'
 import settings from './modules/settings'
-import { checkSharedArrayBufferSupport } from '@/ai/util'
+import { threads, simd, relaxedSimd } from 'wasm-feature-detect'
 
 Vue.use(Vuex)
 
@@ -20,7 +20,10 @@ export default new Vuex.Store({
       (/iPad|iPhone|iPod/.test(navigator.platform) ||
         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
       !window.MSStream,
-    hardwareConcurrency: checkSharedArrayBufferSupport() ? navigator.hardwareConcurrency : 1,
+    maxThreads: 1,
+    supportThreads: false,
+    supportSimd: false,
+    supportRelaxedSimd: false,
   },
   getters: {
     boardCanvasWidth(state) {
@@ -37,7 +40,32 @@ export default new Vuex.Store({
       state.screenWidth = payload.width
       state.screenHeight = payload.height
     },
+    setBrowserCapability(state, { maxThreads, supportThreads, supportSimd, supportRelaxedSimd }) {
+      state.maxThreads = maxThreads
+      state.supportThreads = supportThreads
+      state.supportSimd = supportSimd
+      state.supportRelaxedSimd = supportRelaxedSimd
+    },
   },
-  actions: {},
+  actions: {
+    async getBrowserCapabilities({ commit, rootState }) {
+      const supportThreads = await threads()
+      const supportSimd = await simd()
+      const supportRelaxedSimd = await relaxedSimd()
+      const maxThreads = supportThreads ? navigator.hardwareConcurrency : 1
+      commit('setBrowserCapability', {
+        maxThreads,
+        supportThreads,
+        supportSimd,
+        supportRelaxedSimd,
+      })
+      if (rootState.settings.threads === null) {
+        commit('settings/setValue', {
+          key: 'threads',
+          value: Math.max(1, maxThreads / 2),
+        })
+      }
+    },
+  },
   strict: process.env.NODE_ENV !== 'production',
 })

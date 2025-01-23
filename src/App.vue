@@ -1,15 +1,10 @@
 <template>
   <div id="app" style="height: 100%">
-    <drawer
-      :show.sync="drawerOpen"
-      show-mode="overlay"
-      placement="right"
-      :drawer-style="{
-        'background-color': 'rgba(255,255,255,1.0)',
-        width: 'min(75%, 600px)',
-        height: '100%',
-      }"
-    >
+    <drawer :show.sync="drawerOpen" show-mode="overlay" placement="right" :drawer-style="{
+      'background-color': 'rgba(255,255,255,1.0)',
+      width: 'min(75%, 600px)',
+      height: '100%',
+    }">
       <!-- drawer content -->
       <div ref="drawer" slot="drawer" class="drawer">
         <div style="padding: 10px">
@@ -17,27 +12,13 @@
         </div>
       </div>
 
-      <view-box
-        ref="viewBox"
-        :body-padding-top="showHeader ? '46px' : '0'"
-        body-padding-bottom="50px"
-      >
+      <view-box ref="viewBox" :body-padding-top="showHeader ? '46px' : '0'" body-padding-bottom="50px">
         <!-- header content -->
-        <x-header
-          v-if="showHeader"
-          slot="header"
-          class="header-bar"
-          :left-options="{ showBack: false }"
-          :right-options="{ showMore: false }"
-          @on-click-more="showMessages"
-        >
+        <x-header v-if="showHeader" slot="header" class="header-bar" :left-options="{ showBack: false }"
+          :right-options="{ showMore: false }" @on-click-more="showMessages">
           {{ $t('appName') }}
-          <a
-            v-if="route.path !== '/settings' && route.path !== '/about'"
-            slot="right"
-            class="needsclick"
-            @click="showMessages"
-          >
+          <a v-if="route.path !== '/settings' && route.path !== '/about'" slot="right" class="needsclick"
+            @click="showMessages">
             <i class="fa fa-list fa-lg" aria-hidden="true" style="color: #d6eaf8"></i>
           </a>
         </x-header>
@@ -51,11 +32,7 @@
         <tabbar class="app-tabber" slot="bottom" style="position: fixed">
           <tabbar-item link="/" :selected="route.path !== '/settings' && route.path !== '/about'">
             <x-icon slot="icon" type="ios-grid-view-outline"></x-icon>
-            <x-icon
-              slot="icon-active"
-              type="ios-grid-view-outline"
-              class="tabber-icon-active"
-            ></x-icon>
+            <x-icon slot="icon-active" type="ios-grid-view-outline" class="tabber-icon-active"></x-icon>
             <span slot="label">{{ $t('tabbar.game') }}</span>
           </tabbar-item>
           <tabbar-item link="/settings" :selected="route.path === '/settings'">
@@ -65,11 +42,7 @@
           </tabbar-item>
           <tabbar-item link="/about" :selected="route.path === '/about'">
             <x-icon slot="icon" type="ios-information-outline"></x-icon>
-            <x-icon
-              slot="icon-active"
-              type="ios-information-outline"
-              class="tabber-icon-active"
-            ></x-icon>
+            <x-icon slot="icon-active" type="ios-information-outline" class="tabber-icon-active"></x-icon>
             <span slot="label">{{ $t('tabbar.about') }}</span>
           </tabbar-item>
         </tabbar>
@@ -106,6 +79,7 @@ export default {
   methods: {
     ...mapMutations('settings', ['setValue']),
     ...mapActions('settings', ['readCookies']),
+    ...mapActions(['getBrowserCapabilities']),
     showMessages: function () {
       this.drawerOpen = !this.drawerOpen
     },
@@ -116,6 +90,7 @@ export default {
     },
   },
   created() {
+    this.getBrowserCapabilities()
     this.readCookies()
     if (!this.language) {
       this.setValue({ key: 'language', value: this.$i18n.locale })
@@ -193,18 +168,22 @@ body {
   backface-visibility: hidden;
   perspective: 1000;
 }
+
 .vux-pop-out-enter {
   opacity: 0;
   transform: translate3d(-100%, 0, 0);
 }
+
 .vux-pop-out-leave-active {
   opacity: 0;
   transform: translate3d(100%, 0, 0);
 }
+
 .vux-pop-in-enter {
   opacity: 0;
   transform: translate3d(100%, 0, 0);
 }
+
 .vux-pop-in-leave-active {
   opacity: 0;
   transform: translate3d(-100%, 0, 0);

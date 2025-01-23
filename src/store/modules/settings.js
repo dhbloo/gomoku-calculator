@@ -1,18 +1,11 @@
 import cookie from 'vux/src/tools/cookie/index.js'
 import { version } from '@/../package.json'
-import { checkSharedArrayBufferSupport } from '@/ai/util'
 
 export const FREESTYLE = 0,
   STANDARD = 1,
   RENJU = 2
 
 export const CONFIGS = ['config.toml', 'classical220723.toml', 'classical210901.toml']
-
-function getDefaultThreadNum() {
-  return checkSharedArrayBufferSupport()
-    ? Math.max(Math.floor(navigator.hardwareConcurrency / 2), 1)
-    : 1
-}
 
 const state = {
   language: null,
@@ -61,7 +54,7 @@ const state = {
   maxDepth: 64,
   maxNodes: 0,
   rule: 0, // 规则: 0-无禁手 1-无禁长连不赢 2,4-有禁手 5-无禁一手交换
-  threads: getDefaultThreadNum(), // 线程数 (默认为最大并行数/2)
+  threads: null, // 线程数
   strength: 100, // 棋力限制 (默认100%棋力)
   nbest: 1, // MultiPV多点分析
   configIndex: 0, // 配置序号: [0, CONFIGS.length)

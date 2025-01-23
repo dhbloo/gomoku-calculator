@@ -34,9 +34,9 @@
         :max="boardSizeValue * boardSizeValue" fillable />
       <x-number :title="$t('setting.thinking.handicap')" v-model="handicapValue" button-style="round" width="75px"
         :min="0" :max="100" :step="5" fillable />
-      <x-number v-if="hardwareConcurrency > 1" :title="$t('setting.thinking.threads')" v-model="threadsValue"
-        button-style="round" width="75px" :min="1" :max="hardwareConcurrency" fillable />
-      <x-switch v-if="hardwareConcurrency > 1" :title="$t('setting.thinking.pondering')" v-model="ponderingValue" />
+      <x-number v-if="supportThreads" :title="$t('setting.thinking.threads')" v-model="threadsValue"
+        button-style="round" width="75px" :min="1" :max="maxThreads" fillable />
+      <x-switch v-if="supportThreads" :title="$t('setting.thinking.pondering')" v-model="ponderingValue" />
       <popup-radio :title="$t('setting.thinking.config.title')" v-model="configIndexValue"
         :options="configIndexOptions" />
       <popup-radio :title="$t('setting.thinking.candrange.title')" v-model="candRangeValue"
@@ -84,6 +84,22 @@
       </cell>
     </group>
 
+    <group>
+      <group-title slot="title">{{ $t('setting.browser.capability') }}</group-title>
+      <cell :title="$t('setting.browser.simd')">
+        <i v-if="supportSimd" class="fa fa-check" aria-hidden="true"></i>
+        <i v-else class="fa fa-times" aria-hidden="true"></i>
+        <span v-if="supportRelaxedSimd">{{ $t('setting.browser.relaxedSimd') }}</span>
+      </cell>
+      <cell :title="$t('setting.browser.threads')">
+        <i v-if="supportThreads" class="fa fa-check" aria-hidden="true"></i>
+        <i v-else class="fa fa-times" aria-hidden="true"></i>
+      </cell>
+      <cell v-if="supportThreads" :title="$t('setting.browser.maxthreads')">
+        {{ maxThreads }}
+      </cell>
+    </group>
+
     <box gap="40px 20px 20px 20px">
       <x-button type="warn" @click.native="reset">{{ $t('setting.reset') }}</x-button>
     </box>
@@ -113,7 +129,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['hardwareConcurrency']),
+    ...mapState(['maxThreads', 'supportThreads', 'supportSimd', 'supportRelaxedSimd']),
     ...mapState('settings', [
       'language',
       'thinkTimeOption',
@@ -279,7 +295,7 @@ export default {
     },
     ponderingValue: {
       get() {
-        return this.hardwareConcurrency > 1 ? this.pondering : false
+        return this.supportThreads ? this.pondering : false
       },
       set(v) {
         this.setValue({ key: 'pondering', value: v })

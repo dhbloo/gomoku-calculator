@@ -128,6 +128,13 @@
       "thoughtMoveColor": "Analysis - Searched Move",
       "lostMoveColor": "Analysis - Lost Move"
     },
+    "browser": {
+      "capability": "Browser Capability",
+      "simd": "SIMD",
+      "relaxedSimd": "(Enhanced)",
+      "threads": "Multi Threading",
+      "maxthreads": "Max Number of Threads"
+    },
     "reset": "Reset all settings"
   }
 }
