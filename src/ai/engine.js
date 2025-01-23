@@ -1,61 +1,82 @@
 import Worker from './engine-warpper.worker.js'
-import { checkSharedArrayBufferSupport } from './util'
 import { script } from '@/../node_modules/dynamic-import/dist/import.js'
+import { threads, simd, relaxedSimd } from 'wasm-feature-detect'
 
-const EngineTypeEnum = {
-  WebAssembly: 0,
-  WebAssemblyWorker: 1,
+var callback, engineInstance, supportThreads, dataLoaded
+
+function locateFile(url, engineDirURL) {
+  // Redirect 'rapfi.*\.data' to 'rapfi.data'
+  if (/^rapfi.*\.data$/.test(url)) url = 'rapfi.data'
+  return engineDirURL + url
 }
 
-const MTEngineURL = process.env.BASE_URL + 'build/rapfi-multi.js'
-const STEngineURL = process.env.BASE_URL + 'build/rapfi-single.js'
-const EngineType = checkSharedArrayBufferSupport()
-  ? EngineTypeEnum.WebAssembly
-  : EngineTypeEnum.WebAssemblyWorker
-var callback, engineInstance
-
 // Init engine and setup callback function for receiving engine output
-function init(f) {
-  callback = f
+async function init(callbackFn_) {
+  callback = callbackFn_
+  dataLoaded = false
 
-  if (EngineType == EngineTypeEnum.WebAssembly) {
-    script
-      .import(/* webpackIgnore: true */ MTEngineURL)
-      .then(function () {
-        let engineDirURL = MTEngineURL.substring(0, MTEngineURL.lastIndexOf('/') + 1)
-        self['Rapfi']({
-          locateFile: (url) => engineDirURL + url,
-          receiveStdout: (o) => processOutput(o),
-          receiveStderr: () => {},
-          onEngineReady: () => callback({ ok: true }),
-        })
-          .then((instance) => (engineInstance = instance))
-          .catch((err) => console.error('Failed to load engine module: ' + err))
+  try {
+    supportThreads = await threads()
+    const supportSIMD = await simd()
+    const supportRelaxedSIMD = supportThreads && (await relaxedSimd())
+
+    const engineFlags =
+      (supportThreads ? '-multi' : '-single') +
+      (supportSIMD ? '-simd128' : '') +
+      (supportRelaxedSIMD ? '-relaxed' : '')
+    const engineURL = process.env.BASE_URL + `build/rapfi${engineFlags}.js`
+    console.log('Loading engine ' + engineURL)
+
+    if (supportThreads) {
+      await script.import(/* webpackIgnore: true */ engineURL)
+
+      const engineDirURL = engineURL.substring(0, engineURL.lastIndexOf('/') + 1)
+
+      engineInstance = await self['Rapfi']({
+        locateFile: (url) => locateFile(url, engineDirURL),
+        onReceiveStdout: (o) => onEngineStdout(o),
+        onReceiveStderr: (o) => onEngineStderr(o),
+        onExit: (c) => onEngineExit(c),
+        setStatus: (s) => onEngineStatus(s),
       })
-      .catch((err) => console.error('Failed to import MTEngine: ' + err))
-  } else if (EngineType == EngineTypeEnum.WebAssemblyWorker) {
-    engineInstance = new Worker()
-    engineInstance.onmessage = function (e) {
-      if (e.data.ready != null) callback({ ok: true })
-      else if (e.data.stdout != null) processOutput(e.data.stdout)
+      dataLoaded = true
+      callback({ ok: true })
+    } else {
+      engineInstance = new Worker()
+
+      engineInstance.onmessage = (e) => {
+        const { type, data } = e.data
+        if (type === 'stdout') onEngineStdout(data)
+        else if (type === 'stderr') onEngineStderr(data)
+        else if (type === 'exit') onEngineExit(data)
+        else if (type === 'status') onEngineStatus(data)
+        else if (type === 'ready') (dataLoaded = true), callback({ ok: true })
+        else console.error('received unknown message from worker: ', e.data)
+      }
+
+      engineInstance.onerror = (err) => {
+        console.error('worker error: ' + err.message + '\nretrying after 0.5s...')
+        engineInstance.terminate()
+        setTimeout(() => init(callback), 500)
+      }
+
+      engineInstance.postMessage({
+        type: 'engineScriptURL',
+        data: engineURL,
+      })
     }
-    engineInstance.onerror = function (err) {
-      engineInstance.terminate()
-      console.error('Worker error [' + err.message + ']. Retry after 250ms...')
-      setTimeout(() => init(f), 250)
-    }
-    engineInstance.postMessage({ engineScriptURL: STEngineURL })
-  } else throw new Error('Invalid engine type: ' + EngineType)
+  } catch (err) {
+    console.error('Failed to initialize engine: ' + err)
+  }
 }
 
 // Stop current engine's thinking process
 // Returns true if force stoped, otherwise returns false
 function stopThinking() {
-  if (EngineType == EngineTypeEnum.WebAssembly) {
+  if (supportThreads) {
     sendCommand('YXSTOP')
     return false
-  } else if (EngineType == EngineTypeEnum.WebAssemblyWorker) {
-    console.warn('No support for SAB, will stop by terminating worker.')
+  } else {
     engineInstance.terminate()
     init(callback) // Use previous callback function
     return true
@@ -66,13 +87,12 @@ function stopThinking() {
 function sendCommand(cmd) {
   if (typeof cmd !== 'string' || cmd.length == 0) return
 
-  if (EngineType == EngineTypeEnum.WebAssembly) engineInstance.sendCommand(cmd)
-  else if (EngineType == EngineTypeEnum.WebAssemblyWorker)
-    engineInstance.postMessage({ command: cmd })
+  if (supportThreads) engineInstance.sendCommand(cmd)
+  else engineInstance.postMessage({ type: 'command', data: cmd })
 }
 
 // process output from engine and call callback function
-function processOutput(output) {
+function onEngineStdout(output) {
   let i = output.indexOf(' ')
 
   if (i == -1) {
@@ -125,16 +145,8 @@ function processOutput(output) {
     else if (head == 'EVAL') callback({ eval: tail })
     else if (head == 'WINRATE') callback({ winrate: parseFloat(tail) })
     else if (head == 'BESTLINE')
-      callback({
-        bestline: tail.match(/([A-Z]\d+)/g).map((s) => {
-          let coord = s.match(/([A-Z])(\d+)/)
-          let x = coord[1].charCodeAt(0) - 'A'.charCodeAt(0)
-          let y = +coord[2] - 1
-          return [x, y]
-        }),
-      })
-  } else if (head == 'ERROR') callback({ error: tail })
-  else if (head == 'FORBID')
+      callback({ bestline: tail.match(/\d+,\d+/g).map((s) => s.split(',').map(Number)) })
+  } else if (head == 'FORBID')
     callback({
       forbid: (tail.match(/.{4}/g) || []).map((s) => {
         let coord = s.match(/([0-9][0-9])([0-9][0-9])/)
@@ -143,7 +155,43 @@ function processOutput(output) {
         return [x, y]
       }),
     })
+  else if (head == 'ERROR') callback({ error: tail })
   else callback({ unknown: tail })
+}
+
+function onEngineStderr(output) {
+  console.error('[Engine Error] ' + output)
+}
+
+function onEngineExit(code) {
+  console.log('[Engine Exit] ' + code)
+}
+
+function onEngineStatus(status) {
+  if (dataLoaded) return
+
+  if (status === 'Running...' || status === '') {
+    dataLoaded = true
+    callback({
+      loading: {
+        progress: 1.0,
+      },
+    })
+  }
+
+  const match = status.match(/\((\d+)\/(\d+)\)/)
+  if (match) {
+    const loadedBytes = parseInt(match[1], 10)
+    const totalBytes = parseInt(match[2], 10)
+    if (loadedBytes == totalBytes) dataLoaded = true
+    callback({
+      loading: {
+        progress: loadedBytes / totalBytes,
+        loadedBytes: loadedBytes,
+        totalBytes: totalBytes,
+      },
+    })
+  }
 }
 
 export { init, sendCommand, stopThinking }

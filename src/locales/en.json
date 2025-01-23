@@ -49,7 +49,8 @@
     "currentPos": "Position",
     "evalChart": "Evaluation Chart",
     "black": "BLACK",
-    "white": "WHITE"
+    "white": "WHITE",
+    "engineLoading": "Downloading engine data..."
   },
   "setting": {
     "language": "Language",
@@ -71,9 +72,9 @@
       "hashSize": "Transposition Table Size",
       "config": {
         "title": "Engine Model",
-        "220723": "Latest Model(2022/07/23)",
-        "210901": "History Model(2021/09/01)",
-        "classic": "Classic"
+        "mix9lite": "Mix9Lite NNUE",
+        "220723": "Classic(2022/07/23)",
+        "210901": "Classic(2021/09/01)"
       },
       "candrange": {
         "title": "Candidate Range",

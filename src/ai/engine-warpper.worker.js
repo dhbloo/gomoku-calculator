@@ -1,22 +1,27 @@
 var EngineInstance = null
 
+function locateFile(url, engineDirURL) {
+  // Redirect 'rapfi.*\.data' to 'rapfi.data'
+  if (/^rapfi.*\.data$/.test(url)) url = 'rapfi.data'
+  return engineDirURL + url
+}
+
 self.onmessage = function (e) {
-  if (e.data.command != null) {
-    EngineInstance.sendCommand(e.data.command)
-  } else if (e.data.engineScriptURL != null) {
-    let engineScriptURL = e.data.engineScriptURL
-    let engineDirURL = engineScriptURL.substring(0, engineScriptURL.lastIndexOf('/') + 1)
-    self.importScripts(engineScriptURL)
+  const { type, data } = e.data
+  if (type == 'command') {
+    EngineInstance.sendCommand(data)
+  } else if (type == 'engineScriptURL') {
+    const engineDirURL = data.substring(0, data.lastIndexOf('/') + 1)
+    self.importScripts(data)
 
     self['Rapfi']({
-      locateFile: (url) => engineDirURL + url,
-      receiveStdout: (o) => self.postMessage({ stdout: o }),
-      receiveStderr: (o) => self.postMessage({ stderr: o }),
-      onEngineReady: () => self.postMessage({ ready: true }),
-    })
-      .then((instance) => (EngineInstance = instance))
-      .catch((err) => console.error('Failed to load engine module: ' + err))
+      locateFile: (url) => locateFile(url, engineDirURL),
+      onReceiveStdout: (o) => self.postMessage({ type: 'stdout', data: o }),
+      onReceiveStderr: (o) => self.postMessage({ type: 'stderr', data: o }),
+      onExit: (c) => self.postMessage({ type: 'exit', data: c }),
+      setStatus: (s) => self.postMessage({ type: 'status', data: s }),
+    }).then((instance) => ((EngineInstance = instance), self.postMessage({ type: 'ready' })))
   } else {
-    console.warn('worker received unknown data:' + e.data)
+    console.error('worker received unknown payload: ' + e.data)
   }
 }

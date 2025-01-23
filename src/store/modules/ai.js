@@ -2,8 +2,8 @@ import * as engine from '@/ai/engine'
 import { RENJU, CONFIGS } from './settings'
 
 const state = {
+  loadingProgress: 0.0,
   ready: false,
-  callbackSet: false,
   startSize: 0,
   restart: false,
   thinking: false,
@@ -46,13 +46,19 @@ const getters = {
   bestlineStr: (state) => (pvIdx) => {
     if (!pvIdx) pvIdx = 0
     let posStrs = []
-    for (let p of state.outputs.pv[pvIdx].bestline)
-      posStrs.push(String.fromCharCode('A'.charCodeAt(0) + p[0]) + (p[1] + 1))
+    for (let p of state.outputs.pv[pvIdx].bestline) {
+      const coordX = String.fromCharCode('A'.charCodeAt(0) + p[0])
+      const coordY = (state.startSize - p[1]).toString()
+      posStrs.push(coordX + coordY)
+    }
     return posStrs.join(' ')
   },
 }
 
 const mutations = {
+  setLoadingProgress(state, progress) {
+    state.loadingProgress = progress
+  },
   setReady(state, ready) {
     state.ready = ready
   },
@@ -125,14 +131,9 @@ const mutations = {
   setPosCallback(state, callback) {
     state.posCallback = callback
   },
-  callbackSet(state) {
-    state.callbackSet = true
-  },
   sortPV(state) {
     let isPosEqual = (m) =>
-      state.outputs.pos
-        ? m[0] == state.outputs.pos[0] && m[1] == state.startSize - 1 - state.outputs.pos[1]
-        : false
+      state.outputs.pos ? m[0] == state.outputs.pos[0] && m[1] == state.outputs.pos[1] : false
     let evalStrToEval = (e) => {
       let val = +e
       if (isNaN(val)) {
@@ -156,6 +157,8 @@ const mutations = {
 
 const actions = {
   initEngine({ commit, dispatch, state }) {
+    commit('setLoadingProgress', 0.0)
+    commit('setReady', false)
     engine.init((r) => {
       if (r.realtime) {
         switch (r.realtime.type) {
@@ -210,17 +213,19 @@ const actions = {
         if (state.posCallback) state.posCallback(r.pos)
       } else if (r.swap) {
         commit('setOutput', { key: 'swap', value: r.swap })
-      } else if (r.ok) {
-        commit('setReady', true)
-        dispatch('checkForbid')
       } else if (r.forbid) {
         commit('setOutput', { key: 'forbid', value: r.forbid })
       } else if (r.error) {
         commit('setOutput', { key: 'error', value: r.error })
         commit('addMessage', 'Error: ' + r.error)
+      } else if (r.ok) {
+        commit('addMessage', 'Engine ready.')
+        commit('setReady', true)
+        dispatch('checkForbid')
+      } else if (r.loading) {
+        commit('setLoadingProgress', r.loading.progress)
       }
     })
-    commit('callbackSet')
   },
   sendInfo({ rootState, rootGetters }) {
     engine.sendCommand('INFO RULE ' + rootState.settings.rule)
@@ -252,7 +257,6 @@ const actions = {
       commit('addMessage', 'Engine is not ready!')
       return
     }
-    // if (!state.callbackSet) dispatch("initEngine")
     commit('setThinkingState', true)
     commit('setOutput', { key: 'swap', value: false })
     commit('clearMessage')
@@ -302,7 +306,6 @@ const actions = {
       commit('setThinkingState', false)
       let pos = state.outputs.pv[0].bestline[0]
       if (pos) {
-        pos = [pos[0], state.startSize - 1 - pos[1]] // 显示的坐标与输出的坐标在y轴翻转
         commit('setOutput', { key: 'pos', value: pos })
         if (state.posCallback) state.posCallback(pos)
       }

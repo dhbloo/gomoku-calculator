@@ -6,7 +6,7 @@ export const FREESTYLE = 0,
   STANDARD = 1,
   RENJU = 2
 
-export const CONFIGS = ['config-default.toml', 'config-210901.toml', 'config-220723.toml']
+export const CONFIGS = ['config.toml', 'classical220723.toml', 'classical210901.toml']
 
 function getDefaultThreadNum() {
   return checkSharedArrayBufferSupport()
@@ -64,7 +64,7 @@ const state = {
   threads: getDefaultThreadNum(), // 线程数 (默认为最大并行数/2)
   strength: 100, // 棋力限制 (默认100%棋力)
   nbest: 1, // MultiPV多点分析
-  configIndex: CONFIGS.length - 1, // 配置序号: [0, CONFIGS.length)
+  configIndex: 0, // 配置序号: [0, CONFIGS.length)
   candRange: 3, // 选点范围: {0, 1, 2, 3, 4, 5}
   hashSize: 256, // 置换表大小, 单位 MiB
   pondering: false, // 后台思考

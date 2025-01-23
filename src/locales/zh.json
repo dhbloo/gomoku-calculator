@@ -49,7 +49,8 @@
     "currentPos": "局面代码",
     "evalChart": "评估曲线",
     "black": "黑棋",
-    "white": "白棋"
+    "white": "白棋",
+    "engineLoading": "下载引擎数据中..."
   },
   "setting": {
     "language": "语言",
@@ -71,9 +72,9 @@
       "hashSize": "置换表大小",
       "config": {
         "title": "引擎权重",
-        "220723": "最新(2022/07/23)",
-        "210901": "历史权重(2021/09/01)",
-        "classic": "经典"
+        "mix9lite": "Mix9Lite NNUE",
+        "220723": "传统(2022/07/23)",
+        "210901": "传统(2021/09/01)"
       },
       "candrange": {
         "title": "选点范围",

@@ -3,28 +3,10 @@
     <div class="board-stage" :style="canvasStyle">
       <canvas id="board" ref="canvasBoard" :width="renderWidth" :height="renderHeight"></canvas>
       <canvas id="piece" ref="canvasPiece" :width="renderWidth" :height="renderHeight"></canvas>
-      <canvas
-        id="realtime"
-        ref="canvasRealtime"
-        class="needsclick"
-        :width="renderWidth"
-        :height="renderHeight"
-        @contextmenu.prevent
-        @mousedown="onMouseDown"
-        @touchstart="onMouseDown"
-      ></canvas>
-      <canvas
-        id="shot"
-        ref="canvasJpg"
-        :width="2048"
-        :height="(2048 * canvasHeight) / canvasWidth"
-      ></canvas>
-      <canvas
-        id="shot"
-        ref="canvasGif"
-        :width="1024"
-        :height="(1024 * canvasHeight) / canvasWidth"
-      ></canvas>
+      <canvas id="realtime" ref="canvasRealtime" class="needsclick" :width="renderWidth" :height="renderHeight"
+        @contextmenu.prevent @mousedown="onMouseDown" @touchstart="onMouseDown"></canvas>
+      <canvas id="shot" ref="canvasJpg" :width="2048" :height="(2048 * canvasHeight) / canvasWidth"></canvas>
+      <canvas id="shot" ref="canvasGif" :width="1024" :height="(1024 * canvasHeight) / canvasWidth"></canvas>
     </div>
   </div>
 </template>
@@ -263,12 +245,11 @@ function drawRealtime(ctx, style, cs, moves) {
   ctx.restore()
 }
 
-function drawPvEval(ctx, showType, style, cs, pv, boardSize) {
+function drawPvEval(ctx, showType, style, cs, pv) {
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
 
   let halfcs = cs / 2
-  let bs = boardSize - 1
   let bgColor = hexToRgba(style.boardColor, style.pvEvalAlpha)
   ctx.translate(paddingX + halfcs, paddingTop + halfcs)
 
@@ -276,7 +257,7 @@ function drawPvEval(ctx, showType, style, cs, pv, boardSize) {
     if (pv[i].bestline && pv[i].bestline.length > 0) {
       let pos = pv[i].bestline[0]
       let x = cs * pos[0]
-      let y = cs * (bs - pos[1])
+      let y = cs * pos[1]
       ctx.fillStyle = bgColor
       ctx.fillRect(x - halfcs, y - halfcs, cs, cs)
       ctx.fillStyle = i > 0 ? style.thoughtMoveColor : style.bestMoveColor
@@ -490,7 +471,7 @@ export default {
       else if (!this.previewPv) {
         if (this.showDetail) drawRealtime(ctx, this.boardStyle, cellSize, this.realtime)
         if (this.showPvEval > 0 && this.pv.length > 0 && this.thinking)
-          drawPvEval(ctx, this.showPvEval, this.boardStyle, cellSize, this.pv, this.boardSize)
+          drawPvEval(ctx, this.showPvEval, this.boardStyle, cellSize, this.pv)
       }
 
       ctx.restore()
@@ -734,12 +715,15 @@ canvas {
 #board {
   z-index: 1;
 }
+
 #piece {
   z-index: 2;
 }
+
 #realtime {
   z-index: 3;
 }
+
 #shot {
   z-index: -1;
   display: none;

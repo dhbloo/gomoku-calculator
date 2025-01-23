@@ -1,138 +1,53 @@
 <template>
   <div class="settings">
     <group>
-      <popup-radio
-        :title="$t('setting.language')"
-        v-model="languageValue"
-        :options="languageOptions"
-      />
+      <popup-radio :title="$t('setting.language')" v-model="languageValue" :options="languageOptions" />
     </group>
 
     <group>
       <group-title slot="title">{{ $t('setting.thinking.timeTitle') }}</group-title>
       <radio :options="thinkTimeOptions" v-model="thinkTimeSelected" />
       <div class="time-settings" v-if="thinkTimeSelected == 0">
-        <x-number
-          :title="$t('setting.thinking.turnTime')"
-          v-model="turnTimeInSecond"
-          button-style="round"
-          width="75px"
-          :min="0.5"
-          :max="99999"
-          :step="turnTimeInSecond < 5 ? 0.5 : 1"
-          fillable
-        />
-        <x-number
-          :title="$t('setting.thinking.matchTime')"
-          v-model="matchTimeInSecond"
-          button-style="round"
-          width="75px"
-          :min="1"
-          :max="99999"
-          fillable
-        />
-        <x-number
-          :title="$t('setting.thinking.maxDepth')"
-          v-model="maxDepthValue"
-          button-style="round"
-          width="75px"
-          :min="4"
-          :max="64"
-          fillable
-        />
-        <x-number
-          :title="$t('setting.thinking.maxNode')"
-          v-model="maxNodeValue"
-          button-style="round"
-          width="75px"
-          :min="0"
-          :max="99999"
-          :step="0.1"
-          fillable
-        />
+        <x-number :title="$t('setting.thinking.turnTime')" v-model="turnTimeInSecond" button-style="round" width="75px"
+          :min="0.5" :max="99999" :step="turnTimeInSecond < 5 ? 0.5 : 1" fillable />
+        <x-number :title="$t('setting.thinking.matchTime')" v-model="matchTimeInSecond" button-style="round"
+          width="75px" :min="1" :max="99999" fillable />
+        <x-number :title="$t('setting.thinking.maxDepth')" v-model="maxDepthValue" button-style="round" width="75px"
+          :min="4" :max="64" fillable />
+        <x-number :title="$t('setting.thinking.maxNode')" v-model="maxNodeValue" button-style="round" width="75px"
+          :min="0" :max="99999" :step="0.1" fillable />
       </div>
     </group>
 
     <group>
       <group-title slot="title">{{ $t('setting.board.title') }}</group-title>
-      <x-number
-        :title="$t('setting.board.size')"
-        v-model="boardSizeValue"
-        button-style="round"
-        width="75px"
-        :min="5"
-        :max="22"
-        fillable
-      />
-      <popup-radio
-        :title="$t('setting.board.rule.title')"
-        v-model="ruleValue"
-        :options="ruleOptions"
-      />
+      <x-number :title="$t('setting.board.size')" v-model="boardSizeValue" button-style="round" width="75px" :min="5"
+        :max="22" fillable />
+      <popup-radio :title="$t('setting.board.rule.title')" v-model="ruleValue" :options="ruleOptions" />
       <x-switch :title="$t('setting.board.aiThinkBlack')" v-model="aiThinkBlackValue" />
       <x-switch :title="$t('setting.board.aiThinkWhite')" v-model="aiThinkWhiteValue" />
     </group>
 
     <group>
       <group-title slot="title">{{ $t('setting.thinking.thinkTitle') }}</group-title>
-      <x-number
-        :title="$t('setting.thinking.nbest')"
-        v-model="nbestValue"
-        button-style="round"
-        width="75px"
-        :min="1"
-        :max="boardSizeValue * boardSizeValue"
-        fillable
-      />
-      <x-number
-        :title="$t('setting.thinking.handicap')"
-        v-model="handicapValue"
-        button-style="round"
-        width="75px"
-        :min="0"
-        :max="100"
-        :step="5"
-        fillable
-      />
-      <x-number
-        v-if="hardwareConcurrency > 1"
-        :title="$t('setting.thinking.threads')"
-        v-model="threadsValue"
-        button-style="round"
-        width="75px"
-        :min="1"
-        :max="hardwareConcurrency"
-        fillable
-      />
-      <x-switch
-        v-if="hardwareConcurrency > 1"
-        :title="$t('setting.thinking.pondering')"
-        v-model="ponderingValue"
-      />
-      <popup-radio
-        :title="$t('setting.thinking.config.title')"
-        v-model="configIndexValue"
-        :options="configIndexOptions"
-      />
-      <popup-radio
-        :title="$t('setting.thinking.candrange.title')"
-        v-model="candRangeValue"
-        :options="candRangeOptions"
-      />
-      <popup-radio
-        :title="$t('setting.thinking.hashSize')"
-        v-model="hashSizeValue"
-        :options="hashSizeOptions"
-      />
+      <x-number :title="$t('setting.thinking.nbest')" v-model="nbestValue" button-style="round" width="75px" :min="1"
+        :max="boardSizeValue * boardSizeValue" fillable />
+      <x-number :title="$t('setting.thinking.handicap')" v-model="handicapValue" button-style="round" width="75px"
+        :min="0" :max="100" :step="5" fillable />
+      <x-number v-if="hardwareConcurrency > 1" :title="$t('setting.thinking.threads')" v-model="threadsValue"
+        button-style="round" width="75px" :min="1" :max="hardwareConcurrency" fillable />
+      <x-switch v-if="hardwareConcurrency > 1" :title="$t('setting.thinking.pondering')" v-model="ponderingValue" />
+      <popup-radio :title="$t('setting.thinking.config.title')" v-model="configIndexValue"
+        :options="configIndexOptions" />
+      <popup-radio :title="$t('setting.thinking.candrange.title')" v-model="candRangeValue"
+        :options="candRangeOptions" />
+      <popup-radio :title="$t('setting.thinking.hashSize')" v-model="hashSizeValue" :options="hashSizeOptions" />
     </group>
 
     <group>
       <group-title slot="title">{{ $t('setting.board.showTitle') }}</group-title>
-      <popup-radio
-        :title="$t('setting.board.clickCheck.title')"
-        v-model="clickCheckValue"
-        :options="clickCheckOptions"
-      />
+      <popup-radio :title="$t('setting.board.clickCheck.title')" v-model="clickCheckValue"
+        :options="clickCheckOptions" />
       <x-switch :title="$t('setting.board.showCoord')" v-model="showCoordValue" />
       <x-switch :title="$t('setting.board.showAnalysis')" v-model="showAnalysisValue" />
       <x-switch :title="$t('setting.board.showDetail')" v-model="showDetailValue" />
@@ -140,11 +55,8 @@
       <x-switch :title="$t('setting.board.showLastStep')" v-model="showLastStepValue" />
       <x-switch :title="$t('setting.board.showWinline')" v-model="showWinlineValue" />
       <x-switch :title="$t('setting.board.showForbid')" v-model="showForbidValue" />
-      <popup-radio
-        :title="$t('setting.board.showPvEval.title')"
-        v-model="showPvEvalValue"
-        :options="showPvEvalOptions"
-      />
+      <popup-radio :title="$t('setting.board.showPvEval.title')" v-model="showPvEvalValue"
+        :options="showPvEvalOptions" />
     </group>
 
     <group>
@@ -247,9 +159,9 @@ export default {
     },
     configIndexOptions() {
       return [
-        { key: 2, value: this.$t('setting.thinking.config.220723') },
-        { key: 1, value: this.$t('setting.thinking.config.210901') },
-        { key: 0, value: this.$t('setting.thinking.config.classic') },
+        { key: 0, value: this.$t('setting.thinking.config.mix9lite') },
+        { key: 1, value: this.$t('setting.thinking.config.220723') },
+        { key: 2, value: this.$t('setting.thinking.config.210901') },
       ]
     },
     candRangeOptions() {

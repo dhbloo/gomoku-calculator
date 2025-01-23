@@ -55,10 +55,13 @@
                 </x-button>
               </flexbox-item>
               <flexbox-item>
-                <x-button :disabled="thinking || !ready || gameEnded" style="padding: 0" @click.native="startThink">
+                <x-button v-if="!ready" style="padding: 0" @click.native="showLoading = true">
+                  <i class="fa fa-spinner fa-spin"></i>
+                </x-button>
+                <x-button v-else :disabled="thinking || gameEnded" style="padding: 0" @click.native="startThink">
                   <i v-if="thinking" class="fa fa-cog fa-spin"></i>
                   <i v-else class="fa fa-play" :style="{
-                    color: !ready || gameEnded ? '#145A32' : '#229954',
+                    color: gameEnded ? '#145A32' : '#229954',
                   }"></i>
                 </x-button>
               </flexbox-item>
@@ -161,7 +164,8 @@
             <tr>
               <td>{{ outputs.pv[0].depth + '-' + outputs.pv[0].seldepth }}</td>
               <td style="font-weight: bold">{{ outputs.pv[0].eval }}</td>
-              <td>{{ outputs.speed + ' kn/s' }}</td>
+              <td>{{ outputs.speed >= 10000 ? Math.floor(outputs.speed / 1000) + ' kn/s' : outputs.speed + ' n/s' }}
+              </td>
               <td>
                 {{
                   Math.floor(outputs.nodes / 1000000) +
@@ -183,10 +187,8 @@
                     {{ $t('game.info.bestline') }}
                   </flexbox-item>
                   <flexbox-item>
-                    <Bestline :bestline="outputs.pv[0].bestline" v-on:pvPreview="(pv) => {
-                      previewPv = pv
-                    }
-                      " v-on:pvSet="setPvAsPosition"></Bestline>
+                    <Bestline :bestline="outputs.pv[0].bestline" :boardSize="boardSize"
+                      v-on:pvPreview="(pv) => (previewPv = pv)" v-on:pvSet="setPvAsPosition"></Bestline>
                   </flexbox-item>
                 </flexbox>
               </td>
@@ -205,7 +207,8 @@
             </thead>
             <tbody>
               <tr>
-                <td>{{ outputs.speed + ' kn/s' }}</td>
+                <td>{{ outputs.speed >= 10000 ? Math.floor(outputs.speed / 1000) + ' kn/s' : outputs.speed + ' n/s' }}
+                </td>
                 <td>
                   {{
                     Math.floor(outputs.nodes / 1000000) +
@@ -234,10 +237,8 @@
                 </td>
                 <td style="font-weight: bold; min-width: 55px">{{ outputs.pv[i - 1].eval }}</td>
                 <td>
-                  <Bestline :bestline="outputs.pv[i - 1].bestline" v-on:pvPreview="(pv) => {
-                    previewPv = pv
-                  }
-                    " v-on:pvSet="setPvAsPosition"></Bestline>
+                  <Bestline :bestline="outputs.pv[i - 1].bestline" :boardSize="boardSize"
+                    v-on:pvPreview="(pv) => (previewPv = pv)" v-on:pvSet="setPvAsPosition"></Bestline>
                 </td>
               </tr>
             </tbody>
@@ -302,6 +303,19 @@
         </div>
       </popup>
     </div>
+
+    <div v-transfer-dom>
+      <x-dialog v-model="showLoading" hide-on-blur>
+        <div style="margin:20px auto;">{{ $t('game.engineLoading') }}</div>
+        <x-circle style="width: 100px;height: 100px;margin: 20px auto;" :percent="loadingProgress * 100"
+          :stroke-width="6" :trail-width="6">
+          <span style="color:#36D1DC">{{ Math.floor(loadingProgress * 10000) / 100 }}%</span>
+        </x-circle>
+        <div style="margin:10px auto;" @click="showLoading = false">
+          <span class="vux-close"></span>
+        </div>
+      </x-dialog>
+    </div>
   </div>
 </template>
 
@@ -324,6 +338,8 @@ import {
   VLine,
   VScale,
   VArea,
+  XDialog,
+  XCircle,
   dateFormat,
 } from 'vux'
 import Board from '@/components/Board.vue'
@@ -356,10 +372,13 @@ export default {
     VLine,
     VScale,
     VArea,
+    XDialog,
+    XCircle,
   },
   data: function () {
     return {
       aiTimeUsed: 0,
+      showLoading: false,
       showBalanceOptions: false,
       showFlipOptions: false,
       showMoveOptions: false,
@@ -387,7 +406,7 @@ export default {
       'aiThinkWhite',
       'showAnalysis',
     ]),
-    ...mapState('ai', ['outputs', 'thinking', 'lastThinkTime', 'ready']),
+    ...mapState('ai', ['outputs', 'thinking', 'lastThinkTime', 'ready', 'loadingProgress']),
     ...mapState('position', ['position', 'lastPosition', 'winline', 'swaped']),
     ...mapGetters('settings', ['turnTime', 'matchTime', 'gameRule']),
     ...mapGetters('ai', ['bestlineStr', 'bestline']),
@@ -705,9 +724,7 @@ export default {
         }
 
         if (mode == 2) {
-          let pos2 = this.outputs.pv[0].bestline[1]
-          pos2 = [pos2[0], this.boardSize - 1 - pos2[1]] // y轴翻转
-
+          const pos2 = this.outputs.pv[0].bestline[1]
           this.makeMove(pos)
           this.makeMove(pos2)
         } else {
@@ -754,6 +771,9 @@ export default {
       if (this.thinking) this.stop()
       this.newBoard(newSize)
       this.restart()
+    },
+    loadingProgress: function (progress) {
+      if (progress == 1) this.showLoading = false
     },
   },
   mounted() {
@@ -873,5 +893,11 @@ export default {
     padding-top: 10px;
     max-width: 600px;
   }
+}
+
+.loading-circle {
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
 }
 </style>

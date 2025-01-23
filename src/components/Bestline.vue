@@ -1,21 +1,9 @@
 <template>
   <div class="bestline-box">
     <div v-for="(pos, index) in bestline" :key="index">
-      <div
-        class="move"
-        @mouseover="
-          () => {
-            mouseoverPV(index)
-          }
-        "
-        @mouseleave="mouseleavePV"
-        @dblclick="
-          () => {
-            dblclickPV(index)
-          }
-        "
-      >
-        {{ String.fromCharCode('A'.charCodeAt(0) + pos[0]) + (pos[1] + 1) }}
+      <div class="move" @mouseover="() => mouseoverPV(index)" @mouseleave="mouseleavePV"
+        @dblclick="() => dblclickPV(index)">
+        {{ String.fromCharCode('A'.charCodeAt(0) + pos[0]) + (boardSize - pos[1]).toString() }}
       </div>
     </div>
   </div>
@@ -26,6 +14,7 @@ export default {
   name: 'Bestline',
   props: {
     bestline: Array,
+    boardSize: Number,
   },
   data: function () {
     return {
@@ -37,8 +26,7 @@ export default {
       return {
         position: this.$store.state.ai.lastThinkPosition,
         pv: this.bestline
-          .slice(0, index + 1)
-          .map((pos) => [pos[0], this.$store.state.ai.startSize - 1 - pos[1]]),
+          .slice(0, index + 1),
       }
     },
     mouseoverPV(index) {
