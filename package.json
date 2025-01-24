@@ -6,14 +6,15 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "pretty": "prettier --write \"./src/**/*.{js,vue,json}\" \"./public/index.html\"",
-    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
+    "pretty": "prettier --write \"./src/**/*.{js,vue,json}\" \"./public/index.html\""
   },
   "dependencies": {
     "core-js": "^2.6.5",
     "dynamic-import": "^0.1.1",
     "es6-promise": "^4.2.8",
     "github-markdown-css": "^3.0.1",
+    "register-service-worker": "^1.7.1",
     "throttle-debounce": "^2.3.0",
     "vue": "^2.6.10",
     "vue-i18n": "^8.0.0",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-plugin-eslint": "^3.8.0",
+    "@vue/cli-plugin-pwa": "~4.5.7",
     "@vue/cli-service": "^3.8.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",

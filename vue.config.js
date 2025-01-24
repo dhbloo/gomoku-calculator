@@ -48,4 +48,44 @@ module.exports = {
   },
 
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
+
+  pwa: {
+    name: 'Gomoku Calculator',
+    themeColor: '#2E86C1',
+    msTileColor: '#2E86C1',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'default',
+    manifestOptions: {
+      short_name: 'Gomocalc',
+      icons: [
+        {
+          src: './icon.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: './favicon.png',
+          sizes: '32x32',
+          type: 'image/png',
+        },
+      ],
+    },
+    iconPaths: {
+      favicon32: 'favicon.png',
+      favicon16: 'favicon.png',
+      appleTouchIcon: 'icon.png',
+      msTileImage: 'icon.png',
+      maskIcon: null,
+    },
+
+    // configure the workbox plugin
+    workboxPluginMode: 'GenerateSW',
+    workboxOptions: {
+      importWorkboxFrom: 'local',
+      skipWaiting: true,
+      clientsClaim: false,
+      offlineGoogleAnalytics: true,
+      cleanupOutdatedCaches: true,
+    },
+  },
 }

@@ -132,5 +132,9 @@
       "maxthreads": "Số luồng tối đa"
     },
     "reset": "Đặt lại tất cả cài đặt"
+  },
+  "update": {
+    "title": "Đã phát hiện phiên bản mới",
+    "msg": "Đã phát hiện phiên bản mới. Vui lòng làm mới trang để cập nhật."
   }
 }

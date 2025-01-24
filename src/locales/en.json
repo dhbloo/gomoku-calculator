@@ -132,5 +132,9 @@
       "maxthreads": "Max Number of Threads"
     },
     "reset": "Reset all settings"
+  },
+  "update": {
+    "title": "New Version Found",
+    "msg": "A new version has been detected. Please refresh the page to update."
   }
 }

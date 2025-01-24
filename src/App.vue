@@ -54,6 +54,7 @@
 <script>
 import { ViewBox, XHeader, Tabbar, TabbarItem, Drawer } from 'vux'
 import { mapState, mapMutations, mapActions } from 'vuex'
+import { register } from 'register-service-worker'
 
 export default {
   components: {
@@ -105,6 +106,28 @@ export default {
       _this.$store.commit('setScreenSize', {
         width: document.documentElement.clientWidth,
         height: document.documentElement.clientHeight,
+      })
+    }
+
+    // 注册 Service Worker
+    if (process.env.NODE_ENV === 'production') {
+      register(`${process.env.BASE_URL}service-worker.js`, {
+        ready() {
+          console.log(
+            'App is being served from cache by a service worker.\n' +
+            'For more details, visit https://goo.gl/AFskqB'
+          )
+        },
+        updated() {
+          console.log('New content is available; please refresh.')
+          _this.$vux.alert.show({
+            title: _this.$t('update.title'),
+            content: _this.$t('update.msg'),
+          })
+        },
+        error(error) {
+          console.error('Error during service worker registration:', error)
+        }
       })
     }
   },
