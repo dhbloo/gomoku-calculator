@@ -121,7 +121,6 @@
       "lastStepColor": "最后一步颜色",
       "winlineColor": "胜利线颜色",
       "bestMoveColor": "分析 - 最佳着法",
-      "thinkingMoveColor": "分析 - 正在搜索着法",
       "thoughtMoveColor": "分析 - 已搜索着法",
       "lostMoveColor": "分析 - 必败着法"
     },

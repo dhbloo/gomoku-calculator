@@ -73,9 +73,6 @@
       <cell :title="$t('setting.board.bestMoveColor')">
         <input type="color" v-model="bestMoveColor" />
       </cell>
-      <cell :title="$t('setting.board.thinkingMoveColor')">
-        <input type="color" v-model="thinkingMoveColor" />
-      </cell>
       <cell :title="$t('setting.board.thoughtMoveColor')">
         <input type="color" v-model="thoughtMoveColor" />
       </cell>
@@ -465,14 +462,6 @@ export default {
       },
       set(v) {
         this.setBoardStyle({ key: 'bestMoveColor', value: v })
-      },
-    },
-    thinkingMoveColor: {
-      get() {
-        return this.boardStyle.thinkingMoveColor
-      },
-      set(v) {
-        this.setBoardStyle({ key: 'thinkingMoveColor', value: v })
       },
     },
     thoughtMoveColor: {

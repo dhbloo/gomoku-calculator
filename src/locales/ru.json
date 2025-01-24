@@ -121,7 +121,6 @@
       "lastStepColor": "Цвет последнего хода",
       "winlineColor": "Цвет линии победы",
       "bestMoveColor": "Анализ - лучший ход",
-      "thinkingMoveColor": "Анализ - ход в процессе",
       "thoughtMoveColor": "Анализ - проанализированный ход",
       "lostMoveColor": "Анализ - проигрышный ход"
     },

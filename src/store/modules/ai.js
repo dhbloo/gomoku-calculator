@@ -33,8 +33,6 @@ const state = {
     realtime: {
       best: [],
       lost: [],
-      thinking: [],
-      thought: [],
     },
     forbid: [],
     error: null,
@@ -163,23 +161,14 @@ const actions = {
     engine.init((r) => {
       if (r.realtime) {
         switch (r.realtime.type) {
-          case 'REFRESH':
-            commit('clearRealtime', 'thinking')
-            commit('clearRealtime', 'thought')
-            break
-          case 'POS':
-            commit('addRealtime', { type: 'thinking', pos: r.realtime.pos })
-            break
-          case 'DONE':
-            commit('addRealtime', { type: 'thought', pos: r.realtime.pos })
-            commit('clearRealtime', 'thinking')
-            break
           case 'LOST':
             commit('addRealtime', { type: 'lost', pos: r.realtime.pos })
             break
           case 'BEST':
             commit('clearRealtime', 'best')
             commit('addRealtime', { type: 'best', pos: r.realtime.pos })
+            break
+          default:
             break
         }
       } else if (r.msg) {
@@ -302,8 +291,6 @@ const actions = {
       commit('setReady', false)
       commit('clearRealtime', 'best')
       commit('clearRealtime', 'lost')
-      commit('clearRealtime', 'thinking')
-      commit('clearRealtime', 'thought')
       commit('addUsedTime')
       commit('sortPV')
       commit('setThinkingState', false)

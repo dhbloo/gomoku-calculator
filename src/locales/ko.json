@@ -121,7 +121,6 @@
       "lastStepColor": "마지막 수 색상",
       "winlineColor": "승리선 색상",
       "bestMoveColor": "분석 - 최적 수",
-      "thinkingMoveColor": "분석 - 탐색 중 수",
       "thoughtMoveColor": "분석 - 탐색 완료 수",
       "lostMoveColor": "분석 - 패착"
     },

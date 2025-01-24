@@ -121,7 +121,6 @@
       "lastStepColor": "Màu nước đi cuối",
       "winlineColor": "Màu đường thắng",
       "bestMoveColor": "Phân tích - Nước đi tốt nhất",
-      "thinkingMoveColor": "Phân tích - Nước đang suy nghĩ",
       "thoughtMoveColor": "Phân tích - Nước đi đã suy nghĩ",
       "lostMoveColor": "Phân tích - Nước thua"
     },

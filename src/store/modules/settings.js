@@ -33,7 +33,6 @@ const state = {
     winlineWidth: 0.12,
     winlineColor: '#2E86C1',
     bestMoveColor: '#E74C3C',
-    thinkingMoveColor: '#3FF476',
     thoughtMoveColor: '#3C5EE7',
     lostMoveColor: '#FDFEFE',
     bestMoveScale: 0.12,
@@ -109,7 +108,6 @@ const boardPropertiesToSave = [
   'lastStepColor',
   'winlineColor',
   'bestMoveColor',
-  'thinkingMoveColor',
   'thoughtMoveColor',
   'lostMoveColor',
 ]

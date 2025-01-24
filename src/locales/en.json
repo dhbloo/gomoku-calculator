@@ -121,7 +121,6 @@
       "lastStepColor": "Last Step Color",
       "winlineColor": "Winning Line Color",
       "bestMoveColor": "Analysis - Best Move",
-      "thinkingMoveColor": "Analysis - Searching Move",
       "thoughtMoveColor": "Analysis - Searched Move",
       "lostMoveColor": "Analysis - Lost Move"
     },

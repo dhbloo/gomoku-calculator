@@ -121,7 +121,6 @@
       "lastStepColor": "最後の手の色",
       "winlineColor": "勝利ラインの色",
       "bestMoveColor": "分析 - 最良の着手",
-      "thinkingMoveColor": "分析 - 検索中の着手",
       "thoughtMoveColor": "分析 - 検索済みの着手",
       "lostMoveColor": "分析 - 敗着"
     },

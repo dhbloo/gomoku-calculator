@@ -739,7 +739,7 @@ export default {
     },
 
     getSpeedText(speed) {
-      if (speed < 100000) {
+      if (speed < 10000) {
         return speed.toString();
       } else if (speed < 100000000) {
         return Math.floor(speed / 1000) + "K";

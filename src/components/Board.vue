@@ -222,18 +222,8 @@ function drawRealtime(ctx, style, cs, moves) {
   ctx.translate(paddingX + cs / 2, paddingTop + cs / 2)
   ctx.scale(cs, cs)
 
-  ctx.fillStyle = style.thoughtMoveColor
-  for (let p of moves.thought) {
-    fillCircle(ctx, p[0], p[1], style.realtimeMoveScale)
-  }
-
   ctx.fillStyle = style.lostMoveColor
   for (let p of moves.lost) {
-    fillCircle(ctx, p[0], p[1], style.realtimeMoveScale)
-  }
-
-  ctx.fillStyle = style.thinkingMoveColor
-  for (let p of moves.thinking) {
     fillCircle(ctx, p[0], p[1], style.realtimeMoveScale)
   }
 
