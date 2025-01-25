@@ -167,10 +167,13 @@ export default {
           )
         },
         updated() {
-          console.log('New content is available; please refresh.')
-          _this.$vux.alert.show_i18n({
+          _this.$vux.confirm.show_i18n({
             title: _this.$t('update.title'),
             content: _this.$t('update.msg'),
+            onConfirm() {
+              location.reload()
+            },
+            onCancel() { }
           })
         },
         error(error) {
