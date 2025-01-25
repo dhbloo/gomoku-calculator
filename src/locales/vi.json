@@ -138,5 +138,9 @@
   "update": {
     "title": "Đã phát hiện phiên bản mới",
     "msg": "Đã phát hiện phiên bản mới. Vui lòng làm mới trang để cập nhật."
+  },
+  "install": {
+    "title": "Chỉ còn một bước nữa!",
+    "msg": "Bạn có muốn thêm 'Máy tính Cờ caro' vào màn hình chính không? Sau khi cài đặt, bạn có thể dễ dàng tận hưởng trải nghiệm ván cờ mọi lúc, ngay cả khi không có mạng!"
   }
 }

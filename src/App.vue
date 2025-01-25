@@ -56,6 +56,38 @@ import { ViewBox, XHeader, Tabbar, TabbarItem, Drawer } from 'vux'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import { register } from 'register-service-worker'
 
+function canShowInstallPrompt() {
+  const installData = JSON.parse(localStorage.getItem('pwaInstallPromptData'));
+  if (!installData)
+    return true;
+
+  const { lastShown, count } = installData;
+  const today = new Date().toDateString();
+
+  if (count >= 5) {
+    // 已经显示超过5次
+    return false;
+  }
+
+  if (lastShown === today) {
+    // 今天已经显示过
+    return false;
+  }
+
+  return true;
+}
+
+function updateInstallPromptData() {
+  const today = new Date().toDateString();
+  const installData = JSON.parse(localStorage.getItem('pwaInstallPromptData')) || { lastShown: null, count: 0 };
+
+  if (installData.lastShown !== today) {
+    installData.lastShown = today;
+    installData.count += 1;
+    localStorage.setItem('pwaInstallPromptData', JSON.stringify(installData));
+  }
+}
+
 export default {
   components: {
     ViewBox,
@@ -145,6 +177,32 @@ export default {
           console.error('Error during service worker registration:', error)
         }
       })
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        if (!canShowInstallPrompt()) {
+          // 不符合显示条件，不阻止默认行为也不显示自定义弹窗
+          return;
+        }
+
+        // 阻止默认的迷你信息栏或安装对话框在移动设备上出现
+        e.preventDefault();
+        // 保存事件，稍后需要触发它
+        const deferredPrompt = e;
+
+        _this.$vux.confirm.show_i18n({
+          title: _this.$t('install.title'),
+          content: _this.$t('install.msg'),
+          onConfirm() {
+            // 更新弹窗显示数据
+            updateInstallPromptData();
+            // 显示安装提示
+            deferredPrompt.prompt();
+          },
+          onCancel() {
+            updateInstallPromptData();
+          }
+        });
+      });
     }
   },
 }

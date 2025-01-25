@@ -138,5 +138,9 @@
   "update": {
     "title": "New Version Found",
     "msg": "A new version has been detected. Please refresh the page to update."
+  },
+  "install": {
+    "title": "Just One Step Away!",
+    "msg": "Would you like to add 'Gomoku Calculator' to your home screen? Once installed, you can easily enjoy a seamless board experience anytime, even offline!"
   }
 }
