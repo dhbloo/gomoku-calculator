@@ -1,4 +1,3 @@
-import cookie from 'vux/src/tools/cookie/index.js'
 import { version } from '@/../package.json'
 
 export const FREESTYLE = 0,
@@ -147,10 +146,7 @@ function saveCookies() {
   let stateToSave = {}
   for (let p of propertiesToSave) stateToSave[p] = state[p]
   for (let p of boardPropertiesToSave) stateToSave[p] = state.boardStyle[p]
-  cookie.set('GMKC_CFG_' + version, JSON.stringify(stateToSave), {
-    raw: true,
-    expires: 30,
-  })
+  localStorage.setItem('GMKC_CFG_' + version, JSON.stringify(stateToSave))
 }
 
 const mutations = {
@@ -172,7 +168,7 @@ const mutations = {
 
 const actions = {
   readCookies({ commit }) {
-    let json = cookie.get('GMKC_CFG_' + version)
+    let json = localStorage.getItem('GMKC_CFG_' + version)
     if (!json) return
 
     let stateToRead = JSON.parse(json)
@@ -181,7 +177,7 @@ const actions = {
       commit('setBoardStyleNoSave', { key: p, value: stateToRead[p] })
   },
   clearCookies() {
-    cookie.remove('GMKC_CFG_' + version)
+    localStorage.removeItem('GMKC_CFG_' + version)
   },
 }
 
