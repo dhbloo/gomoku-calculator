@@ -712,12 +712,10 @@ export default {
           return
         }
 
+        this.makeMove(pos)
         if (mode == 2) {
           const pos2 = this.outputs.pv[0].bestline[1]
-          this.makeMove(pos)
           this.makeMove(pos2)
-        } else {
-          this.makeMove(pos)
         }
       })
     },

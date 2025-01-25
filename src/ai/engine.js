@@ -123,7 +123,7 @@ function onEngineStdout(output) {
     if (output == 'OK') return
     else if (output == 'SWAP') callback({ swap: true })
     else {
-      let coord = output.split(',')
+      const coord = output.split(',')
       callback({ pos: [+coord[0], +coord[1]] })
     }
     return
@@ -170,7 +170,7 @@ function onEngineStdout(output) {
     else if (head == 'WINRATE') callback({ winrate: parseFloat(tail) })
     else if (head == 'BESTLINE')
       callback({ bestline: tail.match(/\d+,\d+/g).map((s) => s.split(',').map(Number)) })
-  } else if (head == 'FORBID')
+  } else if (head == 'FORBID') {
     callback({
       forbid: (tail.match(/.{4}/g) || []).map((s) => {
         let coord = s.match(/([0-9][0-9])([0-9][0-9])/)
@@ -179,8 +179,18 @@ function onEngineStdout(output) {
         return [x, y]
       }),
     })
-  else if (head == 'ERROR') callback({ error: tail })
-  else callback({ unknown: tail })
+  } else if (head == 'ERROR') {
+    callback({ error: tail })
+  } else if (head.indexOf(',') != -1) {
+    const coord1 = head.split(',')
+    const coord2 = tail.split(',')
+    callback({
+      pos: [+coord1[0], +coord1[1]],
+      pos2: [+coord2[0], +coord2[1]],
+    })
+  } else {
+    callback({ unknown: tail })
+  }
 }
 
 function onEngineStderr(output) {
