@@ -50,7 +50,8 @@
     "black": "BLACK",
     "white": "WHITE",
     "engineLoading": "Downloading engine data...",
-    "engineLoadingError": "Engine loading failed, please refresh and try again"
+    "engineLoadingError": "Engine loading failed, please refresh and try again",
+    "copiedToClipboard": "Copied to clipboard"
   },
   "setting": {
     "language": "Language",

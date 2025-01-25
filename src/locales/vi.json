@@ -50,7 +50,8 @@
     "black": "Quân đen",
     "white": "Quân trắng",
     "engineLoading": "Đang tải dữ liệu engine...",
-    "engineLoadingError": "Tải động cơ thất bại, vui lòng làm mới và thử lại"
+    "engineLoadingError": "Tải động cơ thất bại, vui lòng làm mới và thử lại",
+    "copiedToClipboard": "Đã sao chép vào clipboard"
   },
   "setting": {
     "language": "Ngôn ngữ",

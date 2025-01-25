@@ -234,11 +234,19 @@
       </div>
 
       <group>
-        <x-textarea ref="curposArea" style="padding: 5px" :title="$t('game.currentPos')" :show-counter="false" :rows="1"
-          :value="posStr" @on-change="(v) => {
-            setPosStr(v)
-          }
-            " autosize></x-textarea>
+        <group-title slot="title">
+          {{ $t('game.currentPos') }}
+          <span style="float:right;">
+            <button class="icon-button" @click="copyPosStrToClipboard">
+              <i class="fa fa-files-o" aria-hidden="true"></i>
+            </button>
+            <button class="icon-button" @click="pastePosStrFromClipboard">
+              <i class="fa fa-clipboard" aria-hidden="true"></i>
+            </button>
+          </span>
+        </group-title>
+        <x-textarea ref="curposArea" :value="posStr" @on-change="(v) => { setPosStr(v) }" style="padding: 5px 12px"
+          :show-counter="false" :rows="1" autosize></x-textarea>
       </group>
 
       <group :title="$t('game.evalChart')">
@@ -319,6 +327,7 @@ import {
   Actionsheet,
   XProgress,
   Group,
+  GroupTitle,
   Popup,
   VChart,
   VPoint,
@@ -353,6 +362,7 @@ export default {
     Actionsheet,
     XProgress,
     Group,
+    GroupTitle,
     Popup,
     VChart,
     VPoint,
@@ -762,6 +772,16 @@ export default {
         return Math.floor(time / 3600000) + "h";
       }
     },
+
+    async copyPosStrToClipboard() {
+      await navigator.clipboard.writeText(this.posStr);
+      this.$vux.toast.text(this.$t('game.copiedToClipboard'))
+    },
+
+    async pastePosStrFromClipboard() {
+      const posStr = await navigator.clipboard.readText();
+      this.setPosStr(posStr)
+    },
   },
   watch: {
     bestline: function () {
@@ -916,5 +936,30 @@ export default {
   width: 100px;
   height: 100px;
   margin: 20px auto;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0.1rem 0.25rem;
+  border-radius: 0.1rem;
+  transition: background-color 0.2s ease;
+}
+
+.icon-button:active {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.icon-button i {
+  font-size: 0.8rem;
+  color: darkgray;
+}
+
+.icon-button:hover i {
+  color: black;
+}
+
+.icon-button:active i {
+  color: black;
 }
 </style>

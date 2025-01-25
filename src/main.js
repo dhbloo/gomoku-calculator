@@ -23,8 +23,10 @@ require('fastclick').attach(document.body)
 
 import ConfirmPlugin from 'vux/src/plugins/confirm'
 import AlertPlugin from 'vux/src/plugins/alert'
+import ToastPlugin from 'vux/src/plugins/toast'
 Vue.use(ConfirmPlugin)
 Vue.use(AlertPlugin)
+Vue.use(ToastPlugin)
 
 Vue.config.productionTip = process.env.NODE_ENV == 'development'
 

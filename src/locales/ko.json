@@ -50,7 +50,8 @@
     "black": "흑돌",
     "white": "백돌",
     "engineLoading": "엔진 데이터 다운로드 중...",
-    "engineLoadingError": "엔진 로드 실패, 새로고침 후 다시 시도하세요"
+    "engineLoadingError": "엔진 로드 실패, 새로고침 후 다시 시도하세요",
+    "copiedToClipboard": "클립보드에 복사되었습니다"
   },
   "setting": {
     "language": "언어",

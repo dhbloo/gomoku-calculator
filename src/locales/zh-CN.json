@@ -50,7 +50,8 @@
     "black": "黑棋",
     "white": "白棋",
     "engineLoading": "下载引擎数据中...",
-    "engineLoadingError": "加载引擎失败，请刷新重试"
+    "engineLoadingError": "加载引擎失败，请刷新重试",
+    "copiedToClipboard": "已复制到剪贴板"
   },
   "setting": {
     "language": "语言",

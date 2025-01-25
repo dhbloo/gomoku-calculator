@@ -50,7 +50,8 @@
     "black": "黒石",
     "white": "白石",
     "engineLoading": "エンジンデータをダウンロード中...",
-    "engineLoadingError": "エンジンの読み込みに失敗しました。リフレッシュして再試行してください"
+    "engineLoadingError": "エンジンの読み込みに失敗しました。リフレッシュして再試行してください",
+    "copiedToClipboard": "クリップボードにコピーしました"
   },
   "setting": {
     "language": "言語",
