@@ -236,7 +236,7 @@
       <group>
         <group-title slot="title">
           {{ $t('game.currentPos') }}
-          <span style="float:right;">
+          <span v-if="clipboardAvailable" style="float:right;">
             <button class="icon-button" @click="copyPosStrToClipboard">
               <i class="fa fa-files-o" aria-hidden="true"></i>
             </button>
@@ -390,6 +390,7 @@ export default {
       gifLoading: false,
       screenshotData: null,
       previewPv: null,
+      clipboardAvailable: navigator.clipboard && window.isSecureContext
     }
   },
   computed: {
