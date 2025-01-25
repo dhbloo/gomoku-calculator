@@ -1,6 +1,7 @@
 {
   "appName": "五子棋计算器",
   "common": {
+    "ok": "确定",
     "confirm": "确认",
     "cancel": "取消"
   },
@@ -48,7 +49,8 @@
     "evalChart": "评估曲线",
     "black": "黑棋",
     "white": "白棋",
-    "engineLoading": "下载引擎数据中..."
+    "engineLoading": "下载引擎数据中...",
+    "engineLoadingError": "加载引擎失败，请刷新重试"
   },
   "setting": {
     "language": "语言",

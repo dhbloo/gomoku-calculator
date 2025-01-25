@@ -1,6 +1,7 @@
 {
   "appName": "Gomoku Calculator",
   "common": {
+    "ok": "Xác nhận",
     "confirm": "Xác nhận",
     "cancel": "Hủy"
   },
@@ -48,7 +49,8 @@
     "evalChart": "Biểu đồ đánh giá",
     "black": "Quân đen",
     "white": "Quân trắng",
-    "engineLoading": "Đang tải dữ liệu engine..."
+    "engineLoading": "Đang tải dữ liệu engine...",
+    "engineLoadingError": "Tải động cơ thất bại, vui lòng làm mới và thử lại"
   },
   "setting": {
     "language": "Ngôn ngữ",

@@ -1,6 +1,7 @@
 {
   "appName": "五目並べ計算機",
   "common": {
+    "ok": "確認",
     "confirm": "確認",
     "cancel": "キャンセル"
   },
@@ -48,7 +49,8 @@
     "evalChart": "評価グラフ",
     "black": "黒石",
     "white": "白石",
-    "engineLoading": "エンジンデータをダウンロード中..."
+    "engineLoading": "エンジンデータをダウンロード中...",
+    "engineLoadingError": "エンジンの読み込みに失敗しました。リフレッシュして再試行してください"
   },
   "setting": {
     "language": "言語",

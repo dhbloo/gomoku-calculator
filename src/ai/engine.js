@@ -10,64 +10,88 @@ function locateFile(url, engineDirURL) {
   return engineDirURL + url
 }
 
+function getWasmMemoryArguments(isShared, maximum_memory_mb = 2048) {
+  return {
+    initial: 64 * ((1024 * 1024) / 65536), // 64MB
+    maximum: maximum_memory_mb * ((1024 * 1024) / 65536),
+    shared: isShared,
+  }
+}
+
+function instantiateSharedWasmMemory() {
+  let maximum_memory_mb = 2048
+  // Find the maximum memory size that can be allocated
+  while (maximum_memory_mb > 512) {
+    try {
+      const memory = new WebAssembly.Memory(getWasmMemoryArguments(true, maximum_memory_mb))
+      memory.grow(1)
+      return memory
+    } catch (e) {
+      maximum_memory_mb /= 2
+    }
+  }
+  return new WebAssembly.Memory(getWasmMemoryArguments(true, maximum_memory_mb))
+}
+
 // Init engine and setup callback function for receiving engine output
 async function init(callbackFn_) {
   callback = callbackFn_
   dataLoaded = false
 
-  try {
-    supportThreads = await threads()
-    const supportSIMD = await simd()
-    const supportRelaxedSIMD = supportThreads && (await relaxedSimd())
+  supportThreads = await threads()
+  const supportSIMD = await simd()
+  const supportRelaxedSIMD = supportThreads && (await relaxedSimd())
 
-    const engineFlags =
-      (supportThreads ? '-multi' : '-single') +
-      (supportSIMD ? '-simd128' : '') +
-      (supportRelaxedSIMD ? '-relaxed' : '')
-    const engineURL = process.env.BASE_URL + `build/rapfi${engineFlags}.js`
-    console.log('Loading engine ' + engineURL)
+  const engineFlags =
+    (supportThreads ? '-multi' : '-single') +
+    (supportSIMD ? '-simd128' : '') +
+    (supportRelaxedSIMD ? '-relaxed' : '')
+  const engineURL = process.env.BASE_URL + `build/rapfi${engineFlags}.js`
 
-    if (supportThreads) {
-      await script.import(/* webpackIgnore: true */ engineURL)
+  if (supportThreads) {
+    await script.import(/* webpackIgnore: true */ engineURL)
 
-      const engineDirURL = engineURL.substring(0, engineURL.lastIndexOf('/') + 1)
+    const engineDirURL = engineURL.substring(0, engineURL.lastIndexOf('/') + 1)
 
-      engineInstance = await self['Rapfi']({
-        locateFile: (url) => locateFile(url, engineDirURL),
-        onReceiveStdout: (o) => onEngineStdout(o),
-        onReceiveStderr: (o) => onEngineStderr(o),
-        onExit: (c) => onEngineExit(c),
-        setStatus: (s) => onEngineStatus(s),
-      })
-      dataLoaded = true
-      callback({ ok: true })
-    } else {
-      engineInstance = new Worker()
+    engineInstance = await self['Rapfi']({
+      locateFile: (url) => locateFile(url, engineDirURL),
+      onReceiveStdout: (o) => onEngineStdout(o),
+      onReceiveStderr: (o) => onEngineStderr(o),
+      onExit: (c) => onEngineExit(c),
+      setStatus: (s) => onEngineStatus(s),
+      wasmMemory: instantiateSharedWasmMemory(),
+    })
+    dataLoaded = true
+    callback({ ok: true })
+  } else {
+    engineInstance = new Worker()
 
-      engineInstance.onmessage = (e) => {
-        const { type, data } = e.data
-        if (type === 'stdout') onEngineStdout(data)
-        else if (type === 'stderr') onEngineStderr(data)
-        else if (type === 'exit') onEngineExit(data)
-        else if (type === 'status') onEngineStatus(data)
-        else if (type === 'ready') (dataLoaded = true), callback({ ok: true })
-        else console.error('received unknown message from worker: ', e.data)
-      }
-
-      engineInstance.onerror = (err) => {
-        console.error('worker error: ' + err.message + '\nretrying after 0.5s...')
-        engineInstance.terminate()
-        setTimeout(() => init(callback), 500)
-      }
-
-      engineInstance.postMessage({
-        type: 'engineScriptURL',
-        data: engineURL,
-      })
+    engineInstance.onmessage = (e) => {
+      const { type, data } = e.data
+      if (type === 'stdout') onEngineStdout(data)
+      else if (type === 'stderr') onEngineStderr(data)
+      else if (type === 'exit') onEngineExit(data)
+      else if (type === 'status') onEngineStatus(data)
+      else if (type === 'ready') (dataLoaded = true), callback({ ok: true })
+      else console.error('received unknown message from worker: ', e.data)
     }
-  } catch (err) {
-    console.error('Failed to initialize engine: ' + err)
+
+    engineInstance.onerror = (err) => {
+      console.error('worker error: ' + err.message + '\nretrying after 0.5s...')
+      engineInstance.terminate()
+      setTimeout(() => init(callback), 500)
+    }
+
+    engineInstance.postMessage({
+      type: 'engineScriptURL',
+      data: {
+        engineURL: engineURL,
+        memoryArgs: getWasmMemoryArguments(false),
+      },
+    })
   }
+
+  return engineURL
 }
 
 // Stop current engine's thinking process

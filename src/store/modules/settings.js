@@ -58,7 +58,7 @@ const state = {
   nbest: 1, // MultiPV多点分析
   configIndex: 0, // 配置序号: [0, CONFIGS.length)
   candRange: 3, // 选点范围: {0, 1, 2, 3, 4, 5}
-  hashSize: 256, // 置换表大小, 单位 MiB
+  hashSize: 128, // 置换表大小, 单位 MiB
   pondering: false, // 后台思考
   clickCheck: 0, // 点击方式: 0-直接落子 1-二次确认 2-滑动落子
   indexOrigin: 0, // 棋子序号起点

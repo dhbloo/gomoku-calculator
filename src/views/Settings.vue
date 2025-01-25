@@ -194,6 +194,7 @@ export default {
     },
     hashSizeOptions() {
       return [
+        { key: 128, value: '128MB' },
         { key: 256, value: '256MB' },
         { key: 512, value: '512MB' },
         { key: 1024, value: '1GB' },

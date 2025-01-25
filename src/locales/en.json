@@ -1,6 +1,7 @@
 {
   "appName": "Gomoku Calculator",
   "common": {
+    "ok": "OK",
     "confirm": "Confirm",
     "cancel": "Cancel"
   },
@@ -48,7 +49,8 @@
     "evalChart": "Evaluation Chart",
     "black": "BLACK",
     "white": "WHITE",
-    "engineLoading": "Downloading engine data..."
+    "engineLoading": "Downloading engine data...",
+    "engineLoadingError": "Engine loading failed, please refresh and try again"
   },
   "setting": {
     "language": "Language",

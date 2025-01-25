@@ -100,7 +100,23 @@ export default {
     }
   },
   mounted() {
-    let _this = this
+    const _this = this
+    // 加入 i18n 版本的 $vux.alert, $vux.confirm
+    this.$vux.alert.show_i18n = function (options) {
+      options.buttonText = _this.$t('common.ok')
+      _this.$vux.alert.show(options)
+    }
+    this.$vux.confirm.show_i18n = function (options) {
+      options.confirmText = _this.$t('common.confirm')
+      options.cancelText = _this.$t('common.cancel')
+      _this.$vux.confirm.show(options)
+    }
+    this.$vux.confirm.prompt_i18n = function (value, options) {
+      options.confirmText = _this.$t('common.confirm')
+      options.cancelText = _this.$t('common.cancel')
+      _this.$vux.confirm.prompt(value, options)
+    }
+
     window.onresize = function () {
       // 定义窗口大小变更通知事件
       _this.$store.commit('setScreenSize', {
@@ -120,7 +136,7 @@ export default {
         },
         updated() {
           console.log('New content is available; please refresh.')
-          _this.$vux.alert.show({
+          _this.$vux.alert.show_i18n({
             title: _this.$t('update.title'),
             content: _this.$t('update.msg'),
           })

@@ -155,10 +155,10 @@ const mutations = {
 }
 
 const actions = {
-  initEngine({ commit, dispatch, state }) {
+  async initEngine({ commit, dispatch, state }) {
     commit('setLoadingProgress', 0.0)
     commit('setReady', false)
-    engine.init((r) => {
+    const callback = (r) => {
       if (r.realtime) {
         switch (r.realtime.type) {
           case 'LOST':
@@ -217,7 +217,9 @@ const actions = {
       } else if (r.loading) {
         commit('setLoadingProgress', r.loading.progress)
       }
-    })
+    }
+    const engineURL = await engine.init(callback)
+    commit('addMessage', 'Engine: ' + engineURL)
   },
   sendInfo({ rootState, rootGetters }) {
     engine.sendCommand('INFO RULE ' + rootState.settings.rule)

@@ -478,11 +478,9 @@ export default {
     checkThinking() {
       return new Promise((resolve) => {
         if (this.thinking) {
-          this.$vux.confirm.show({
+          this.$vux.confirm.show_i18n({
             title: this.$t('game.interruptThinking.title'),
             content: this.$t('game.interruptThinking.msg'),
-            confirmText: this.$t('common.confirm'),
-            cancelText: this.$t('common.cancel'),
             onCancel: () => { },
             onConfirm: () => {
               this.thinkingCanceled = true
@@ -530,7 +528,6 @@ export default {
 
     onScreenshotOption(key) {
       let _this = this
-      let confirm = this.$vux.confirm
       let delayPrompt = this.$t('game.gifDelay')
       let startIndex, delay
       switch (key) {
@@ -540,25 +537,21 @@ export default {
           this.showScreenshot = true
           break
         case 1:
-          confirm.prompt('', {
+          _this.$vux.confirm.prompt_i18n('', {
             title: this.$t('game.gifStart'),
             inputAttrs: { type: 'number', min: 1, max: this.position.length },
-            confirmText: this.$t('common.confirm'),
-            cancelText: this.$t('common.cancel'),
             onShow() {
-              confirm.setInputValue('1')
+              _this.$vux.confirm.setInputValue('1')
             },
             onConfirm(v) {
               startIndex = +v
               if (isNaN(startIndex)) startIndex = 1
               startIndex = Math.max(0, Math.min(startIndex - 1, _this.position.length))
-              confirm.prompt('', {
+              _this.$vux.confirm.prompt_i18n('', {
                 title: delayPrompt,
                 inputAttrs: { type: 'number', min: 100 },
-                confirmText: _this.$t('common.confirm'),
-                cancelText: _this.$t('common.cancel'),
                 onShow() {
-                  confirm.setInputValue('1000')
+                  _this.$vux.confirm.setInputValue('1000')
                 },
                 onConfirm(v) {
                   delay = +v
@@ -627,11 +620,9 @@ export default {
           if (!this.isAITurn) {
             if (this.rule == 5 && !this.swaped && this.position.length == 1) {
               // SWAP1规则
-              return this.$vux.confirm.show({
+              return this.$vux.confirm.show_i18n({
                 title: this.$t('game.swap.questionTitle'),
                 content: this.$t('game.swap.questionMsg'),
-                confirmText: this.$t('common.confirm'),
-                cancelText: this.$t('common.cancel'),
                 onCancel: () => {
                   this.setSwaped()
                 },
@@ -649,7 +640,7 @@ export default {
                 }
               }
               if (isForbidPos) {
-                return this.$vux.alert.show({
+                return this.$vux.alert.show_i18n({
                   title: this.$t('game.forbid.title'),
                   content: this.$t('game.forbid.msg'),
                 })
@@ -677,7 +668,7 @@ export default {
 
         if (this.outputs.swap) {
           this.swapBlackAndWhite()
-          this.$vux.alert.show({
+          this.$vux.alert.show_i18n({
             title: this.$t('game.swap.title'),
             content: this.$t('game.swap.msg'),
             onHide() {
@@ -838,7 +829,12 @@ export default {
       this.aiTimeUsed = this.thinking ? Date.now() - this.lastThinkTime : 0
     }, 100)
 
-    this.initEngine()
+    this.initEngine().catch((err) => {
+      this.$vux.alert.show_i18n({
+        title: this.$t('game.engineLoadingError'),
+        content: err.toString(),
+      })
+    })
   },
 }
 </script>
