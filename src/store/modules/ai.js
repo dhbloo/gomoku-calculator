@@ -249,7 +249,7 @@ const actions = {
   think({ commit, dispatch, state, rootState, rootGetters }, args) {
     if (!state.ready) {
       commit('addMessage', 'Engine is not ready!')
-      return
+      return Promise.reject(new Error('Engine is not ready!'))
     }
     commit('setThinkingState', true)
     commit('setOutput', { key: 'swap', value: false })
