@@ -484,7 +484,7 @@ export default {
       'flip',
       'moveTowards',
     ]),
-    ...mapActions('ai', ['think', 'stop', 'restart', 'initEngine']),
+    ...mapActions('ai', ['think', 'stop', 'restart']),
 
     checkThinking() {
       return new Promise((resolve) => {
@@ -847,13 +847,6 @@ export default {
     setInterval(() => {
       this.aiTimeUsed = this.thinking ? Date.now() - this.lastThinkTime : 0
     }, 100)
-
-    this.initEngine().catch((err) => {
-      this.$vux.alert.show_i18n({
-        title: this.$t('game.engineLoadingError'),
-        content: err.toString(),
-      })
-    })
   },
 }
 </script>

@@ -127,6 +127,7 @@ export default {
   },
   computed: {
     ...mapState(['maxThreads', 'supportThreads', 'supportSimd', 'supportRelaxedSimd']),
+    ...mapState('ai', ['fullEngine']),
     ...mapState('settings', [
       'language',
       'thinkTimeOption',
@@ -176,11 +177,18 @@ export default {
       ]
     },
     configIndexOptions() {
-      return [
-        { key: 0, value: this.$t('setting.thinking.config.mix9lite') },
-        { key: 1, value: this.$t('setting.thinking.config.220723') },
-        { key: 2, value: this.$t('setting.thinking.config.210901') },
-      ]
+      if (this.fullEngine) {
+        return [
+          { key: 0, value: this.$t('setting.thinking.config.mix9lite') },
+          { key: 1, value: this.$t('setting.thinking.config.220723') },
+          { key: 2, value: this.$t('setting.thinking.config.210901') },
+        ]
+      } else {
+        return [
+          { key: 1, value: this.$t('setting.thinking.config.220723') },
+          { key: 2, value: this.$t('setting.thinking.config.210901') },
+        ]
+      }
     },
     candRangeOptions() {
       return [

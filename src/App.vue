@@ -103,7 +103,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('settings', ['language']),
+    ...mapState('settings', ['language', 'configIndex']),
     ...mapState('ai', ['messages']),
     route() {
       return this.$route
@@ -111,6 +111,7 @@ export default {
   },
   methods: {
     ...mapMutations('settings', ['setValue']),
+    ...mapActions('ai', ['initEngine']),
     ...mapActions('settings', ['readCookies']),
     ...mapActions(['getBrowserCapabilities']),
     showMessages: function () {
@@ -157,14 +158,24 @@ export default {
       })
     }
 
+    const loadEngine = (loadFullEngine) => {
+      _this.initEngine(loadFullEngine).catch((err) => {
+        _this.$vux.alert.show_i18n({
+          title: _this.$t('game.engineLoadingError'),
+          content: err.toString(),
+        })
+      })
+    }
+
     // 注册 Service Worker
-    if (process.env.NODE_ENV === 'production') {
+    if ('serviceWorker' in navigator) {
       register(`${process.env.BASE_URL}service-worker.js`, {
         ready() {
           console.log(
             'App is being served from cache by a service worker.\n' +
             'For more details, visit https://goo.gl/AFskqB'
           )
+          loadEngine(true)
         },
         updated() {
           _this.$vux.confirm.show_i18n({
@@ -206,6 +217,10 @@ export default {
           }
         });
       });
+    } else {
+      if (this.configIndex == 0)
+        this.setValue({ key: 'configIndex', value: 1 })
+      loadEngine(false)
     }
   },
 }

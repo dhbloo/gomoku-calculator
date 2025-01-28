@@ -34,7 +34,7 @@ function instantiateSharedWasmMemory() {
 }
 
 // Init engine and setup callback function for receiving engine output
-async function init(callbackFn_) {
+async function init(callbackFn_, loadFullEngine) {
   callback = callbackFn_
   dataLoaded = false
 
@@ -44,9 +44,10 @@ async function init(callbackFn_) {
 
   const engineFlags =
     (supportThreads ? '-multi' : '-single') +
-    (supportSIMD ? '-simd128' : '') +
-    (supportRelaxedSIMD ? '-relaxed' : '')
-  const engineURL = process.env.BASE_URL + `build/rapfi${engineFlags}.js`
+    (supportSIMD && loadFullEngine ? '-simd128' : '') +
+    (supportRelaxedSIMD && loadFullEngine ? '-relaxed' : '')
+  const engineDir = loadFullEngine ? '/' : '/fallback/'
+  const engineURL = `${process.env.BASE_URL}build${engineDir}rapfi${engineFlags}.js`
 
   if (supportThreads) {
     await script.import(/* webpackIgnore: true */ engineURL)

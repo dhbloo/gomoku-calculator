@@ -2,6 +2,7 @@ import * as engine from '@/ai/engine'
 import { RENJU, CONFIGS } from './settings'
 
 const state = {
+  fullEngine: true,
   loadingProgress: 0.0,
   ready: false,
   startSize: 0,
@@ -55,6 +56,9 @@ const getters = {
 }
 
 const mutations = {
+  setFullEngine(state, fullEngine) {
+    state.fullEngine = fullEngine
+  },
   setLoadingProgress(state, progress) {
     state.loadingProgress = progress
   },
@@ -155,7 +159,7 @@ const mutations = {
 }
 
 const actions = {
-  async initEngine({ commit, dispatch, state }) {
+  async initEngine({ commit, dispatch, state }, loadFullEngine) {
     commit('setLoadingProgress', 0.0)
     commit('setReady', false)
     const callback = (r) => {
@@ -218,7 +222,8 @@ const actions = {
         commit('setLoadingProgress', r.loading.progress)
       }
     }
-    const engineURL = await engine.init(callback)
+    const engineURL = await engine.init(callback, loadFullEngine)
+    commit('setFullEngine', loadFullEngine)
     commit('addMessage', 'Engine: ' + engineURL)
   },
   sendInfo({ rootState, rootGetters }) {
