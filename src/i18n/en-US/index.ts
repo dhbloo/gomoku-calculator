@@ -1,0 +1,76 @@
+// This is just an example,
+// so you can safely delete all default props below
+
+export default {
+  failed: 'Action failed',
+  success: 'Action was successful',
+  layout: {
+    title: 'Gomoku Calculator',
+    menu: {
+      title: 'Menu',
+      board: 'Board',
+      settings: 'Settings',
+      about: 'About',
+      darkmode: 'Dark Mode',
+    },
+  },
+  board: {
+    toolbar: {
+      new: 'New game',
+      backall: 'Back to start',
+      back: 'Back',
+      forward: 'Forward',
+      forwardall: 'Forward to end',
+      think: 'Start thinking',
+      think_loading: 'Thinking...',
+      stop: 'Stop thinking',
+      more: '',
+      balance1: 'Balance 1',
+      balance2: 'Balance 2',
+      nbestall: 'Search defence',
+      clearhash: 'Clear hash table',
+
+      snapshot: 'Take a snapshot of the board',
+      snapshot_jpg: 'Save as JPG',
+      snapshot_jpg_custom: 'Save as JPG (custom)',
+      snapshot_gif: 'Save as GIF',
+      snapshot_gif_custom: 'Save as GIF (custom)',
+      index: 'Index from here / Reset Index',
+
+      rotate: 'Rotate the board clockwise',
+      flip: 'Flip the board along the chosen axis',
+      flipx: 'Vertical flip',
+      flipy: 'Horizontal flip',
+      flipxy: 'Anti-diagonal flip',
+      flipyx: 'Diagonal flip',
+      translate: 'Move the board along the chosen direction',
+      translate_up: 'Move up',
+      translate_down: 'Move down',
+      translate_left: 'Move left',
+      translate_right: 'Move right',
+    },
+    dialog: {
+      checkidle: {
+        title: 'Engine is thinking',
+        message: 'Stop thinking now?',
+      },
+      screenshot: {
+        generating: 'Generating...',
+        download: 'Save screenshot',
+        manual: 'Long press to save screenshot',
+        ok: 'OK',
+        close: 'Close',
+        custom: {
+          title: 'Export Options',
+          caption: 'Image Caption',
+          default_caption: 'Gomoku Calculator',
+          showrule: 'Show rule name',
+          resolution: 'Resolution',
+          index: 'Start move index',
+          delay: 'Delay (ms)',
+          delay_final: 'Final step delay (ms)',
+        },
+      },
+    },
+  },
+};
