@@ -46,6 +46,22 @@
             <span slot="label">{{ $t('tabbar.about') }}</span>
           </tabbar-item>
         </tabbar>
+
+        <div 
+          class="footer" 
+          style="position: relative; text-align: center; margin: 10px auto; width: 100vw" 
+        > 
+          <a 
+            href="https://beian.miit.gov.cn/" 
+            target="_blank" 
+            style="text-decoration: none; color: lightgray; font-size: 0.8rem; margin-right: 10px" 
+            >闽ICP备2024061122号-1</a> 
+          <!-- <a 
+            href="https://beian.mps.gov.cn/#/query/webSearch?code=35020302035925" 
+            target="_blank" 
+            style="text-decoration: none; color: lightgray; font-size: 0.8rem" 
+          >公网安备35020302035925</a> --> 
+        </div> 
       </view-box>
     </drawer>
   </div>
