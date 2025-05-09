@@ -43,12 +43,12 @@ function getEngineURL(multiThreading: boolean, simdType: EngineSimdType) {
  * Get the memory arguments for the WebAssembly engine.
  * @param isShared Whether to use shared memory.
  */
-function instantiateWasmMemory(isShared: boolean) {
-  return new WebAssembly.Memory({
+function getWasmMemoryArguments(isShared: boolean) {
+  return {
     initial: 128 * ((1024 * 1024) / 65536), // 128MB
     maximum: 1024 * ((1024 * 1024) / 65536), // 1GB
     shared: isShared,
-  });
+  };
 }
 
 /**
@@ -114,7 +114,7 @@ export class WasmSingleThreadEngine extends Engine {
     this.worker.postMessage({
       init: {
         engineURL: this.engineURL,
-        memoryArgs: instantiateWasmMemory(false),
+        memoryArgs: getWasmMemoryArguments(false),
       },
     });
   }
@@ -189,7 +189,7 @@ export class WasmMultiThreadEngine extends Engine {
               if (this.onFetchFinished) this.onFetchFinished();
             }
           },
-          wasmMemory: instantiateWasmMemory(true),
+          wasmMemory: new WebAssembly.Memory(getWasmMemoryArguments(true)),
         };
         Rapfi(engineArgs)
           .then((e: RapfiWasmInterface) => {
