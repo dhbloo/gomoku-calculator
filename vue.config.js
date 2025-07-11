@@ -86,6 +86,35 @@ module.exports = {
       clientsClaim: false,
       offlineGoogleAnalytics: true,
       cleanupOutdatedCaches: true,
+      runtimeCaching: [
+        {
+          // match all resources except HTML files
+          urlPattern: /^(?!.*\.html$).*$/,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'all-resources-cache',
+            expiration: {
+              maxEntries: 500,
+              maxAgeSeconds: 60 * 60 * 24 * 15, // 15天
+              purgeOnQuotaError: true
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+        {
+          // HTML files use StaleWhileRevalidate strategy
+          urlPattern: /\.html$/,
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheName: 'html-cache',
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        }
+      ]
     },
   },
 }
