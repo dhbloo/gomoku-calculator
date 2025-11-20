@@ -624,6 +624,22 @@ export default {
 
     clicked(e) {
       let pos = [e.x, e.y]
+
+      // 右键点击处理：思考时停止思考并落子，否则撤销
+      if (e.button == 2) {
+        if (this.thinking) {
+          // 思考中，停止思考并立即落子
+          this.stop()
+          return
+        } else {
+          // 非思考状态，执行撤销
+          this.backward()
+          this.clearUsedTime()
+          return
+        }
+      }
+
+      // 左键点击处理
       if (this.thinking) return
 
       if (e.button == 0) {
@@ -669,9 +685,6 @@ export default {
           }
           if (this.isAITurn) this.startThink()
         }
-      } else if (e.button == 2) {
-        this.backward()
-        this.clearUsedTime()
       }
     },
 
