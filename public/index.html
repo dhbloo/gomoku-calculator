@@ -27,6 +27,26 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" href="/css/font-awesome.min.css" />
     <title>五子棋计算器 Gomoku Calculator</title>
+    <% if (typeof VUE_APP_ICP_TEXT !== 'undefined' && VUE_APP_ICP_TEXT) { %>
+    <style id="icp-footer-style">
+      #icp-footer {
+        box-sizing: border-box;
+        min-height: 28px;
+        padding: 5px 10px;
+        text-align: center;
+        border-top: 1px solid #dfe2e5;
+        background: #f4f4f6;
+        font: 12px/17px sans-serif;
+      }
+      #icp-footer a {
+        color: #555;
+        text-decoration: none;
+      }
+      #icp-footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <% } %>
   </head>
 
   <body>
@@ -38,6 +58,26 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+
+    <!-- Optional site footer (e.g. ICP filing number for sites hosted in mainland China).
+         Rendered only when VUE_APP_ICP_TEXT is set at build time, e.g. in .env.production.local:
+           VUE_APP_ICP_TEXT=XX ICP备XXXXXXXX号-1
+           VUE_APP_ICP_URL=https://beian.miit.gov.cn/   (optional, this is the default) -->
+    <% if (typeof VUE_APP_ICP_TEXT !== 'undefined' && VUE_APP_ICP_TEXT) { %>
+    <footer id="icp-footer">
+      <a
+        href="<%- typeof VUE_APP_ICP_URL !== 'undefined' && VUE_APP_ICP_URL ? VUE_APP_ICP_URL : 'https://beian.miit.gov.cn/' %>"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><%- VUE_APP_ICP_TEXT %></a
+      >
+    </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('vux_view_box_body').appendChild(document.getElementById('icp-footer'))
+      })
+    </script>
+    <% } %>
 
     <!-- Gif Encoder -->
     <script async src="/lib/gif.js"></script>

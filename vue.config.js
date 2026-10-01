@@ -86,7 +86,28 @@ module.exports = {
       clientsClaim: false,
       offlineGoogleAnalytics: true,
       cleanupOutdatedCaches: true,
+      // Keep the engine (build/) out of the precache: precaching downloads every engine variant
+      // and the 40MB rapfi.data again with a __WB_REVISION__ query on first visit, although the
+      // page has already fetched the one it needs. The runtime cache below caches it on demand.
+      // Setting exclude replaces @vue/cli-plugin-pwa's defaults, so the first four are kept.
+      exclude: [/\.map$/, /img\/icons\//, /favicon\.ico$/, /^manifest.*\.js?$/, /^build\//],
       runtimeCaching: [
+        {
+          // engine files: cache only the variant this browser actually loads
+          urlPattern: /\/build\//,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'engine-cache',
+            expiration: {
+              maxEntries: 40,
+              maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year; ship engine updates under a new file name or path
+              purgeOnQuotaError: true
+            },
+            cacheableResponse: {
+              statuses: [200]
+            }
+          }
+        },
         {
           // match all resources except HTML files
           urlPattern: /^(?!.*\.html$).*$/,
